@@ -9,9 +9,11 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/chakra-petch": "^0.2.2",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
     "expo": "~47.0.9",
+    "expo-font": "~11.0.1",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "phosphor-react-native": "^1.1.2",
@@ -26,7 +28,8 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/styled-components": "^5.1.26",
-    "@types/styled-components-react-native": "^5.2.0"
+    "@types/styled-components-react-native": "^5.2.0",
+    "babel-plugin-module-resolver": "^4.1.0"
   },
   "private": true,
   "resolutions": {
