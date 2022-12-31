@@ -16,6 +16,7 @@
     "expo-font": "~11.0.1",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
+    "lottie-react-native": "5.1.4",
     "phosphor-react-native": "^1.1.2",
     "react": "18.1.0",
     "react-native": "0.70.5",
@@ -32,8 +33,5 @@
     "@types/styled-components-react-native": "^5.2.0",
     "babel-plugin-module-resolver": "^4.1.0"
   },
-  "private": true,
-  "resolutions": {
-    "styled-components": "^5"
-  }
+  "private": true
 }
