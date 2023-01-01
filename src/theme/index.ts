@@ -22,6 +22,7 @@ export default {
 
     red_400: "#F22",
     red_500: "#F9060A",
+    red_700: "#F00",
 
     transparent_600: "rgba(0, 0, 0, 0.6)",
   },
