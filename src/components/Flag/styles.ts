@@ -26,7 +26,7 @@ export const FlagPole = styled.View<ComponentProps>`
         return css`
           width: ${RFValue(4)}px;
           height: ${RFValue(28)}px;
-          margin-left: ${RFValue(3)}px;
+          margin-left: ${RFValue(16)}px;
         `;
 
       default:
@@ -51,7 +51,7 @@ export const FlagBanner = styled.View<ComponentProps>`
       case "bigger":
         return css`
           width: ${RFValue(14)}px;
-          height: ${RFValue(12)}px;
+          height: ${RFValue(10)}px;
           margin-left: ${RFValue(3)}px;
         `;
 

@@ -2,6 +2,7 @@ import React from "react";
 import { params } from "~/config/params";
 import { Field } from "~/components/Field";
 import { Container, Title } from "./styles";
+import { Flag } from "~/components/Flag";
 
 export function Game() {
   return (
@@ -18,6 +19,8 @@ export function Game() {
       <Field isOpened isMined />
       <Field isOpened isExploded />
       <Field isOpened={false} isFlagged />
+
+      <Flag type="bigger" />
     </Container>
   );
 }
