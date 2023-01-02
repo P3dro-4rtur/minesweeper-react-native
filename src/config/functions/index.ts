@@ -1,8 +1,19 @@
 import { Board, FieldBlock } from "../types&interfaces";
 
 /**
+ *  SUM:
+ * 1: CREATING THE BOARD;
+ * 2: UTILS;
+ * 3: ACTIONS FIELD;
+ * 4: END GAME;
+ * 5: EXPORTS;
+ */
+
+/* ========= // ============== // ================== // ========== */
+
+/**
  * * * * * * * * * * * * * * * * * *
- *   CREATING THE BOARD
+ *  1: CREATING THE BOARD
  * functions related to fields creation
  * * * * * * * * * * * * * * * * * *
  */
@@ -38,20 +49,32 @@ function mineGenerator(board: Board, minesAmount: number) {
   let minesPlanted = 0;
 
   while (minesPlanted < minesAmount) {
-    function calculus(num: number): string {
-      return String(Math.random() * num);
-    }
-
+    const calculus = (num: number): string => String(Math.random() * num);
     const rowSelected = parseInt(calculus(rows), 10);
     const columnSelected = parseInt(calculus(columns), 10);
-    let blockSelected = board[rowSelected][columnSelected];
 
-    if (blockSelected.isMined === false) {
-      blockSelected.isMined = true;
+    let field = board[rowSelected][columnSelected];
+
+    if (field.isMined === false) {
+      field.isMined = true;
       minesPlanted++;
     }
   }
 }
+
+function createMinedBoard(rows: number, columns: number, minesAmount: number) {
+  const board = boardGenerator(rows, columns);
+  mineGenerator(board, minesAmount);
+
+  return board;
+}
+/* ========= // ============== // ================== // ========== */
+/**
+ * * * * * * * * * * * * * * * * * *
+ *  2: UTILS
+ * only helpers functions
+ * * * * * * * * * * * * * * * * * *
+ */
 
 /* util function */
 function cloneBoard(board: Board): Board {
@@ -64,35 +87,39 @@ function cloneBoard(board: Board): Board {
   return clone;
 }
 
-function createMinedBoard(rows: number, columns: number, minesAmount: number) {
-  const board = boardGenerator(rows, columns);
-  mineGenerator(board, minesAmount);
+/* util function */
+function minesAmount(rows: number, columns: number, difficulty: number) {
+  return Math.ceil(columns * rows * difficulty);
+}
 
-  return board;
+/* util function */
+function onlyFields(board: Board): FieldBlock[] {
+  const array: FieldBlock[] = [];
+  return array.concat(...board);
 }
 
 /* ========= // ============== // ================== // ========== */
 /**
  * * * * * * * * * * * * * * * * * *
- *   ACTIONS FIELD
+ *  3: ACTIONS FIELD
  * Functions related to fields actions
  * * * * * * * * * * * * * * * * * *
  */
 
 function getNeighbors(board: Board, row: number, column: number): FieldBlock[] {
-  let neighbors: FieldBlock[] = [];
+  const neighbors: FieldBlock[] = [];
   const rows = [row - 1, row, row + 1];
   const columns = [column - 1, column, column + 1];
 
   rows.forEach((r) => {
     columns.forEach((c) => {
-      const fieldSelected = board[r][c];
+      const field = board[r][c];
       const different = r !== row || c !== column;
       const validRow = r >= 0 && r < board.length;
-      const validColumn = c >= 0 && c <= board[0].length;
+      const validColumn = c >= 0 && c < board[0].length;
 
       if (different && validRow && validColumn) {
-        neighbors.push(fieldSelected);
+        neighbors.push(field);
       }
     });
   });
@@ -141,12 +168,23 @@ function openField(board: Board, row: number, column: number) {
   }
 }
 
-/* ========= // ============== // ================== // ========== */
-
-function onlyFields(board: Board): FieldBlock[] {
-  const array: FieldBlock[] = [];
-  return array.concat(...board);
+function toggleIsFlagged(board: Board, row: number, column: number) {
+  const field = board[row][column];
+  return (field.isFlagged = !field.isFlagged);
 }
+
+function amountFlagsUsed(board: Board) {
+  const fields = onlyFields(board);
+  return fields.filter((field) => field.isFlagged).length;
+}
+
+/* ========= // ============== // ================== // ========== */
+/**
+ * * * * * * * * * * * * * * * * * *
+ * 4: END GAME
+ * functions related of game result
+ * * * * * * * * * * * * * * * * * *
+ */
 
 function hadExplosion(board: Board): boolean {
   const fields = onlyFields(board);
@@ -169,8 +207,30 @@ function WonGame(board: Board): boolean {
 
 function showMines(board: Board) {
   const fields = onlyFields(board);
+  const minedFields = fields.filter((field) => field.isMined);
 
-  return fields
-    .filter((field) => field.isMined)
-    .forEach((field) => (field.isOpened = true));
+  const openMinedFields = minedFields.forEach(
+    (field) => (field.isOpened = true)
+  );
+
+  return openMinedFields;
 }
+
+/* ========= // ============== // ================== // ========== */
+/**
+ * * * * * * * * * * * * * * * * * *
+ * 5: EXPORTS
+ * * * * * * * * * * * * * * * * * *
+ */
+
+export const GameLogic = {
+  createMinedBoard,
+  cloneBoard,
+  openField,
+  hadExplosion,
+  WonGame,
+  showMines,
+  toggleIsFlagged,
+  amountFlagsUsed,
+  minesAmount,
+};

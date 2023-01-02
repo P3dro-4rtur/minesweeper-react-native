@@ -12,22 +12,19 @@ interface MineFieldProps {
 export const MineField: React.FC<MineFieldProps> = (props) => {
   const { board, onOpenField, onSetFlag } = props;
 
-  function MineFieldComponent() {
-    const rows = board.map((row: FieldBlock[], rowIndex: number) => {
-      const columns = row.map((field: FieldBlock, columnIndex: number) => {
-        return (
-          <Field
-            {...field}
-            key={columnIndex}
-            onOpen={() => onOpenField(rowIndex, columnIndex)}
-            onSetFlag={() => onSetFlag(rowIndex, columnIndex)}
-          />
-        );
-      });
-      return <Columns key={rowIndex}>{columns}</Columns>;
+  const rows = board.map((row: FieldBlock[], rowIndex: number) => {
+    const columns = row.map((field: FieldBlock, columnIndex: number) => {
+      return (
+        <Field
+          {...field}
+          key={columnIndex}
+          onOpen={() => onOpenField(rowIndex, columnIndex)}
+          onSetFlag={() => onSetFlag(rowIndex, columnIndex)}
+        />
+      );
     });
-    return <Rows>{rows}</Rows>;
-  }
+    return <Columns key={rowIndex}>{columns}</Columns>;
+  });
 
-  return <MineFieldComponent />;
+  return <Rows>{rows}</Rows>;
 };

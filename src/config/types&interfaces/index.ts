@@ -1,4 +1,4 @@
-export interface FieldBlock {
+interface FieldBlock {
   row: number;
   column: number;
   isOpened: boolean;
@@ -8,4 +8,10 @@ export interface FieldBlock {
   nearbyMines: number;
 }
 
-export type Board = FieldBlock[][];
+type Board = FieldBlock[][];
+
+type GameResult = "Won" | "Lose" | undefined;
+
+type GameDifficult = "Easy" | "Medium" | "Hard" | undefined;
+
+export { FieldBlock, Board, GameResult, GameDifficult };

@@ -1,26 +1,74 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import {
+  Board,
+  FieldBlock,
+  GameResult,
+  GameDifficult,
+} from "@config/types&interfaces";
 import { params } from "~/config/params";
-import { Field } from "~/components/Field";
-import { Container, Title } from "./styles";
-import { Flag } from "~/components/Flag";
+import { GameLogic } from "~/config/functions";
+import { MineField } from "./components/MineField";
+import { Container, MineFieldContainer, Title } from "./styles";
 
 export const Game: React.FC = () => {
+  const [gameBoard, setGameBoard] = useState<Board>([]);
+  const [gameResult, setGameResult] = useState<GameResult>(undefined);
+  const [gameDifficult, setGameDifficult] = useState<GameDifficult>(undefined);
+
+  function initGame() {
+    const columns = params.getColumnsAmount();
+    const rows = params.getRowsAmount();
+
+    const minesAmount = GameLogic.minesAmount(
+      rows,
+      columns,
+      params.difficultLevel
+    );
+
+    const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
+
+    setGameBoard(board);
+  }
+
+  function handleOpenField(row: number, column: number) {
+    const board = GameLogic.cloneBoard(gameBoard);
+    const won = GameLogic.WonGame(board);
+    const lose = GameLogic.hadExplosion(board);
+
+    GameLogic.openField(board, row, column);
+
+    if (lose) {
+      console.log("Que buuuurro! Perdeu!");
+      GameLogic.showMines(board);
+    }
+
+    if (won) {
+      console.log("Você venceu!");
+    }
+
+    setGameBoard(board);
+  }
+
+  function handleSetFlag(row: number, column: number) {
+    const board = GameLogic.cloneBoard(gameBoard);
+    GameLogic.toggleIsFlagged(board, row, column);
+
+    setGameBoard(board);
+  }
+
+  useEffect(() => {
+    initGame();
+  }, []);
+
   return (
     <Container>
-      <Title>
-        Tamanho da grade: {params.getRowsAmount()} x {params.getColumnsAmount()}
-      </Title>
-      <Field isOpened={false} />
-      <Field isOpened />
-      <Field isOpened nearbyMines={1} />
-      <Field isOpened nearbyMines={2} />
-      <Field isOpened nearbyMines={3} />
-      <Field isOpened nearbyMines={8} />
-      <Field isOpened isMined />
-      <Field isOpened isExploded />
-      <Field isOpened={false} isFlagged />
-
-      <Flag type="bigger" />
+      <MineFieldContainer>
+        <MineField
+          board={gameBoard}
+          onOpenField={(row, column) => handleOpenField(row, column)}
+          onSetFlag={(row, column) => handleSetFlag(row, column)}
+        />
+      </MineFieldContainer>
     </Container>
   );
 };
