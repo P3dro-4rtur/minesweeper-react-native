@@ -14,7 +14,7 @@ interface FieldProps {
   onSetFlag?: () => void;
 }
 
-export function Field(props: FieldProps) {
+export const Field: React.FC<FieldProps> = (props) => {
   const {
     isMined,
     isOpened,
@@ -74,4 +74,4 @@ export function Field(props: FieldProps) {
       </Block>
     </TouchableWithoutFeedback>
   );
-}
+};

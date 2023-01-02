@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, CoreMine, LineMine } from "./styles";
 
-export function Mine() {
+export const Mine: React.FC = () => {
   function RotateLine(rotate: "45deg" | "90deg" | "135deg") {
     return {
       transform: [{ rotate: rotate }],
@@ -17,4 +17,4 @@ export function Mine() {
       <LineMine style={RotateLine("135deg")} />
     </Container>
   );
-}
+};

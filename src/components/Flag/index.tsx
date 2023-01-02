@@ -8,11 +8,11 @@ import {
   BaseSecondPart,
 } from "./styles";
 
-interface Props {
+interface FlagProps {
   type?: "regular" | "bigger";
 }
 
-export function Flag({ type = "regular" }: Props) {
+export const Flag: React.FC<FlagProps> = ({ type = "regular" }) => {
   return (
     <Container>
       <FlagPole type={type} />
@@ -21,4 +21,4 @@ export function Flag({ type = "regular" }: Props) {
       <BaseSecondPart type={type} />
     </Container>
   );
-}
+};

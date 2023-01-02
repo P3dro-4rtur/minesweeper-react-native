@@ -4,7 +4,7 @@ import { Field } from "~/components/Field";
 import { Container, Title } from "./styles";
 import { Flag } from "~/components/Flag";
 
-export function Game() {
+export const Game: React.FC = () => {
   return (
     <Container>
       <Title>
@@ -23,4 +23,4 @@ export function Game() {
       <Flag type="bigger" />
     </Container>
   );
-}
+};

@@ -11,6 +11,7 @@ export const params = {
     fontSize: RFValue(15),
     headerRatio: 0.15,
   },
+
   difficultLevel: 0.1,
 
   getColumnsAmount() {
@@ -19,6 +20,7 @@ export const params = {
     );
     return totalBlocksHorizontal;
   },
+
   getRowsAmount() {
     const boardHeight = totalHeight * (1 - this.dimensions.headerRatio);
     const totalBlocksVertical = Math.floor(

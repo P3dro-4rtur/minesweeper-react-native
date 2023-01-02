@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Loader } from "./styles";
 
-export function LoadAnimated() {
+export const LoadAnimated: React.FC = () => {
   return (
     <Container>
       <Loader />
     </Container>
   );
-}
+};
