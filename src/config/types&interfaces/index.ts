@@ -1,7 +1,7 @@
 enum GameResults {
+  none = "none",
   won = "Won",
   lose = "Lose",
-  none = "none",
 }
 
 enum GameDifficult {
