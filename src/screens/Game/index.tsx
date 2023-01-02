@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  Board,
-  FieldBlock,
-  GameResult,
-  GameDifficult,
-} from "@config/types&interfaces";
+import { Board, GameResult, GameDifficult } from "@config/types&interfaces";
 import { params } from "~/config/params";
 import { GameLogic } from "~/config/functions";
 import { MineField } from "./components/MineField";
-import { Container, MineFieldContainer, Title } from "./styles";
+import { Container, MineFieldContainer } from "./styles";
 
 export const Game: React.FC = () => {
   const [gameBoard, setGameBoard] = useState<Board>([]);
@@ -28,14 +23,15 @@ export const Game: React.FC = () => {
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
 
     setGameBoard(board);
+    setGameDifficult(GameLogic.gameDifficult(params.difficultLevel));
   }
 
   function handleOpenField(row: number, column: number) {
     const board = GameLogic.cloneBoard(gameBoard);
+    GameLogic.openField(board, row, column);
+
     const won = GameLogic.WonGame(board);
     const lose = GameLogic.hadExplosion(board);
-
-    GameLogic.openField(board, row, column);
 
     if (lose) {
       console.log("Que buuuurro! Perdeu!");

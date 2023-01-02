@@ -1,4 +1,4 @@
-import { Board, FieldBlock } from "../types&interfaces";
+import { Board, FieldBlock, GameDifficult } from "../types&interfaces";
 
 /**
  *  SUM:
@@ -98,6 +98,15 @@ function onlyFields(board: Board): FieldBlock[] {
   return array.concat(...board);
 }
 
+function gameDifficult(difficult: number): GameDifficult {
+  switch (difficult) {
+    case 0.1:
+      return "Easy";
+
+    default:
+      return;
+  }
+}
 /* ========= // ============== // ================== // ========== */
 /**
  * * * * * * * * * * * * * * * * * *
@@ -233,4 +242,5 @@ export const GameLogic = {
   toggleIsFlagged,
   amountFlagsUsed,
   minesAmount,
+  gameDifficult,
 };
