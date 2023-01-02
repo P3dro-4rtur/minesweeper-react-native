@@ -1,3 +1,15 @@
+enum GameResults {
+  won = "Won",
+  lose = "Lose",
+  none = "none",
+}
+
+enum GameDifficult {
+  none = "None",
+  easy = "Easy",
+  medium = "Medium",
+  hard = "Hard",
+}
 interface FieldBlock {
   row: number;
   column: number;
@@ -10,8 +22,4 @@ interface FieldBlock {
 
 type Board = FieldBlock[][];
 
-type GameResult = "Won" | "Lose" | undefined;
-
-type GameDifficult = "Easy" | "Medium" | "Hard" | undefined;
-
-export { FieldBlock, Board, GameResult, GameDifficult };
+export { FieldBlock, Board, GameResults, GameDifficult };

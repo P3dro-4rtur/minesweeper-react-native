@@ -68,6 +68,7 @@ function createMinedBoard(rows: number, columns: number, minesAmount: number) {
 
   return board;
 }
+
 /* ========= // ============== // ================== // ========== */
 /**
  * * * * * * * * * * * * * * * * * *
@@ -76,7 +77,6 @@ function createMinedBoard(rows: number, columns: number, minesAmount: number) {
  * * * * * * * * * * * * * * * * * *
  */
 
-/* util function */
 function cloneBoard(board: Board): Board {
   const clone = board.map((rows) => {
     return rows.map((field) => {
@@ -87,12 +87,10 @@ function cloneBoard(board: Board): Board {
   return clone;
 }
 
-/* util function */
 function minesAmount(rows: number, columns: number, difficulty: number) {
   return Math.ceil(columns * rows * difficulty);
 }
 
-/* util function */
 function onlyFields(board: Board): FieldBlock[] {
   const array: FieldBlock[] = [];
   return array.concat(...board);
@@ -101,12 +99,13 @@ function onlyFields(board: Board): FieldBlock[] {
 function gameDifficult(difficult: number): GameDifficult {
   switch (difficult) {
     case 0.1:
-      return "Easy";
+      return GameDifficult.easy;
 
     default:
-      return;
+      return GameDifficult.none;
   }
 }
+
 /* ========= // ============== // ================== // ========== */
 /**
  * * * * * * * * * * * * * * * * * *
