@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Board, GameResults, GameDifficult } from "@config/types&interfaces/";
 import { params } from "~/config/params";
-import { GameLogic } from "~/config/functions";
+import { GameLogic } from "~/config/gameLogic";
 import { MineField } from "./components/MineField";
 import { Container, MineFieldContainer } from "./styles";
 
