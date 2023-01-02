@@ -1,17 +1,13 @@
 import React from "react";
 import { TouchableWithoutFeedback } from "react-native";
+import { FieldBlock } from "~/config/types&interfaces";
 import { Flag } from "../Flag";
 import { Mine } from "../Mine";
 import { Block, TypeStyledField, AmountOfNearbyMines } from "./styles";
 
-interface FieldProps {
-  isMined?: boolean;
-  isOpened?: boolean;
-  isExploded?: boolean;
-  isFlagged?: boolean;
-  nearbyMines?: number;
-  onOpen?: () => void;
-  onSetFlag?: () => void;
+interface FieldProps extends FieldBlock {
+  onOpen: () => void;
+  onSetFlag: () => void;
 }
 
 export const Field: React.FC<FieldProps> = (props) => {
