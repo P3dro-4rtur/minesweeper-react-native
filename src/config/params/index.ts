@@ -1,5 +1,6 @@
 import { Dimensions } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { GameDifficult } from "../types&interfaces";
 
 const totalWidth = Dimensions.get("window").width;
 const totalHeight = Dimensions.get("window").height;
@@ -12,7 +13,7 @@ export const params = {
     headerRatio: 0.15,
   },
 
-  difficultLevel: 0.1,
+  difficultLevel: GameDifficult.easy,
 
   getColumnsAmount() {
     const totalBlocksHorizontal = Math.floor(

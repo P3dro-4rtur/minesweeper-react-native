@@ -96,14 +96,8 @@ function onlyFields(board: Board): FieldBlock[] {
   return array.concat(...board);
 }
 
-function gameDifficult(difficult: number): GameDifficult {
-  switch (difficult) {
-    case 0.1:
-      return GameDifficult.easy;
-
-    default:
-      return GameDifficult.none;
-  }
+function gameDifficult(difficult: GameDifficult): GameDifficult {
+  return difficult;
 }
 
 /* ========= // ============== // ================== // ========== */
@@ -121,12 +115,12 @@ function getNeighbors(board: Board, row: number, column: number): FieldBlock[] {
 
   rows.forEach((r) => {
     columns.forEach((c) => {
-      const field = board[r][c];
       const different = r !== row || c !== column;
       const validRow = r >= 0 && r < board.length;
       const validColumn = c >= 0 && c < board[0].length;
 
       if (different && validRow && validColumn) {
+        const field = board[r][c];
         neighbors.push(field);
       }
     });

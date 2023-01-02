@@ -5,10 +5,10 @@ enum GameResults {
 }
 
 enum GameDifficult {
-  none = "None",
-  easy = "Easy",
-  medium = "Medium",
-  hard = "Hard",
+  none = 0,
+  easy = 0.1,
+  medium = 0.2,
+  hard = 0.3,
 }
 interface FieldBlock {
   row: number;

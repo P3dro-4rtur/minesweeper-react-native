@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Board, GameResults, GameDifficult } from "@config/types&interfaces/";
 import { params } from "~/config/params";
 import { GameLogic } from "~/config/gameLogic";
+import { Header } from "../Game/components/Header";
 import { MineField } from "./components/MineField";
 import { Container, MineFieldContainer } from "./styles";
 
@@ -24,8 +25,9 @@ export const Game: React.FC = () => {
 
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
 
-    setGameBoard(board);
     setGameDifficult(GameLogic.gameDifficult(params.difficultLevel));
+    setGameResult(GameResults.none);
+    setGameBoard(board);
   }
 
   function handleOpenField(row: number, column: number) {
@@ -56,12 +58,17 @@ export const Game: React.FC = () => {
     setGameBoard(board);
   }
 
+  function handleSelectDifficult(difficult: GameDifficult) {
+    params.difficultLevel = difficult;
+  }
+
   useEffect(() => {
     initGame();
   }, []);
 
   return (
     <Container>
+      <Header actionStart={initGame} actionSelectLevel={() => undefined} />
       <MineFieldContainer>
         <MineField
           board={gameBoard}
