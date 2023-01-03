@@ -1,8 +1,9 @@
 import React from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, StatusBarProps } from "react-native";
 
-import theme from "~/theme";
+import { AppProvider } from "~/hooks/provider";
 import { ThemeProvider } from "styled-components/native";
+import theme from "~/theme";
 import {
   useFonts,
   ChakraPetch_400Regular,
@@ -19,6 +20,12 @@ const fonts = {
   ChakraPetch_700Bold,
 };
 
+const statusBarProps: StatusBarProps = {
+  barStyle: "light-content",
+  translucent: true,
+  backgroundColor: theme.colors.black,
+};
+
 export default function App() {
   const [fontsLoaded] = useFonts(fonts);
 
@@ -26,12 +33,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor={theme.colors.black}
-      />
-      <Game />
+      <AppProvider>
+        <StatusBar {...statusBarProps} />
+        <Game />
+      </AppProvider>
     </ThemeProvider>
   );
 }

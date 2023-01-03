@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Board, GameResults, GameDifficult } from "@config/types&interfaces/";
+import { useGameSound } from "~/hooks/useGameSound";
 import { params } from "~/config/params";
 import { GameLogic } from "~/config/gameLogic";
 import { Header } from "../Game/components/Header";
@@ -12,6 +13,7 @@ export const Game: React.FC = () => {
   const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
     GameDifficult.none
   );
+  const { playSound } = useGameSound();
 
   function initGame() {
     const columns = params.getColumnsAmount();
@@ -64,6 +66,7 @@ export const Game: React.FC = () => {
 
   useEffect(() => {
     initGame();
+    playSound();
   }, []);
 
   return (
