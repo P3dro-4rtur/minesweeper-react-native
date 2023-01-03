@@ -1,10 +1,27 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 import { Audio } from "expo-av";
-import gameMusic from "~/assets/sounds/theme.mp3";
+
+import themeSound from "~/assets/sounds/theme.mp3";
+import wonSound from "~/assets/sounds/won-game.mp3";
+import loseSound from "~/assets/sounds/lose-game-over.mp3";
+import hardSound from "~/assets/sounds/hard.mp3";
+import veryHardSound from "~/assets/sounds/very-hard.mp3";
+import godSound from "~/assets/sounds/god.mp3";
+
+enum GameSounds {
+  theme = themeSound,
+  won = wonSound,
+  lose = loseSound,
+  hard = hardSound,
+  veryHard = veryHardSound,
+  god = godSound,
+}
 
 interface GameSoundContextData {
-  gameSoundLoading: boolean;
-  playSound: () => void;
+  gameSound: Audio.Sound | undefined;
+  playSound: (sound: GameSounds) => void;
+  pauseSound: () => void;
+  stopSound: () => void;
 }
 
 interface GameSoundProviderProps {
@@ -16,15 +33,22 @@ const initialState = {} as GameSoundContextData;
 const GameSoundContext = createContext<GameSoundContextData>(initialState);
 
 function GameSoundProvider({ children }: GameSoundProviderProps) {
-  const [gameSoundLoading, setGameSoundLoading] = useState(false);
   const [gameSound, setGameSound] = useState<Audio.Sound>();
-  const valueData = { gameSoundLoading, playSound };
+  const valueData = { gameSound, playSound, pauseSound, stopSound };
 
-  async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(gameMusic);
+  async function playSound(soundSelected: GameSounds = GameSounds.theme) {
+    const { sound } = await Audio.Sound.createAsync(soundSelected);
     setGameSound(sound);
 
     await sound.playAsync();
+  }
+
+  async function pauseSound() {
+    return gameSound?.pauseAsync();
+  }
+
+  async function stopSound() {
+    return gameSound?.stopAsync();
   }
 
   return (
@@ -34,4 +58,9 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
   );
 }
 
-export { GameSoundContext, GameSoundContextData, GameSoundProvider };
+export {
+  GameSoundContext,
+  GameSoundContextData,
+  GameSoundProvider,
+  GameSounds,
+};

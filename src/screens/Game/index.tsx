@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Board, GameResults, GameDifficult } from "@config/types&interfaces/";
-import { useGameSound } from "~/hooks/useGameSound";
 import { params } from "~/config/params";
+import { useGameSound } from "~/hooks/useGameSound";
+import { GameSounds } from "~/hooks/useGameSound/context";
 import { GameLogic } from "~/config/gameLogic";
 import { Header } from "../Game/components/Header";
 import { MineField } from "./components/MineField";
@@ -14,7 +15,7 @@ export const Game: React.FC = () => {
   const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
     GameDifficult.none
   );
-  const { playSound } = useGameSound();
+  const { playSound, stopSound } = useGameSound();
 
   function initGame() {
     const columns = params.getColumnsAmount();
@@ -31,6 +32,7 @@ export const Game: React.FC = () => {
     setGameDifficult(GameLogic.gameDifficult(params.difficultLevel));
     setGameResult(GameResults.none);
     setGameBoard(board);
+    playSound(GameSounds.theme);
   }
 
   function gameFlagsController() {
@@ -52,14 +54,18 @@ export const Game: React.FC = () => {
     const lose = GameLogic.hadExplosion(board);
 
     if (lose) {
-      console.log(`${gameResult} - Que burro! Você perdeu!`);
-      GameLogic.showMines(board);
+      stopSound();
       setGameResult(GameResults.lose);
+      console.log(`${GameResults.lose} - Que burro! Você perdeu!`);
+      playSound(GameSounds.lose);
+      GameLogic.showMines(board);
     }
 
     if (won) {
-      console.log(`${gameResult} - Você venceu!`);
+      stopSound();
       setGameResult(GameResults.won);
+      console.log(`${GameResults.won} - Você venceu!`);
+      playSound(GameSounds.won);
     }
 
     setGameBoard(board);
@@ -78,7 +84,6 @@ export const Game: React.FC = () => {
 
   useEffect(() => {
     initGame();
-    //playSound();
   }, []);
 
   useEffect(() => {
