@@ -25,13 +25,31 @@ export const ButtonFlag = styled.TouchableOpacity`
 `;
 
 export const ButtonFlagLabel = styled.Text`
+  top: ${RFValue(35)}px;
+  right: ${RFValue(20)}px;
+
   font-size: ${RFValue(15)}px;
   font-family: ${({ theme }) => theme.fontFamily.bold};
 
   color: ${({ theme }) => theme.colors.gray_light_200};
 `;
 
-export const ButtonStart = styled.TouchableOpacity``;
+export const Wrapper = styled.View`
+  flex-direction: column;
+`;
+
+export const AmountFlags = styled.Text`
+  right: ${RFValue(50)}px;
+
+  font-size: ${RFValue(20)}px;
+  font-family: ${({ theme }) => theme.fontFamily.bold};
+
+  color: ${({ theme }) => theme.colors.gray_light_200};
+`;
+
+export const ButtonStart = styled.TouchableOpacity`
+  top: ${RFValue(18)}px;
+`;
 
 export const ButtonStartLabel = styled.Text`
   font-size: ${RFValue(15)}px;

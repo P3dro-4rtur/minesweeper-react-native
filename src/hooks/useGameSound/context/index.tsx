@@ -22,7 +22,6 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
 
   async function playSound() {
     const { sound } = await Audio.Sound.createAsync(gameMusic);
-
     setGameSound(sound);
 
     await sound.playAsync();

@@ -9,6 +9,7 @@ import { Container, MineFieldContainer } from "./styles";
 
 export const Game: React.FC = () => {
   const [gameBoard, setGameBoard] = useState<Board>([]);
+  const [gameFlags, setGameFlags] = useState<number>(0);
   const [gameResult, setGameResult] = useState<GameResults>(GameResults.none);
   const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
     GameDifficult.none
@@ -30,6 +31,17 @@ export const Game: React.FC = () => {
     setGameDifficult(GameLogic.gameDifficult(params.difficultLevel));
     setGameResult(GameResults.none);
     setGameBoard(board);
+  }
+
+  function gameFlagsController() {
+    const board = GameLogic.cloneBoard(gameBoard);
+    const columns = params.getColumnsAmount();
+    const rows = params.getRowsAmount();
+
+    const minesAmount = GameLogic.minesAmount(rows, columns, gameDifficult);
+    const flagsUsed = GameLogic.amountFlagsUsed(board);
+
+    setGameFlags(minesAmount - flagsUsed);
   }
 
   function handleOpenField(row: number, column: number) {
@@ -66,12 +78,22 @@ export const Game: React.FC = () => {
 
   useEffect(() => {
     initGame();
-    playSound();
+    //playSound();
   }, []);
+
+  useEffect(() => {
+    if (gameBoard) {
+      gameFlagsController();
+    }
+  }, [gameBoard]);
 
   return (
     <Container>
-      <Header actionStart={initGame} actionSelectLevel={() => undefined} />
+      <Header
+        amountFlags={gameFlags}
+        actionStart={initGame}
+        actionSelectLevel={() => undefined}
+      />
       <MineFieldContainer>
         <MineField
           board={gameBoard}
