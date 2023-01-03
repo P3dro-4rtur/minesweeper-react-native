@@ -4,7 +4,8 @@ import { Audio } from "expo-av";
 import themeSound from "~/assets/sounds/theme.mp3";
 import wonSound from "~/assets/sounds/won-game.mp3";
 import loseSound from "~/assets/sounds/lose-game-over.mp3";
-import defaultSound from "~/assets/sounds/default.mp3";
+import easySound from "~/assets/sounds/easy.mp3";
+import mediumSound from "~/assets/sounds/medium.mp3";
 import hardSound from "~/assets/sounds/hard.mp3";
 import veryHardSound from "~/assets/sounds/very-hard.mp3";
 import godSound from "~/assets/sounds/god.mp3";
@@ -13,8 +14,8 @@ enum GameSounds {
   theme = themeSound,
   won = wonSound,
   lose = loseSound,
-  easy = defaultSound,
-  medium = defaultSound,
+  easy = easySound,
+  medium = mediumSound,
   hard = hardSound,
   veryHard = veryHardSound,
   god = godSound,
