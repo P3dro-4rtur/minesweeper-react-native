@@ -23,7 +23,7 @@ interface ButtonLevel {
   onPress: () => void;
 }
 
-export function SelectLevelModal(props: ModalProps) {
+export const SelectLevelModal: React.FC<ModalProps> = (props) => {
   const { isVisible, onSelectAction, actualDifficultLevel } = props;
 
   const ButtonsLevel: ButtonLevel[] = [
@@ -79,4 +79,4 @@ export function SelectLevelModal(props: ModalProps) {
       </Container>
     </Modal>
   );
-}
+};

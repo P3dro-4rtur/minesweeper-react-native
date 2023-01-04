@@ -17,9 +17,7 @@ export const Game: React.FC = () => {
     GameParams.difficultLevelDefault
   );
   const [isSelectLevelModalVisible, setIsSelectLevelModalVisible] =
-    useState<boolean>(true);
-
-  console.log("gameDifficult =>", gameDifficult);
+    useState<boolean>(false);
 
   const GameSoundHook = useGameSound();
 
