@@ -7,12 +7,13 @@ type Rows = JSX.Element[];
 type Columns = JSX.Element[];
 interface MineFieldProps {
   board: Board;
+  disableFields: boolean;
   onOpenField: (rowIndex: number, columnIndex: number) => void;
   onSetFlag: (rowIndex: number, columnIndex: number) => void;
 }
 
 export const MineField: React.FC<MineFieldProps> = (props) => {
-  const { board, onOpenField, onSetFlag } = props;
+  const { board, disableFields, onOpenField, onSetFlag } = props;
 
   const rows: Rows = board.map((row: FieldBlock[], rowIndex: number) => {
     const columns: Columns = row.map(
@@ -21,6 +22,7 @@ export const MineField: React.FC<MineFieldProps> = (props) => {
           <Field
             {...field}
             key={columnIndex}
+            disableField={disableFields}
             onOpen={() => onOpenField(rowIndex, columnIndex)}
             onSetFlag={() => onSetFlag(rowIndex, columnIndex)}
           />

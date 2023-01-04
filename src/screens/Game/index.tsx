@@ -111,7 +111,7 @@ export const Game: React.FC = () => {
       <Container>
         <Header
           amountFlags={gameFlags}
-          actionStart={initGame}
+          actionStart={() => initGame(gameDifficult)}
           actionSelectLevel={() => setIsSelectLevelModalVisible(true)}
         />
         <MineFieldContainer>
@@ -119,6 +119,7 @@ export const Game: React.FC = () => {
             board={gameBoard}
             onOpenField={(row, column) => handleOpenField(row, column)}
             onSetFlag={(row, column) => handleSetFlag(row, column)}
+            disableFields={gameResult !== GameResults.none}
           />
         </MineFieldContainer>
       </Container>

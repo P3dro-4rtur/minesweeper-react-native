@@ -8,6 +8,7 @@ import { Block, TypeStyledField, AmountOfNearbyMines } from "./styles";
 interface FieldProps extends FieldBlock {
   onOpen: () => void;
   onSetFlag: () => void;
+  disableField: boolean;
 }
 
 export const Field: React.FC<FieldProps> = (props) => {
@@ -19,6 +20,7 @@ export const Field: React.FC<FieldProps> = (props) => {
     nearbyMines = 0,
     onOpen,
     onSetFlag,
+    disableField = false,
   } = props;
 
   function selectorTypeField(): TypeStyledField {
@@ -62,7 +64,11 @@ export const Field: React.FC<FieldProps> = (props) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={onOpen} onLongPress={onSetFlag}>
+    <TouchableWithoutFeedback
+      onPress={onOpen}
+      onLongPress={onSetFlag}
+      disabled={disableField}
+    >
       <Block type={selectorTypeField()}>
         <LabelNearbyMines />
         <FieldMined />
