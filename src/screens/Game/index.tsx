@@ -33,14 +33,14 @@ export const Game: React.FC = () => {
     //GameSoundHook.selectorPlaySoundByDifficult(difficult ?? gameDifficult);
   }
 
-  async function onPlayerWonGame() {
-    await GameSoundHook.playSound(GameSounds.won);
+  function onPlayerWonGame() {
+    GameSoundHook.playSound(GameSounds.won);
     console.log(`${GameResults.won} - Você venceu!`);
     setGameResult(GameResults.won);
   }
 
-  async function onPlayerLoseGame() {
-    await GameSoundHook.playSound(GameSounds.lose);
+  function onPlayerLoseGame() {
+    GameSoundHook.playSound(GameSounds.lose);
     console.log(`${GameResults.lose} - Que burro! Você perdeu!`);
 
     setGameResult(GameResults.lose);
