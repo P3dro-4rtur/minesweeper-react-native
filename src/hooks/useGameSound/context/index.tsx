@@ -1,5 +1,7 @@
-import React, { createContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useState, ReactNode } from "react";
 import { Audio } from "expo-av";
+
+import { GameDifficult } from "~/config/types&interfaces";
 
 import themeSound from "~/assets/sounds/theme.mp3";
 import wonSound from "~/assets/sounds/won-game.mp3";
@@ -23,9 +25,10 @@ enum GameSounds {
 
 interface GameSoundContextData {
   gameSound: Audio.Sound | undefined;
-  playSound: (sound: GameSounds) => void;
-  pauseSound: () => void;
-  stopSound: () => void;
+  playSound: (sound: GameSounds) => Promise<void>;
+  pauseSound: () => Promise<void>;
+  stopSound: () => Promise<void>;
+  selectorPlaySoundByDifficult: (difficult: GameDifficult) => Promise<void>;
 }
 
 interface GameSoundProviderProps {
@@ -38,21 +41,56 @@ const GameSoundContext = createContext<GameSoundContextData>(initialState);
 
 function GameSoundProvider({ children }: GameSoundProviderProps) {
   const [gameSound, setGameSound] = useState<Audio.Sound>();
-  const valueData = { gameSound, playSound, pauseSound, stopSound };
+
+  const valueData = {
+    gameSound,
+    playSound,
+    pauseSound,
+    stopSound,
+    selectorPlaySoundByDifficult,
+  };
 
   async function playSound(soundSelected: GameSounds = GameSounds.theme) {
     const { sound } = await Audio.Sound.createAsync(soundSelected);
     setGameSound(sound);
-
     await sound.playAsync();
+
+    if (soundSelected !== GameSounds.lose || soundSelected !== GameSounds.won) {
+      await sound.setIsLoopingAsync(true);
+    }
   }
 
   async function pauseSound() {
-    return gameSound?.pauseAsync();
+    await gameSound?.pauseAsync();
+    await gameSound?.setIsLoopingAsync(false);
   }
 
   async function stopSound() {
-    return gameSound?.stopAsync();
+    await gameSound?.stopAsync();
+    await gameSound?.unloadAsync();
+    await gameSound?.setIsLoopingAsync(false);
+  }
+
+  async function selectorPlaySoundByDifficult(difficult: GameDifficult) {
+    switch (difficult) {
+      case GameDifficult.easy:
+        return await playSound(GameSounds.easy);
+
+      case GameDifficult.medium:
+        return await playSound(GameSounds.medium);
+
+      case GameDifficult.hard:
+        return await playSound(GameSounds.hard);
+
+      case GameDifficult.veryHard:
+        return await playSound(GameSounds.veryHard);
+
+      case GameDifficult.god:
+        return await playSound(GameSounds.god);
+
+      default:
+        return playSound(GameSounds.medium);
+    }
   }
 
   return (

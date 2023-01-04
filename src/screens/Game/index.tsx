@@ -13,26 +13,20 @@ export const Game: React.FC = () => {
   const [gameFlags, setGameFlags] = useState<number>(0);
   const [gameResult, setGameResult] = useState<GameResults>(GameResults.none);
   const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
-    GameDifficult.none
+    params.difficultLevel
   );
-  const { playSound, stopSound } = useGameSound();
+  const GameSoundHook = useGameSound();
 
   function initGame() {
+    GameSoundHook.stopSound();
+
     const columns = params.getColumnsAmount();
     const rows = params.getRowsAmount();
-
-    const minesAmount = GameLogic.minesAmount(
-      rows,
-      columns,
-      params.difficultLevel
-    );
-
+    const minesAmount = GameLogic.minesAmount(rows, columns, gameDifficult);
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
 
-    setGameDifficult(GameLogic.gameDifficult(params.difficultLevel));
-    setGameResult(GameResults.none);
     setGameBoard(board);
-    playSound(GameSounds.theme);
+    GameSoundHook.selectorPlaySoundByDifficult(gameDifficult);
   }
 
   function gameFlagsController() {
@@ -54,18 +48,14 @@ export const Game: React.FC = () => {
     const lose = GameLogic.hadExplosion(board);
 
     if (lose) {
-      stopSound();
-      setGameResult(GameResults.lose);
-      console.log(`${GameResults.lose} - Que burro! Você perdeu!`);
-      playSound(GameSounds.lose);
+      GameSoundHook.stopSound();
       GameLogic.showMines(board);
+      onPlayerLoseGame();
     }
 
     if (won) {
-      stopSound();
-      setGameResult(GameResults.won);
-      console.log(`${GameResults.won} - Você venceu!`);
-      playSound(GameSounds.won);
+      GameSoundHook.stopSound();
+      onPlayerWonGame();
     }
 
     setGameBoard(board);
@@ -80,6 +70,19 @@ export const Game: React.FC = () => {
 
   function handleSelectDifficult(difficult: GameDifficult) {
     params.difficultLevel = difficult;
+  }
+
+  async function onPlayerWonGame() {
+    await GameSoundHook.playSound(GameSounds.won);
+    console.log(`${GameResults.won} - Você venceu!`);
+    setGameResult(GameResults.won);
+  }
+
+  async function onPlayerLoseGame() {
+    await GameSoundHook.playSound(GameSounds.lose);
+    console.log(`${GameResults.lose} - Que burro! Você perdeu!`);
+
+    setGameResult(GameResults.lose);
   }
 
   useEffect(() => {

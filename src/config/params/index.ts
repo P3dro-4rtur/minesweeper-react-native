@@ -13,7 +13,7 @@ export const params = {
     headerRatio: 0.15,
   },
 
-  difficultLevel: GameDifficult.easy,
+  difficultLevel: GameDifficult.medium,
 
   getColumnsAmount() {
     const totalBlocksHorizontal = Math.floor(
