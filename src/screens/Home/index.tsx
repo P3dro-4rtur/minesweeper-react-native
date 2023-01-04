@@ -24,15 +24,15 @@ export function Home() {
   const [labelColor, setLabelColor] = useState<string>(theme.colors.white);
   const GameSoundHook = useGameSound();
 
+  function labelColorsRandom() {
+    const newColorLabel = () => setLabelColor(ThemeUtils.randomColor());
+    setInterval(newColorLabel, 800);
+  }
+
   function FieldDecoration() {
     const totalBlocks = GameParams.getColumnsAmount();
     const Component = Array(totalBlocks).fill(<FieldLabel />);
     return <Row>{Component}</Row>;
-  }
-
-  function labelColorsRandom() {
-    const newColorLabel = () => setLabelColor(ThemeUtils.randomColor());
-    setInterval(newColorLabel, 800);
   }
 
   useEffect(() => {
@@ -52,8 +52,8 @@ export function Home() {
       </Header>
 
       <Options>
-        <OptionButton title="start" onPress={undefined} />
-        <OptionButton title="options" onPress={undefined} />
+        <OptionButton title="start" action={() => console.log("Start")} />
+        <OptionButton title="options" action={() => console.log("Options")} />
       </Options>
     </Container>
   );

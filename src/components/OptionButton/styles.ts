@@ -2,7 +2,11 @@ import styled, { css } from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Container = styled(TouchableOpacity)`
+interface ContainerProps {
+  isActive: boolean;
+}
+
+export const Container = styled(TouchableOpacity)<ContainerProps>`
   align-items: center;
 
   width: ${RFValue(100)}px;
@@ -14,6 +18,9 @@ export const Container = styled(TouchableOpacity)`
   border-left-width: ${RFValue(2)}px;
   border-right-width: ${RFValue(1)}px;
   border-bottom-width: ${RFValue(1)}px;
+
+  background-color: ${({ isActive, theme }) =>
+    isActive ? theme.colors.selector : theme.colors.black};
 
   ${({ theme }) => css`
     border-top-color: ${theme.colors.gray_200};
