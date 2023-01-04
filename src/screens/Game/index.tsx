@@ -30,7 +30,7 @@ export const Game: React.FC = () => {
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
 
     setGameBoard(board);
-    GameSoundHook.selectorPlaySoundByDifficult(difficult ?? gameDifficult);
+    //GameSoundHook.selectorPlaySoundByDifficult(difficult ?? gameDifficult);
   }
 
   async function onPlayerWonGame() {

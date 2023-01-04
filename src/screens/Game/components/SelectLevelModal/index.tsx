@@ -64,14 +64,14 @@ export const SelectLevelModal: React.FC<ModalProps> = (props) => {
       <Container>
         <Title>SELECT LEVEL</Title>
         <LevelOptions>
-          {ButtonsLevel.map((option) => (
+          {ButtonsLevel.map(({ id, difficult, level, onPress }) => (
             <ButtonLevel
-              isSelected={actualDifficultLevel === option.difficult}
-              key={option.id}
-              onPress={option.onPress}
+              isSelected={actualDifficultLevel === difficult}
+              key={id}
+              onPress={onPress}
             >
-              <LabelLevel level={option.level}>
-                {option.level === "VeryHard" ? "Very Hard" : option.level}
+              <LabelLevel level={level}>
+                {level === "VeryHard" ? "Very Hard" : level}
               </LabelLevel>
             </ButtonLevel>
           ))}
