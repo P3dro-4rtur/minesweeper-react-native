@@ -1,6 +1,6 @@
 function randomColor() {
-  const element = (() => Math.floor(Math.random() * 256))();
-  const color = `rgb(${element},${element},${element})`;
+  const element = () => Math.floor(Math.random() * 256);
+  const color = `rgb(${element()},${element()},${element()})`;
 
   return color;
 }

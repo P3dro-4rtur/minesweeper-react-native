@@ -15,6 +15,7 @@ import {
 
 import { Game } from "./src/screens/Game";
 import { LoadAnimated } from "~/components/LoadAnimated";
+import { Home } from "~/screens/Home";
 
 const fonts = {
   ChakraPetch_400Regular,
@@ -37,7 +38,8 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <AppProvider>
         <StatusBar {...statusBarProps} />
-        <Game />
+        {/* <Game /> */}
+        <Home />
       </AppProvider>
     </ThemeProvider>
   );

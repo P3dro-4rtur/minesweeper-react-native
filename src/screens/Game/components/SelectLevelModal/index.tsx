@@ -8,12 +8,15 @@ import {
   LabelLevel,
   Level,
   LevelOptions,
+  ButtonClose,
+  ButtonCloseLabel,
 } from "./styles";
 
 interface ModalProps {
   actualDifficultLevel: GameDifficult;
   isVisible: boolean;
   onSelectAction: (difficult: GameDifficult) => void;
+  onClose: () => void;
 }
 
 interface ButtonLevel {
@@ -24,7 +27,7 @@ interface ButtonLevel {
 }
 
 export const SelectLevelModal: React.FC<ModalProps> = (props) => {
-  const { isVisible, onSelectAction, actualDifficultLevel } = props;
+  const { isVisible, onSelectAction, onClose, actualDifficultLevel } = props;
 
   const ButtonsLevel: ButtonLevel[] = [
     {
@@ -60,8 +63,19 @@ export const SelectLevelModal: React.FC<ModalProps> = (props) => {
   ];
 
   return (
-    <Modal isVisible={isVisible}>
+    <Modal
+      isVisible={isVisible}
+      onSwipeComplete={onClose}
+      onBackdropPress={onClose}
+      onBackButtonPress={onClose}
+      animationIn="fadeIn"
+      animationOut="fadeOut"
+    >
       <Container>
+        <ButtonClose onPress={onClose}>
+          <ButtonCloseLabel>X</ButtonCloseLabel>
+        </ButtonClose>
+
         <Title>SELECT LEVEL</Title>
         <LevelOptions>
           {ButtonsLevel.map(({ id, difficult, level, onPress }) => (

@@ -30,7 +30,7 @@ export const Game: React.FC = () => {
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
 
     setGameBoard(board);
-    //GameSoundHook.selectorPlaySoundByDifficult(difficult ?? gameDifficult);
+    GameSoundHook.selectorPlaySoundByDifficult(difficult ?? gameDifficult);
   }
 
   function onPlayerWonGame() {
@@ -125,6 +125,7 @@ export const Game: React.FC = () => {
         actualDifficultLevel={gameDifficult}
         isVisible={isSelectLevelModalVisible}
         onSelectAction={handleSelectDifficult}
+        onClose={() => setIsSelectLevelModalVisible(false)}
       />
     </React.Fragment>
   );

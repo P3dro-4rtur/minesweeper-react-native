@@ -1,7 +1,7 @@
 import theme from "~/theme";
 import styled, { css } from "styled-components/native";
 import ReactNativeModal from "react-native-modal";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 import { GameParams } from "~/config/params";
 
 export type Level = "Easy" | "Medium" | "Hard" | "VeryHard" | "God";
@@ -23,6 +23,20 @@ const colors = {
 
 export const Modal = styled(ReactNativeModal)`
   flex: 1;
+`;
+
+export const ButtonClose = styled.TouchableOpacity``;
+
+export const ButtonCloseLabel = styled.Text`
+  position: absolute;
+
+  left: ${RFPercentage(19)}px;
+  bottom: ${RFPercentage(4)}px;
+
+  font-size: ${RFValue(22)}px;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
+
+  color: ${({ theme }) => theme.colors.gray_100};
 `;
 
 export const Container = styled.View`
