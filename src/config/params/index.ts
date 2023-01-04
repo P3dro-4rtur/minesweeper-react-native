@@ -1,11 +1,25 @@
 import { Dimensions } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { GameDifficult } from "../types&interfaces";
+
+enum GameResults {
+  none = "none",
+  won = "Won",
+  lose = "Lose",
+}
+
+enum GameDifficult {
+  none = 0,
+  easy = 0.1,
+  medium = 0.2,
+  hard = 0.4,
+  veryHard = 0.5,
+  god = 0.6,
+}
 
 const totalWidth = Dimensions.get("window").width;
 const totalHeight = Dimensions.get("window").height;
 
-export const params = {
+const GameParams = {
   dimensions: {
     blockSize: RFValue(30),
     borderSize: RFValue(5),
@@ -13,7 +27,7 @@ export const params = {
     headerRatio: 0.15,
   },
 
-  difficultLevel: GameDifficult.medium,
+  difficultLevelDefault: GameDifficult.medium,
 
   getColumnsAmount() {
     const totalBlocksHorizontal = Math.floor(
@@ -30,3 +44,5 @@ export const params = {
     return totalBlocksVertical;
   },
 };
+
+export { GameParams, GameDifficult, GameResults };

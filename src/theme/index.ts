@@ -2,6 +2,7 @@ export default {
   colors: {
     black: "#000",
 
+    blue_200: "#21EBF2",
     blue_300: "#2765F7",
     blue_400: "#2A28D7",
 
@@ -13,6 +14,7 @@ export default {
     gray_400: "#333",
     gray_500: "#222",
 
+    green_200: "#36f221",
     green_500: "#49b65d",
     green_600: "#2B520F",
 
@@ -24,7 +26,12 @@ export default {
     red_500: "#F9060A",
     red_700: "#F00",
 
+    selector: "rgba(33, 242, 242, 0.2)",
     transparent_600: "rgba(0, 0, 0, 0.6)",
+
+    yellow_300: "#F2EF21",
+
+    white: "#FFF",
   },
 
   fontFamily: {

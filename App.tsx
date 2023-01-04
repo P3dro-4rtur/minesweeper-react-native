@@ -1,5 +1,7 @@
+LogBox.ignoreAllLogs(true);
+
 import React from "react";
-import { StatusBar, StatusBarProps } from "react-native";
+import { StatusBar, StatusBarProps, LogBox } from "react-native";
 
 import { AppProvider } from "~/hooks/provider";
 import { ThemeProvider } from "styled-components/native";

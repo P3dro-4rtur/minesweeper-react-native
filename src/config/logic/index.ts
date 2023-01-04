@@ -1,4 +1,5 @@
-import { Board, FieldBlock, GameDifficult } from "../types&interfaces";
+import { Board, FieldBlock } from "../types&interfaces";
+import { GameDifficult } from "../params";
 
 /**
  *  SUM:

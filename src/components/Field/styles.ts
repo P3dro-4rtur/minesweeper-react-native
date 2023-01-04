@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { params } from "~/config/params";
+import { GameParams } from "~/config/params";
 
 export type TypeStyledField = "regular" | "opened" | "exploded" | "flagged";
 
@@ -13,9 +13,9 @@ interface AmountOfNearbyMinesProps {
 }
 
 export const Block = styled.View<Props>`
-  width: ${params.dimensions.blockSize}px;
-  height: ${params.dimensions.blockSize}px;
-  border-width: ${params.dimensions.borderSize}px;
+  width: ${GameParams.dimensions.blockSize}px;
+  height: ${GameParams.dimensions.blockSize}px;
+  border-width: ${GameParams.dimensions.borderSize}px;
 
   ${({ theme, type }) => {
     switch (type) {
@@ -51,7 +51,7 @@ export const Block = styled.View<Props>`
 export const AmountOfNearbyMines = styled.Text<AmountOfNearbyMinesProps>`
   line-height: ${RFValue(25)}px;
 
-  font-size: ${params.dimensions.fontSize}px;
+  font-size: ${GameParams.dimensions.fontSize}px;
   font-family: ${({ theme }) => theme.fontFamily.bold};
 
   ${({ theme, nearbyMines }) => {

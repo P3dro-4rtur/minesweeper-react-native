@@ -1,7 +1,7 @@
 import React, { createContext, useState, ReactNode } from "react";
 import { Audio } from "expo-av";
 
-import { GameDifficult } from "~/config/types&interfaces";
+import { GameDifficult } from "~/config/params";
 
 import themeSound from "~/assets/sounds/theme.mp3";
 import wonSound from "~/assets/sounds/won-game.mp3";
@@ -42,7 +42,7 @@ const GameSoundContext = createContext<GameSoundContextData>(initialState);
 function GameSoundProvider({ children }: GameSoundProviderProps) {
   const [gameSound, setGameSound] = useState<Audio.Sound>();
 
-  const valueData = {
+  const contextValueData = {
     gameSound,
     playSound,
     pauseSound,
@@ -66,9 +66,9 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
   }
 
   async function stopSound() {
+    await gameSound?.setIsLoopingAsync(false);
     await gameSound?.stopAsync();
     await gameSound?.unloadAsync();
-    await gameSound?.setIsLoopingAsync(false);
   }
 
   async function selectorPlaySoundByDifficult(difficult: GameDifficult) {
@@ -94,7 +94,7 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
   }
 
   return (
-    <GameSoundContext.Provider value={valueData}>
+    <GameSoundContext.Provider value={contextValueData}>
       {children}
     </GameSoundContext.Provider>
   );
