@@ -28,11 +28,6 @@ export const Game: React.FC = () => {
 
   const GameSoundHook = useGameSound();
 
-  function appLoading() {
-    const action = () => setAppIsLoading(false);
-    setTimeout(action, 2000);
-  }
-
   function initGame(difficult?: GameDifficult) {
     GameSoundHook.stopSound();
 
@@ -57,6 +52,11 @@ export const Game: React.FC = () => {
     console.log(`${GameResults.lose} - Que burro! Você perdeu!`);
 
     setGameResult(GameResults.lose);
+  }
+
+  function closeAppLoading() {
+    const action = () => setAppIsLoading(false);
+    setTimeout(action, 2000);
   }
 
   function handleOpenField(row: number, column: number) {
@@ -108,7 +108,7 @@ export const Game: React.FC = () => {
   }
 
   useEffect(() => {
-    appLoading();
+    closeAppLoading();
   }, []);
 
   useEffect(() => {

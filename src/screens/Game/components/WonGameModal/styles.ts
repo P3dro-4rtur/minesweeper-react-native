@@ -37,7 +37,7 @@ export const LabelContainer = styled.View`
 
 export const LabelResult = styled.Text`
   font-size: ${RFValue(30)}px;
-  font-family: ${({ theme }) => theme.fontFamily.bold};
+  font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   color: ${({ theme }) => theme.colors.white};
 `;
@@ -64,7 +64,7 @@ export const ContinueButtonLabel = styled.Text`
   text-transform: uppercase;
 
   font-size: ${RFValue(18)}px;
-  font-family: ${({ theme }) => theme.fontFamily.medium};
+  font-family: ${({ theme }) => theme.fontFamily.default_medium};
 
   color: ${({ theme }) => theme.colors.yellow_300};
 `;

@@ -21,7 +21,7 @@ export const Title = styled.Text<TitleProps>`
   text-transform: uppercase;
 
   font-size: ${RFPercentage(8)}px;
-  font-family: ${({ theme }) => theme.fontFamily.bold};
+  font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   color: ${({ color }) => color};
 

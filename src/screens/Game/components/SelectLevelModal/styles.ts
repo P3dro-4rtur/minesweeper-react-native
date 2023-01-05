@@ -34,7 +34,7 @@ export const ButtonCloseLabel = styled.Text`
   bottom: ${RFPercentage(4)}px;
 
   font-size: ${RFValue(22)}px;
-  font-family: ${({ theme }) => theme.fontFamily.medium};
+  font-family: ${({ theme }) => theme.fontFamily.default_medium};
 
   color: ${({ theme }) => theme.colors.gray_100};
 `;
@@ -60,7 +60,7 @@ export const Title = styled.Text`
   font-size: ${RFValue(20)}px;
 
   ${({ theme }) => css`
-    font-family: ${theme.fontFamily.medium};
+    font-family: ${theme.fontFamily.default_medium};
     color: ${theme.colors.gray_100};
   `}
 `;
@@ -83,6 +83,6 @@ export const LabelLevel = styled.Text<ColorsByDifficultLevel>`
 
   ${({ level, theme }) => css`
     color: ${colors[level]};
-    font-family: ${theme.fontFamily.bold};
+    font-family: ${theme.fontFamily.default_bold};
   `}
 `;

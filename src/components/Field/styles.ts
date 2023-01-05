@@ -52,7 +52,7 @@ export const AmountOfNearbyMines = styled.Text<AmountOfNearbyMinesProps>`
   line-height: ${RFValue(25)}px;
 
   font-size: ${GameParams.dimensions.fontSize}px;
-  font-family: ${({ theme }) => theme.fontFamily.bold};
+  font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   ${({ theme, nearbyMines }) => {
     if (nearbyMines === 1)

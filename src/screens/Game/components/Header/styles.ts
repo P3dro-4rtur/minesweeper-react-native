@@ -29,7 +29,7 @@ export const ButtonFlagLabel = styled.Text`
   right: ${RFValue(20)}px;
 
   font-size: ${RFValue(15)}px;
-  font-family: ${({ theme }) => theme.fontFamily.bold};
+  font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   color: ${({ theme }) => theme.colors.gray_light_200};
 `;
@@ -42,7 +42,7 @@ export const AmountFlags = styled.Text`
   right: ${RFValue(50)}px;
 
   font-size: ${RFValue(20)}px;
-  font-family: ${({ theme }) => theme.fontFamily.bold};
+  font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   color: ${({ theme }) => theme.colors.gray_light_200};
 `;
@@ -53,7 +53,7 @@ export const ButtonStart = styled.TouchableOpacity`
 
 export const ButtonStartLabel = styled.Text`
   font-size: ${RFValue(15)}px;
-  font-family: ${({ theme }) => theme.fontFamily.bold};
+  font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   color: ${({ theme }) => theme.colors.gray_light_200};
 `;

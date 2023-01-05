@@ -35,8 +35,13 @@ export default {
   },
 
   fontFamily: {
-    regular: "ChakraPetch_400Regular",
-    medium: "ChakraPetch_500Medium",
-    bold: "ChakraPetch_700Bold",
+    default_regular: "ChakraPetch_400Regular",
+    default_medium: "ChakraPetch_500Medium",
+    default_bold: "ChakraPetch_700Bold",
+
+    countdown_regular: "Orbitron_400Regular",
+    countdown_medium: "Orbitron_500Medium",
+    countdown_semiBold: "Orbitron_600SemiBold",
+    countdown_Bold: "Orbitron_700Bold",
   },
 };

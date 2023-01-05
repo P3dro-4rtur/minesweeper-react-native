@@ -1081,6 +1081,11 @@
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/chakra-petch/-/chakra-petch-0.2.2.tgz#9482d60614718f9dbce3d5e0ac45ae6fa3b1c0ea"
   integrity sha512-KGUOP8CBbMMfLNaFUKz0lOeeglRCnP5/cVWXQfDvllnN5CSn8/U6aVYYcxpT+k4iqeLylYIGRxdhu1n7seHxOQ==
 
+"@expo-google-fonts/orbitron@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/orbitron/-/orbitron-0.2.2.tgz#f5516b08cf8fdfad1733cf9bc83d1e4b6891db3f"
+  integrity sha512-QsDOb3AOUqoM2l5eonr/m4hByiwp0MuJrgRUpmTNcYfK6oc3+JDsUqnHbLazMZjBBHAUf+iJky7t7KG3oW4yMg==
+
 "@expo/bunyan@4.0.0", "@expo/bunyan@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@expo/bunyan/-/bunyan-4.0.0.tgz#be0c1de943c7987a9fbd309ea0b1acd605890c7b"

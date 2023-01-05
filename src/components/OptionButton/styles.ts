@@ -33,7 +33,7 @@ export const Title = styled.Text`
   text-transform: uppercase;
 
   font-size: ${RFValue(20)}px;
-  font-family: ${({ theme }) => theme.fontFamily.medium};
+  font-family: ${({ theme }) => theme.fontFamily.default_medium};
 
   color: ${({ theme }) => theme.colors.gray_100};
 `;
