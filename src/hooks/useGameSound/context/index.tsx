@@ -29,6 +29,8 @@ interface GameSoundContextData {
   pauseSound: () => Promise<void>;
   stopSound: () => Promise<void>;
   selectorPlaySoundByDifficult: (difficult: GameDifficult) => Promise<void>;
+  muteModeIsActive: boolean;
+  toggleMuteMode: (bool?: boolean) => void;
 }
 
 interface GameSoundProviderProps {
@@ -41,16 +43,23 @@ const GameSoundContext = createContext<GameSoundContextData>(initialState);
 
 function GameSoundProvider({ children }: GameSoundProviderProps) {
   const [gameSound, setGameSound] = useState<Audio.Sound>();
+  const [muteModeIsActive, setMuteModeIsActive] = useState(true);
+
+  console.log(muteModeIsActive);
 
   const contextValueData = {
     gameSound,
     playSound,
     pauseSound,
     stopSound,
+    toggleMuteMode,
+    muteModeIsActive,
     selectorPlaySoundByDifficult,
   };
 
   async function playSound(soundSelected: GameSounds = GameSounds.theme) {
+    if (muteModeIsActive) return;
+
     const { sound } = await Audio.Sound.createAsync(soundSelected);
     setGameSound(sound);
     await sound.playAsync();
@@ -93,6 +102,20 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
     }
   }
 
+  function toggleMuteMode(bool?: boolean) {
+    setMuteModeIsActive((actualState) => bool ?? !actualState);
+  }
+
+  React.useEffect(() => {
+    if (muteModeIsActive) {
+      stopSound();
+    }
+
+    if (!muteModeIsActive) {
+      playSound();
+    }
+  }, [muteModeIsActive]);
+
   return (
     <GameSoundContext.Provider value={contextValueData}>
       {children}
@@ -101,8 +124,8 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
 }
 
 export {
-  GameSoundContext,
-  GameSoundContextData,
-  GameSoundProvider,
   GameSounds,
+  GameSoundContext,
+  GameSoundProvider,
+  GameSoundContextData,
 };

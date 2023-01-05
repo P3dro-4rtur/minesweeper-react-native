@@ -24,6 +24,7 @@ export default {
 
     red_400: "#F22",
     red_500: "#F9060A",
+    red_500_opacity: "rgba(249, 6, 10, 0.2)",
     red_700: "#F00",
 
     selector: "rgba(33, 242, 242, 0.2)",

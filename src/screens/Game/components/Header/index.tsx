@@ -1,5 +1,6 @@
 import React from "react";
 import { Flag } from "~/components/Flag";
+import { Countdown } from "~/components/Countdown";
 import {
   Container,
   ButtonFlag,
@@ -28,6 +29,8 @@ export function Header(props: HeaderProps) {
         </Wrapper>
         <AmountFlags> = {amountFlags}</AmountFlags>
       </ButtonFlag>
+
+      <Countdown />
 
       <ButtonStart onPress={actionStart}>
         <ButtonStartLabel>START NEW GAME</ButtonStartLabel>

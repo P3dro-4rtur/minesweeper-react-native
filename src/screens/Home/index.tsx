@@ -53,6 +53,11 @@ export function Home() {
 
   function handlePressOptions() {
     console.log("Options");
+    GameSoundHook.toggleMuteMode();
+  }
+
+  function handlePressButtonMute() {
+    GameSoundHook.toggleMuteMode();
   }
 
   useEffect(() => {
@@ -72,7 +77,7 @@ export function Home() {
 
       <Options>
         <OptionButton title="start" action={handlePressStart} />
-        <OptionButton title="options" action={handlePressOptions} />
+        <OptionButton title="options" action={handlePressButtonMute} />
       </Options>
     </Container>
   );
