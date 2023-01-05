@@ -7,26 +7,30 @@ import { GameSounds } from "~/hooks/useGameSound/context";
 import { LoadAnimated } from "~/components/LoadAnimated";
 import { Header } from "../Game/components/Header";
 import { MineField } from "./components/MineField";
-import { Container, MineFieldContainer } from "./styles";
+import { WonGameModal } from "./components/WonGameModal";
 import { SelectLevelModal } from "./components/SelectLevelModal";
+import { Container, MineFieldContainer } from "./styles";
 
 export const Game: React.FC = () => {
   const [appIsLoading, setAppIsLoading] = useState<boolean>(true);
   const [gameBoard, setGameBoard] = useState<Board>([]);
   const [gameFlags, setGameFlags] = useState<number>(0);
   const [gameResult, setGameResult] = useState<GameResults>(GameResults.none);
+  const [isWonGameModalVisible, setWonGameModalVisible] =
+    useState<boolean>(false);
+
+  const [isSelectLevelModalVisible, setIsSelectLevelModalVisible] =
+    useState<boolean>(true);
+
   const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
     GameParams.difficultLevelDefault
   );
-  const [isSelectLevelModalVisible, setIsSelectLevelModalVisible] =
-    useState<boolean>(true);
 
   const GameSoundHook = useGameSound();
 
   function appLoading() {
-    setTimeout(() => {
-      setAppIsLoading(false);
-    }, 2000);
+    const action = () => setAppIsLoading(false);
+    setTimeout(action, 2000);
   }
 
   function initGame(difficult?: GameDifficult) {
@@ -38,13 +42,14 @@ export const Game: React.FC = () => {
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
 
     setGameBoard(board);
+    setGameResult(GameResults.none);
     GameSoundHook.selectorPlaySoundByDifficult(difficult ?? gameDifficult);
   }
 
   function onPlayerWonGame() {
     GameSoundHook.playSound(GameSounds.won);
-    console.log(`${GameResults.won} - Você venceu!`);
     setGameResult(GameResults.won);
+    setWonGameModalVisible(true);
   }
 
   function onPlayerLoseGame() {
@@ -104,7 +109,7 @@ export const Game: React.FC = () => {
 
   useEffect(() => {
     appLoading();
-  });
+  }, []);
 
   useEffect(() => {
     if (gameBoard) {
@@ -136,6 +141,10 @@ export const Game: React.FC = () => {
         isVisible={isSelectLevelModalVisible}
         onSelectAction={handleSelectDifficult}
         onClose={() => setIsSelectLevelModalVisible(false)}
+      />
+      <WonGameModal
+        isVisible={isWonGameModalVisible}
+        onClose={() => setWonGameModalVisible(false)}
       />
     </React.Fragment>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GameDifficult } from "~/config/params";
 import {
   Modal,

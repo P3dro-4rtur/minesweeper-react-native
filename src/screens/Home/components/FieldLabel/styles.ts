@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components/native";
-import { RFValue } from "react-native-responsive-fontsize";
 import { GameParams } from "~/config/params";
 
 export const Block = styled.View`
