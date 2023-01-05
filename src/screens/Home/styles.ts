@@ -18,9 +18,10 @@ export const Header = styled.View`
 export const Title = styled.Text<TitleProps>`
   bottom: ${RFValue(50)}px;
 
+  text-align: center;
   text-transform: uppercase;
 
-  font-size: ${RFPercentage(8)}px;
+  font-size: ${RFValue(50)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   color: ${({ color }) => color};

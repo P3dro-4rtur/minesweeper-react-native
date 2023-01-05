@@ -7,7 +7,7 @@ import { useGameSound } from "~/hooks/useGameSound";
 import { GameSounds } from "~/hooks/useGameSound/context";
 import { GameParams } from "~/config/params";
 
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import { FlagLabel } from "./components/FlagLabel";
 import { FieldLabel } from "./components/FieldLabel";
