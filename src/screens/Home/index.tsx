@@ -7,6 +7,8 @@ import { useGameSound } from "~/hooks/useGameSound";
 import { GameSounds } from "~/hooks/useGameSound/context";
 import { GameParams } from "~/config/params";
 
+import { useNavigation } from "@react-navigation/native";
+
 import { FlagLabel } from "./components/FlagLabel";
 import { FieldLabel } from "./components/FieldLabel";
 import { OptionButton } from "~/components/OptionButton";
@@ -23,6 +25,12 @@ import {
 export function Home() {
   const [labelColor, setLabelColor] = useState<string>(theme.colors.white);
   const GameSoundHook = useGameSound();
+  const NavigationHook = useNavigation();
+
+  function startHome() {
+    labelColorsRandom();
+    GameSoundHook.playSound(GameSounds.theme);
+  }
 
   function labelColorsRandom() {
     const newColorLabel = () => setLabelColor(ThemeUtils.randomColor());
@@ -35,9 +43,20 @@ export function Home() {
     return <Row>{Component}</Row>;
   }
 
+  function handlePressStart() {
+    GameSoundHook.stopSound();
+
+    setTimeout(() => {
+      NavigationHook.navigate("Game");
+    }, 600);
+  }
+
+  function handlePressOptions() {
+    console.log("Options");
+  }
+
   useEffect(() => {
-    labelColorsRandom();
-    GameSoundHook.playSound(GameSounds.theme);
+    startHome();
   }, []);
 
   return (
@@ -52,8 +71,8 @@ export function Home() {
       </Header>
 
       <Options>
-        <OptionButton title="start" action={() => console.log("Start")} />
-        <OptionButton title="options" action={() => console.log("Options")} />
+        <OptionButton title="start" action={handlePressStart} />
+        <OptionButton title="options" action={handlePressOptions} />
       </Options>
     </Container>
   );

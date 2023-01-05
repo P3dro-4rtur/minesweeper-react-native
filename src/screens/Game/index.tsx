@@ -4,12 +4,14 @@ import { GameParams, GameResults, GameDifficult } from "~/config/params";
 import { GameLogic } from "~/config/logic";
 import { useGameSound } from "~/hooks/useGameSound";
 import { GameSounds } from "~/hooks/useGameSound/context";
+import { LoadAnimated } from "~/components/LoadAnimated";
 import { Header } from "../Game/components/Header";
 import { MineField } from "./components/MineField";
 import { Container, MineFieldContainer } from "./styles";
 import { SelectLevelModal } from "./components/SelectLevelModal";
 
 export const Game: React.FC = () => {
+  const [appIsLoading, setAppIsLoading] = useState<boolean>(true);
   const [gameBoard, setGameBoard] = useState<Board>([]);
   const [gameFlags, setGameFlags] = useState<number>(0);
   const [gameResult, setGameResult] = useState<GameResults>(GameResults.none);
@@ -17,9 +19,15 @@ export const Game: React.FC = () => {
     GameParams.difficultLevelDefault
   );
   const [isSelectLevelModalVisible, setIsSelectLevelModalVisible] =
-    useState<boolean>(false);
+    useState<boolean>(true);
 
   const GameSoundHook = useGameSound();
+
+  function appLoading() {
+    setTimeout(() => {
+      setAppIsLoading(false);
+    }, 2000);
+  }
 
   function initGame(difficult?: GameDifficult) {
     GameSoundHook.stopSound();
@@ -95,14 +103,16 @@ export const Game: React.FC = () => {
   }
 
   useEffect(() => {
-    initGame();
-  }, []);
+    appLoading();
+  });
 
   useEffect(() => {
     if (gameBoard) {
       gameFlagsController();
     }
   }, [gameBoard]);
+
+  if (appIsLoading) return <LoadAnimated />;
 
   return (
     <React.Fragment>

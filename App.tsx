@@ -3,7 +3,9 @@ LogBox.ignoreAllLogs(true);
 import React from "react";
 import { StatusBar, StatusBarProps, LogBox } from "react-native";
 
+import { Routes } from "~/routes";
 import { AppProvider } from "~/hooks/provider";
+import { LoadAnimated } from "~/components/LoadAnimated";
 import { ThemeProvider } from "styled-components/native";
 import theme from "~/theme";
 import {
@@ -12,10 +14,6 @@ import {
   ChakraPetch_500Medium,
   ChakraPetch_700Bold,
 } from "@expo-google-fonts/chakra-petch";
-
-import { Game } from "./src/screens/Game";
-import { LoadAnimated } from "~/components/LoadAnimated";
-import { Home } from "~/screens/Home";
 
 const fonts = {
   ChakraPetch_400Regular,
@@ -30,16 +28,26 @@ const statusBarProps: StatusBarProps = {
 };
 
 export default function App() {
+  const [isLoading, setIsLoading] = React.useState(true);
   const [fontsLoaded] = useFonts(fonts);
 
-  if (!fontsLoaded) return <LoadAnimated />;
+  function startApp() {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+  }
+
+  React.useEffect(() => {
+    startApp();
+  }, []);
+
+  if (!fontsLoaded || isLoading) return <LoadAnimated />;
 
   return (
     <ThemeProvider theme={theme}>
       <AppProvider>
         <StatusBar {...statusBarProps} />
-        {/* <Game /> */}
-        <Home />
+        <Routes />
       </AppProvider>
     </ThemeProvider>
   );
