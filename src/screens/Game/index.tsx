@@ -16,6 +16,7 @@ export const Game: React.FC = () => {
   const [gameBoard, setGameBoard] = useState<Board>([]);
   const [gameFlags, setGameFlags] = useState<number>(0);
   const [gameResult, setGameResult] = useState<GameResults>(GameResults.none);
+
   const [isWonGameModalVisible, setWonGameModalVisible] =
     useState<boolean>(false);
 
@@ -44,7 +45,13 @@ export const Game: React.FC = () => {
   function onPlayerWonGame() {
     GameSoundHook.playSound(GameSounds.won);
     setGameResult(GameResults.won);
-    setWonGameModalVisible(true);
+
+    const showModalWonGame = () => setWonGameModalVisible(true);
+    setTimeout(showModalWonGame, 2500);
+  }
+
+  function winnerPressContinue() {
+    setWonGameModalVisible(false);
   }
 
   function onPlayerLoseGame() {
@@ -78,6 +85,10 @@ export const Game: React.FC = () => {
     }
 
     setGameBoard(board);
+  }
+
+  function handleStartNewGame() {
+    initGame(gameDifficult);
   }
 
   function handleSelectDifficult(difficult: GameDifficult) {
@@ -123,7 +134,7 @@ export const Game: React.FC = () => {
       <Container>
         <Header
           amountFlags={gameFlags}
-          actionStart={() => initGame(gameDifficult)}
+          actionStart={handleStartNewGame}
           actionSelectLevel={() => setIsSelectLevelModalVisible(true)}
         />
         <MineFieldContainer>
@@ -141,9 +152,10 @@ export const Game: React.FC = () => {
         onSelectAction={handleSelectDifficult}
         onClose={() => setIsSelectLevelModalVisible(false)}
       />
+
       <WonGameModal
         isVisible={isWonGameModalVisible}
-        onClose={() => setWonGameModalVisible(false)}
+        onClose={winnerPressContinue}
       />
     </React.Fragment>
   );

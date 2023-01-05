@@ -30,7 +30,7 @@ export function Header(props: HeaderProps) {
         <AmountFlags> = {amountFlags}</AmountFlags>
       </ButtonFlag>
 
-      <Countdown />
+      {/*  <Countdown /> */}
 
       <ButtonStart onPress={actionStart}>
         <ButtonStartLabel>START NEW GAME</ButtonStartLabel>

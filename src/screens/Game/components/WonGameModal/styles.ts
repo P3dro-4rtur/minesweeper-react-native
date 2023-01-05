@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 import ReactNativeModal from "react-native-modal";
-import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
 import { GameParams } from "~/config/params";
 
 export const Modal = styled(ReactNativeModal)`
@@ -39,6 +39,9 @@ export const LabelResult = styled.Text`
   font-size: ${RFValue(30)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
+  border-bottom-width: ${RFValue(2)}px;
+  border-bottom-color: ${({ theme }) => theme.colors.white};
+
   color: ${({ theme }) => theme.colors.white};
 `;
 
@@ -67,4 +70,9 @@ export const ContinueButtonLabel = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.default_medium};
 
   color: ${({ theme }) => theme.colors.yellow_300};
+`;
+
+export const TrophyContainer = styled.View`
+  flex: 1;
+  width: 100%;
 `;

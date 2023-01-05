@@ -1,6 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components/native";
 import { Trophy } from "phosphor-react-native";
+import { TrophyAnimated } from "~/components/TrophyAnimated";
 import {
   Modal,
   Container,
@@ -9,6 +10,7 @@ import {
   Content,
   ContinueButton,
   ContinueButtonLabel,
+  TrophyContainer,
 } from "./styles";
 
 interface Props {
@@ -39,6 +41,10 @@ export function WonGameModal({ isVisible, onClose }: Props) {
           </ContinueButton>
         </Content>
       </Container>
+
+      <TrophyContainer>
+        <TrophyAnimated />
+      </TrophyContainer>
     </Modal>
   );
 }
