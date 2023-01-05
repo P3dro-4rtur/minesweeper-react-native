@@ -83,7 +83,6 @@ export const Game: React.FC = () => {
   function handleSelectDifficult(difficult: GameDifficult) {
     GameSoundHook.stopSound();
     setGameDifficult(difficult);
-    setGameResult(GameResults.none);
     setIsSelectLevelModalVisible(false);
 
     initGame(difficult);
