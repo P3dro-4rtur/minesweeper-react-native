@@ -28,9 +28,11 @@ interface GameSoundContextData {
   playSound: (sound: GameSounds) => Promise<void>;
   pauseSound: () => Promise<void>;
   stopSound: () => Promise<void>;
-  selectorPlaySoundByDifficult: (difficult: GameDifficult) => Promise<void>;
   muteModeIsActive: boolean;
-  toggleMuteMode: (bool?: boolean) => void;
+  toggleIsMuteModeActive: () => void;
+  enableMuteMode: () => void;
+  disableMuteMode: (sound?: GameSounds) => void;
+  selectorPlaySoundByDifficult: (difficult: GameDifficult) => Promise<void>;
 }
 
 interface GameSoundProviderProps {
@@ -43,17 +45,17 @@ const GameSoundContext = createContext<GameSoundContextData>(initialState);
 
 function GameSoundProvider({ children }: GameSoundProviderProps) {
   const [gameSound, setGameSound] = useState<Audio.Sound>();
-  const [muteModeIsActive, setMuteModeIsActive] = useState(true);
-
-  console.log(muteModeIsActive);
+  const [muteModeIsActive, setMuteModeIsActive] = useState(false);
 
   const contextValueData = {
     gameSound,
     playSound,
     pauseSound,
     stopSound,
-    toggleMuteMode,
     muteModeIsActive,
+    toggleIsMuteModeActive,
+    enableMuteMode,
+    disableMuteMode,
     selectorPlaySoundByDifficult,
   };
 
@@ -65,7 +67,7 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
     await sound.playAsync();
 
     if (soundSelected !== GameSounds.lose || soundSelected !== GameSounds.won) {
-      await sound.setIsLoopingAsync(true);
+      await sound.setIsLoopingAsync(false);
     }
   }
 
@@ -102,18 +104,40 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
     }
   }
 
-  function toggleMuteMode(bool?: boolean) {
-    setMuteModeIsActive((actualState) => bool ?? !actualState);
+  function toggleIsMuteModeActive() {
+    setMuteModeIsActive((actualState) => !actualState);
+  }
+
+  function enableMuteMode() {
+    stopSound();
+    setMuteModeIsActive(true);
+    setGameSound(undefined);
+  }
+
+  function disableMuteMode(sound?: GameSounds) {
+    setMuteModeIsActive(false);
+    playSound(sound || GameSounds.theme);
   }
 
   React.useEffect(() => {
-    if (muteModeIsActive) {
-      stopSound();
+    function controllerSoundGame() {
+      if (muteModeIsActive) {
+        stopSound();
+        return;
+      }
+
+      if (!muteModeIsActive && !gameSound) {
+        playSound(GameSounds.theme);
+        return;
+      }
+
+      if (!muteModeIsActive && !!gameSound) {
+        playSound(GameSounds.theme);
+        return;
+      }
     }
 
-    if (!muteModeIsActive) {
-      playSound();
-    }
+    controllerSoundGame();
   }, [muteModeIsActive]);
 
   return (

@@ -45,8 +45,10 @@ export const Game: React.FC = () => {
   function onPlayerWonGame() {
     GameSoundHook.playSound(GameSounds.won);
     setGameResult(GameResults.won);
+    setWonGameModalVisible(true);
 
     const showModalWonGame = () => setWonGameModalVisible(true);
+
     setTimeout(showModalWonGame, 2500);
   }
 

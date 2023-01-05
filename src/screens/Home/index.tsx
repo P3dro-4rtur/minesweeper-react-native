@@ -29,7 +29,6 @@ export function Home() {
 
   function startHome() {
     labelColorsRandom();
-    GameSoundHook.playSound(GameSounds.theme);
   }
 
   function labelColorsRandom() {
@@ -37,7 +36,7 @@ export function Home() {
     setInterval(newColorLabel, 800);
   }
 
-  function FieldDecoration() {
+  function FieldDecoration(): JSX.Element {
     const totalBlocks = GameParams.getColumnsAmount();
     const Component = Array(totalBlocks).fill(<FieldLabel />);
     return <Row>{Component}</Row>;
@@ -52,12 +51,11 @@ export function Home() {
   }
 
   function handlePressOptions() {
-    console.log("Options");
-    GameSoundHook.toggleMuteMode();
+    handlePressButtonMute();
   }
 
   function handlePressButtonMute() {
-    GameSoundHook.toggleMuteMode();
+    GameSoundHook.toggleIsMuteModeActive();
   }
 
   useEffect(() => {
@@ -77,7 +75,7 @@ export function Home() {
 
       <Options>
         <OptionButton title="start" action={handlePressStart} />
-        <OptionButton title="options" action={handlePressButtonMute} />
+        <OptionButton title="options" action={handlePressOptions} />
       </Options>
     </Container>
   );
