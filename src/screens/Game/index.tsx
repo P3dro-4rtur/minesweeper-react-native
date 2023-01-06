@@ -51,9 +51,9 @@ export const Game: React.FC = () => {
     setActionsTimer(ActionsTimer.start);
   }
 
-  function handleRestartOrStartNewGame() {
+  function handleRestartOrStartNewGame(difficult: GameDifficult) {
     setActionsTimer(ActionsTimer.stop);
-    setTimeout(() => initGame(gameDifficult), 1500);
+    setTimeout(() => initGame(difficult || gameDifficult), 1500);
     setAppIsLoading(true);
   }
 
@@ -87,6 +87,21 @@ export const Game: React.FC = () => {
     setGameFlags(minesAmount - flagsUsed);
   }
 
+  function handleSelectDifficult(difficult: GameDifficult) {
+    const playerIsAlreadyInGame = actionsTimer === ActionsTimer.start;
+
+    setGameDifficult(difficult);
+    setIsSelectLevelModalVisible(false);
+    setActionsTimer(ActionsTimer.stop);
+    GameSoundHook.stopSound();
+
+    if (playerIsAlreadyInGame) {
+      return handleRestartOrStartNewGame(difficult);
+    }
+
+    initGame(difficult);
+  }
+
   function handleOpenField(row: number, column: number) {
     const board = GameLogic.cloneBoard(gameBoard);
     GameLogic.openField(board, row, column);
@@ -103,20 +118,6 @@ export const Game: React.FC = () => {
     }
 
     setGameBoard(board);
-  }
-
-  function handleSelectDifficult(difficult: GameDifficult) {
-    const playerIsAlreadyInGame = actionsTimer === ActionsTimer.start;
-
-    setGameDifficult(difficult);
-    setIsSelectLevelModalVisible(false);
-    setActionsTimer(ActionsTimer.stop);
-
-    if (playerIsAlreadyInGame) {
-      return handleRestartOrStartNewGame();
-    }
-
-    initGame(difficult);
   }
 
   function handleSetFlag(row: number, column: number) {
@@ -146,7 +147,7 @@ export const Game: React.FC = () => {
         <Header
           amountFlags={gameFlags}
           actionsTimer={actionsTimer}
-          actionStart={handleRestartOrStartNewGame}
+          actionStart={() => handleRestartOrStartNewGame(gameDifficult)}
           actionSelectLevel={() => setIsSelectLevelModalVisible(true)}
         />
         <MineFieldContainer>

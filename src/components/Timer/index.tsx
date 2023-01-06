@@ -18,10 +18,6 @@ function Timer({ actionsTimer }: TimerProps) {
   const minutes = Math.floor(secondsAmount / 60);
   const seconds = secondsAmount % 60;
 
-  console.log("secondsAmount =>", secondsAmount);
-  console.log("minutes =>", minutes);
-  console.log("seconds =>", seconds);
-
   function startCount() {
     setTimeout(() => {
       setSecondsAmount((seconds) => seconds + 1);

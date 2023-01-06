@@ -62,11 +62,15 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
   async function playSound(soundSelected: GameSounds = GameSounds.theme) {
     if (muteModeIsActive) return;
 
+    const condition =
+      soundSelected === GameSounds.lose || soundSelected === GameSounds.won;
+
     const { sound } = await Audio.Sound.createAsync(soundSelected);
+
     setGameSound(sound);
     await sound.playAsync();
 
-    if (soundSelected !== GameSounds.lose || soundSelected !== GameSounds.won) {
+    if (condition) {
       await sound.setIsLoopingAsync(false);
     }
   }
