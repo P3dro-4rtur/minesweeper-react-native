@@ -1,5 +1,5 @@
 import React from "react";
-import { Field } from "~/components/Field";
+import { Field } from "~/components/index";
 import { Board, FieldBlock } from "~/config/types&interfaces";
 import { Rows, Columns } from "./styles";
 

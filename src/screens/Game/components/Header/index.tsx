@@ -1,6 +1,5 @@
 import React from "react";
-import { Flag } from "~/components/Flag";
-import { GameTimer } from "~/components/Timer";
+import { Flag, GameTimer } from "~/components/index";
 import { ActionsTimer } from "~/components/Timer";
 import {
   Container,
@@ -31,16 +30,24 @@ export function Header(props: HeaderProps) {
   } = props;
 
   function labelsButton() {
+    const startLabel = "START NEW GAME";
+    const restartLabel = "RESTART GAME";
+
     switch (actionsTimer) {
+      case ActionsTimer.none:
+        return startLabel;
+
       case ActionsTimer.start:
-        return "RESTART GAME";
+        return restartLabel;
+
       case ActionsTimer.pause:
-        return "START NEW GAME";
+        return startLabel;
+
       case ActionsTimer.stop:
-        return "RESTART GAME";
+        return restartLabel;
 
       default:
-        return "START NEW GAME";
+        return startLabel;
     }
   }
 

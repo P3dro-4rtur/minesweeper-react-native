@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { GameParams } from "~/config/params";
 import { Container, BackgroundLabel, CountLabel, Wrapper } from "./styles";
 
 export enum ActionsTimer {
   start = "start",
   pause = "pause",
   stop = "stop",
+  none = "none",
 }
 
 interface TimerProps {
@@ -20,9 +22,8 @@ function Timer({ actionsTimer, getTime }: TimerProps) {
   const minutes = Math.floor(secondsAmount / 60);
 
   function startCount() {
-    setTimeout(() => {
-      setSecondsAmount((seconds) => seconds + 1);
-    }, 1000);
+    const action = () => setSecondsAmount((seconds) => seconds + 1);
+    setTimeout(action, GameParams.second);
   }
 
   function sharedSecondsAmount() {
@@ -51,7 +52,9 @@ function Timer({ actionsTimer, getTime }: TimerProps) {
   }
 
   function TimerBackgroundFixed(): JSX.Element | null {
-    if (actionsTimer === ActionsTimer.stop) {
+    const condition = actionsTimer === ActionsTimer.stop || ActionsTimer.none;
+
+    if (condition) {
       return <BackgroundLabel>00 00</BackgroundLabel>;
     }
 

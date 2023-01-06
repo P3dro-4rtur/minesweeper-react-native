@@ -1,6 +1,6 @@
 import React from "react";
-import { useTheme } from "styled-components/native";
 import { Trophy } from "phosphor-react-native";
+import { useTheme } from "styled-components/native";
 import { TrophyAnimated } from "~/components/TrophyAnimated";
 import {
   Modal,

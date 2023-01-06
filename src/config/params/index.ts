@@ -27,7 +27,12 @@ const GameParams = {
     headerRatio: 0.15,
   },
 
+  second: 1000,
   difficultLevelDefault: GameDifficult.medium,
+
+  getSecond(howManySeconds: number) {
+    return this.second * howManySeconds;
+  },
 
   getColumnsAmount() {
     const totalBlocksHorizontal = Math.floor(

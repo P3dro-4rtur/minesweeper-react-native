@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { BackHandler } from "react-native";
+
 import { Board } from "@config/types&interfaces/";
-import { GameParams, GameResults, GameDifficult } from "~/config/params";
 import { GameLogic } from "~/config/logic";
+import { GameParams, GameResults, GameDifficult } from "~/config/params";
+
 import { useGameSound } from "~/hooks/useGameSound";
 import { GameSounds } from "~/hooks/useGameSound/context";
-import { LoadAnimated } from "~/components/LoadAnimated";
-import { Header } from "../Game/components/Header";
-import { MineField } from "./components/MineField";
-import { WonGameModal } from "./components/WonGameModal";
-import { SelectLevelModal } from "./components/SelectLevelModal";
-import { Container, MineFieldContainer } from "./styles";
+
+import { LoadAnimated } from "@components/index";
 import { ActionsTimer } from "~/components/Timer";
+
+import {
+  Header,
+  MineField,
+  WonGameModal,
+  SelectLevelModal,
+} from "./components/index";
+import { Container, MineFieldContainer } from "./styles";
 
 export const Game: React.FC = () => {
   const [appIsLoading, setAppIsLoading] = useState<boolean>(true);
@@ -24,7 +30,7 @@ export const Game: React.FC = () => {
   );
 
   const [actionsTimer, setActionsTimer] = useState<ActionsTimer>(
-    ActionsTimer.stop
+    ActionsTimer.none
   );
 
   const [isWonGameModalVisible, setWonGameModalVisible] =
@@ -35,26 +41,25 @@ export const Game: React.FC = () => {
 
   const GameSoundHook = useGameSound();
 
-  function onCloseAppLoading() {
-    const action = () => setAppIsLoading(false);
-    setTimeout(action, 2000);
-  }
-
   function initGame(difficult?: GameDifficult) {
     const columns = GameParams.getColumnsAmount();
     const rows = GameParams.getRowsAmount();
     const minesAmount = GameLogic.minesAmount(rows, columns, gameDifficult);
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
+
     GameSoundHook.stopSound();
     setGameBoard(board);
     setGameResult(GameResults.none);
-    GameSoundHook.selectorPlaySoundByDifficult(difficult || gameDifficult);
     setActionsTimer(ActionsTimer.start);
+    GameSoundHook.selectorPlaySoundByDifficult(difficult || gameDifficult);
   }
 
   function handleRestartOrStartNewGame(difficult: GameDifficult) {
     setActionsTimer(ActionsTimer.stop);
-    setTimeout(() => initGame(difficult || gameDifficult), 1500);
+    setTimeout(
+      () => initGame(difficult || gameDifficult),
+      GameParams.getSecond(1.5)
+    );
     setAppIsLoading(true);
   }
 
@@ -66,7 +71,7 @@ export const Game: React.FC = () => {
     setGameResult(GameResults.won);
     GameSoundHook.playSound(GameSounds.won);
 
-    setTimeout(() => setWonGameModalVisible(true), 2500);
+    setTimeout(() => setWonGameModalVisible(true), GameParams.getSecond(2.5));
   }
 
   function onPlayerLoseGame(board: Board) {
@@ -88,22 +93,33 @@ export const Game: React.FC = () => {
     setGameFlags(minesAmount - flagsUsed);
   }
 
-  function disableHardwareBackButton() {
-    BackHandler.addEventListener("hardwareBackPress", () => true);
+  function getTimeGame(seconds: number) {
+    return seconds;
+  }
 
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", () => true);
+  function disableHardwareBackButton() {
+    const hardwareButton = "hardwareBackPress";
+    const callback = () => true;
+
+    BackHandler.addEventListener(hardwareButton, callback);
+    return () => BackHandler.removeEventListener(hardwareButton, callback);
+  }
+
+  function onCloseAppLoading() {
+    const action = () => setAppIsLoading(false);
+    setTimeout(action, GameParams.getSecond(2));
   }
 
   function handleSelectDifficult(difficult: GameDifficult) {
     const playerIsAlreadyInGame = actionsTimer === ActionsTimer.start;
+    const playerIsLoseGame = gameResult === GameResults.lose;
 
     setGameDifficult(difficult);
     setIsSelectLevelModalVisible(false);
     setActionsTimer(ActionsTimer.stop);
     GameSoundHook.stopSound();
 
-    if (playerIsAlreadyInGame) {
+    if (playerIsAlreadyInGame || playerIsLoseGame) {
       return handleRestartOrStartNewGame(difficult);
     }
 
@@ -155,7 +171,7 @@ export const Game: React.FC = () => {
         <Header
           amountFlags={gameFlags}
           actionsTimer={actionsTimer}
-          getTime={(seconds) => console.log(seconds)}
+          getTime={(seconds) => getTimeGame(seconds)}
           actionStart={() => handleRestartOrStartNewGame(gameDifficult)}
           actionSelectLevel={() => setIsSelectLevelModalVisible(true)}
         />

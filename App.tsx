@@ -5,6 +5,7 @@ import { StatusBar, StatusBarProps, LogBox } from "react-native";
 
 import { Routes } from "~/routes";
 import { AppProvider } from "~/hooks/provider";
+import { GameParams } from "~/config/params";
 import { LoadAnimated } from "~/components/LoadAnimated";
 import { ThemeProvider } from "styled-components/native";
 import theme from "~/theme";
@@ -46,7 +47,7 @@ export default function App() {
   function startApp() {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, GameParams.getSecond(2.5));
   }
 
   React.useEffect(() => {

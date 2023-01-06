@@ -3,11 +3,10 @@ import React, { useState, useEffect } from "react";
 import theme from "~/theme";
 import { ThemeUtils } from "~/theme/utils";
 
-import { useGameSound } from "~/hooks/useGameSound";
-import { GameSounds } from "~/hooks/useGameSound/context";
 import { GameParams } from "~/config/params";
+import { useGameSound } from "~/hooks/useGameSound";
 
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { FlagLabel } from "./components/FlagLabel";
 import { FieldLabel } from "./components/FieldLabel";
@@ -33,7 +32,7 @@ export function Home() {
 
   function labelColorsRandom() {
     const newColorLabel = () => setLabelColor(ThemeUtils.randomColor());
-    setInterval(newColorLabel, 800);
+    setInterval(newColorLabel, GameParams.getSecond(0.8));
   }
 
   function FieldDecoration(): JSX.Element {
@@ -43,11 +42,10 @@ export function Home() {
   }
 
   function handlePressStart() {
+    const action = () => NavigationHook.navigate("Game");
     GameSoundHook.stopSound();
 
-    setTimeout(() => {
-      NavigationHook.navigate("Game");
-    }, 600);
+    setTimeout(action, GameParams.getSecond(0.6));
   }
 
   function handlePressOptions() {
