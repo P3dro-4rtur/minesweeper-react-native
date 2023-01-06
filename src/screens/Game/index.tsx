@@ -10,6 +10,7 @@ import { MineField } from "./components/MineField";
 import { WonGameModal } from "./components/WonGameModal";
 import { SelectLevelModal } from "./components/SelectLevelModal";
 import { Container, MineFieldContainer } from "./styles";
+import { ActionsTimer } from "~/components/Timer";
 
 export const Game: React.FC = () => {
   const [appIsLoading, setAppIsLoading] = useState<boolean>(true);
@@ -17,15 +18,19 @@ export const Game: React.FC = () => {
   const [gameFlags, setGameFlags] = useState<number>(0);
   const [gameResult, setGameResult] = useState<GameResults>(GameResults.none);
 
+  const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
+    GameParams.difficultLevelDefault
+  );
+
+  const [actionsTimer, setActionsTimer] = useState<ActionsTimer>(
+    ActionsTimer.stop
+  );
+
   const [isWonGameModalVisible, setWonGameModalVisible] =
     useState<boolean>(false);
 
   const [isSelectLevelModalVisible, setIsSelectLevelModalVisible] =
     useState<boolean>(true);
-
-  const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
-    GameParams.difficultLevelDefault
-  );
 
   const GameSoundHook = useGameSound();
 
@@ -39,7 +44,8 @@ export const Game: React.FC = () => {
 
     setGameBoard(board);
     setGameResult(GameResults.none);
-    GameSoundHook.selectorPlaySoundByDifficult(difficult ?? gameDifficult);
+    GameSoundHook.selectorPlaySoundByDifficult(difficult || gameDifficult);
+    setActionsTimer(ActionsTimer.start);
   }
 
   function onPlayerWonGame() {
@@ -57,10 +63,9 @@ export const Game: React.FC = () => {
   }
 
   function onPlayerLoseGame() {
-    GameSoundHook.playSound(GameSounds.lose);
-    console.log(`${GameResults.lose} - Que burro! Você perdeu!`);
-
+    setActionsTimer(ActionsTimer.pause);
     setGameResult(GameResults.lose);
+    GameSoundHook.playSound(GameSounds.lose);
   }
 
   function closeAppLoading() {
@@ -135,6 +140,7 @@ export const Game: React.FC = () => {
     <React.Fragment>
       <Container>
         <Header
+          actionsTimer={actionsTimer}
           amountFlags={gameFlags}
           actionStart={handleStartNewGame}
           actionSelectLevel={() => setIsSelectLevelModalVisible(true)}

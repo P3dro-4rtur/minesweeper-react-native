@@ -26,7 +26,7 @@ export const ButtonFlag = styled.TouchableOpacity`
 
 export const ButtonFlagLabel = styled.Text`
   top: ${RFValue(35)}px;
-  right: ${RFValue(20)}px;
+  right: ${RFValue(10)}px;
 
   font-size: ${RFValue(15)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
@@ -36,6 +36,7 @@ export const ButtonFlagLabel = styled.Text`
 
 export const Wrapper = styled.View`
   flex-direction: column;
+  left: ${RFValue(10)}px;
 `;
 
 export const AmountFlags = styled.Text`
@@ -56,4 +57,8 @@ export const ButtonStartLabel = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   color: ${({ theme }) => theme.colors.gray_light_200};
+`;
+
+export const TimerContainer = styled.View`
+  right: ${RFValue(5)}px;
 `;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Flag } from "~/components/Flag";
-import { Countdown } from "~/components/Countdown";
+import { GameTimer } from "~/components/Timer";
+import { ActionsTimer } from "~/components/Timer";
 import {
   Container,
   ButtonFlag,
@@ -9,16 +10,37 @@ import {
   ButtonStartLabel,
   AmountFlags,
   Wrapper,
+  TimerContainer,
 } from "./styles";
 
 interface HeaderProps {
   amountFlags: number;
   actionStart: () => void;
   actionSelectLevel: () => void;
+  actionsTimer: ActionsTimer;
 }
 
 export function Header(props: HeaderProps) {
-  const { amountFlags = 0, actionStart, actionSelectLevel } = props;
+  const {
+    amountFlags = 0,
+    actionStart,
+    actionSelectLevel,
+    actionsTimer,
+  } = props;
+
+  function labelsButton() {
+    switch (actionsTimer) {
+      case ActionsTimer.start:
+        return "RESTART GAME";
+      case ActionsTimer.pause:
+        return "START NEW GAME";
+      case ActionsTimer.stop:
+        return "RESTART GAME";
+
+      default:
+        return "START NEW GAME";
+    }
+  }
 
   return (
     <Container>
@@ -30,10 +52,12 @@ export function Header(props: HeaderProps) {
         <AmountFlags> = {amountFlags}</AmountFlags>
       </ButtonFlag>
 
-      {/*  <Countdown /> */}
+      <TimerContainer>
+        <GameTimer actionsTimer={actionsTimer} />
+      </TimerContainer>
 
       <ButtonStart onPress={actionStart}>
-        <ButtonStartLabel>START NEW GAME</ButtonStartLabel>
+        <ButtonStartLabel>{labelsButton()}</ButtonStartLabel>
       </ButtonStart>
     </Container>
   );
