@@ -34,6 +34,11 @@ export const Game: React.FC = () => {
 
   const GameSoundHook = useGameSound();
 
+  function onCloseAppLoading() {
+    const action = () => setAppIsLoading(false);
+    setTimeout(action, 2000);
+  }
+
   function initGame(difficult?: GameDifficult) {
     const columns = GameParams.getColumnsAmount();
     const rows = GameParams.getRowsAmount();
@@ -49,6 +54,7 @@ export const Game: React.FC = () => {
   function handleRestartOrStartNewGame() {
     setActionsTimer(ActionsTimer.stop);
     setTimeout(() => initGame(gameDifficult), 1500);
+    setAppIsLoading(true);
   }
 
   function onPlayerWonGame() {
@@ -79,11 +85,6 @@ export const Game: React.FC = () => {
     const flagsUsed = GameLogic.amountFlagsUsed(board);
 
     setGameFlags(minesAmount - flagsUsed);
-  }
-
-  function closeAppLoading() {
-    const action = () => setAppIsLoading(false);
-    setTimeout(action, 2000);
   }
 
   function handleOpenField(row: number, column: number) {
@@ -132,8 +133,10 @@ export const Game: React.FC = () => {
   }, [gameBoard]);
 
   useEffect(() => {
-    closeAppLoading();
-  }, []);
+    if (appIsLoading) {
+      onCloseAppLoading();
+    }
+  }, [appIsLoading]);
 
   if (appIsLoading) return <LoadAnimated />;
 
