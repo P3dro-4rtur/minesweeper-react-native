@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import theme from "~/theme";
-import { ThemeUtils } from "~/theme/utils";
+import theme from "@theme/index";
+import { ThemeUtils } from "@theme/utils";
 
 import { GameParams } from "~/config/params";
 import { useGameSound } from "~/hooks/useGameSound";
 
 import { useNavigation } from "@react-navigation/native";
 
-import { FlagLabel } from "./components/FlagLabel";
-import { FieldLabel } from "./components/FieldLabel";
-import { OptionButton } from "~/components/OptionButton";
+import { OptionButton } from "@components/index";
+import { FlagLabel, FieldLabel } from "./components/index";
 
 import {
   Container,

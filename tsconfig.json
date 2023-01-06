@@ -7,13 +7,12 @@
     "paths": {
       "~/*": ["./src/*"],
       "@assets/*": ["./src/assets/*"],
-      "@routes/*": ["./src/routes/*"],
       "@components/*": ["./src/components/*"],
+      "@config/*": ["./src/config/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@routes/*": ["./src/routes/*"],
       "@screens/*": ["./src/screens/*"],
-      "@theme/*": ["./src/theme/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@storage/*": ["./src/storage/*"],
-      "@config/*": ["./src/config/*"]
+      "@theme/*": ["./src/theme/*"]
     }
   }
 }
