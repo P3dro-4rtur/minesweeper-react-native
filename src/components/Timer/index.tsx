@@ -29,10 +29,11 @@ function Timer({ actionsTimer }: TimerProps) {
     const minutesLabel = String(minutes).padStart(2, "0");
     const Label = `\b\b\b\b${minutesLabel}\b:\b${secondsLabel}`;
 
-    if (
+    const condition =
       actionsTimer === ActionsTimer.start ||
-      actionsTimer === ActionsTimer.pause
-    ) {
+      actionsTimer === ActionsTimer.pause;
+
+    if (condition) {
       return <CountLabel>{Label}</CountLabel>;
     }
 

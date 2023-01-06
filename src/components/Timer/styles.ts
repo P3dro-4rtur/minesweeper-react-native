@@ -25,17 +25,17 @@ export const Container = styled.View`
 `;
 export const BackgroundLabel = styled.Text`
   position: absolute;
+
   font-size: ${RFValue(20)}px;
   font-family: ${({ theme }) => theme.fontFamily.countdown_Bold};
-
   color: ${({ theme }) => theme.colors.red_500_opacity};
 `;
 
 export const CountLabel = styled.Text`
   position: absolute;
   right: ${RFValue(15)}px;
+
   font-size: ${RFValue(19)}px;
   font-family: ${({ theme }) => theme.fontFamily.countdown_Bold};
-
   color: ${({ theme }) => theme.colors.red_500};
 `;
