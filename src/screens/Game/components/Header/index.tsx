@@ -18,6 +18,7 @@ interface HeaderProps {
   actionStart: () => void;
   actionSelectLevel: () => void;
   actionsTimer: ActionsTimer;
+  getTime: (seconds: number) => void;
 }
 
 export function Header(props: HeaderProps) {
@@ -26,6 +27,7 @@ export function Header(props: HeaderProps) {
     actionStart,
     actionSelectLevel,
     actionsTimer,
+    getTime,
   } = props;
 
   function labelsButton() {
@@ -53,7 +55,10 @@ export function Header(props: HeaderProps) {
       </ButtonFlag>
 
       <TimerContainer>
-        <GameTimer actionsTimer={actionsTimer} />
+        <GameTimer
+          actionsTimer={actionsTimer}
+          getTime={(seconds) => getTime(seconds)}
+        />
       </TimerContainer>
 
       <ButtonStart onPress={actionStart}>

@@ -9,19 +9,24 @@ export enum ActionsTimer {
 
 interface TimerProps {
   actionsTimer: ActionsTimer;
+  getTime: (seconds: number) => void;
 }
 
-function Timer({ actionsTimer }: TimerProps) {
+function Timer({ actionsTimer, getTime }: TimerProps) {
   const initialSeconds = 0;
-
   const [secondsAmount, setSecondsAmount] = useState(initialSeconds);
-  const minutes = Math.floor(secondsAmount / 60);
+
   const seconds = secondsAmount % 60;
+  const minutes = Math.floor(secondsAmount / 60);
 
   function startCount() {
     setTimeout(() => {
       setSecondsAmount((seconds) => seconds + 1);
     }, 1000);
+  }
+
+  function sharedSecondsAmount() {
+    getTime(secondsAmount);
   }
 
   function TimerLabel(): JSX.Element | null {
@@ -70,6 +75,10 @@ function Timer({ actionsTimer }: TimerProps) {
   useEffect(() => {
     actionsController();
   }, [actionsTimer, secondsAmount]);
+
+  useEffect(() => {
+    sharedSecondsAmount();
+  }, [secondsAmount]);
 
   return (
     <Container>

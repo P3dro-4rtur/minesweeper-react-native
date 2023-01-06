@@ -8,12 +8,14 @@ import { AppProvider } from "~/hooks/provider";
 import { LoadAnimated } from "~/components/LoadAnimated";
 import { ThemeProvider } from "styled-components/native";
 import theme from "~/theme";
+
 import {
   useFonts,
   ChakraPetch_400Regular,
   ChakraPetch_500Medium,
   ChakraPetch_700Bold,
 } from "@expo-google-fonts/chakra-petch";
+
 import {
   Orbitron_400Regular,
   Orbitron_500Medium,

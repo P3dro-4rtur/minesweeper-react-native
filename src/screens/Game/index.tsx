@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BackHandler } from "react-native";
 import { Board } from "@config/types&interfaces/";
 import { GameParams, GameResults, GameDifficult } from "~/config/params";
 import { GameLogic } from "~/config/logic";
@@ -87,6 +88,13 @@ export const Game: React.FC = () => {
     setGameFlags(minesAmount - flagsUsed);
   }
 
+  function disableHardwareBackButton() {
+    BackHandler.addEventListener("hardwareBackPress", () => true);
+
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", () => true);
+  }
+
   function handleSelectDifficult(difficult: GameDifficult) {
     const playerIsAlreadyInGame = actionsTimer === ActionsTimer.start;
 
@@ -128,16 +136,16 @@ export const Game: React.FC = () => {
   }
 
   useEffect(() => {
-    if (gameBoard) {
-      gameFlagsController();
-    }
-  }, [gameBoard]);
+    disableHardwareBackButton();
+  }, []);
 
   useEffect(() => {
-    if (appIsLoading) {
-      onCloseAppLoading();
-    }
+    if (appIsLoading) onCloseAppLoading();
   }, [appIsLoading]);
+
+  useEffect(() => {
+    if (gameBoard) gameFlagsController();
+  }, [gameBoard]);
 
   if (appIsLoading) return <LoadAnimated />;
 
@@ -147,6 +155,7 @@ export const Game: React.FC = () => {
         <Header
           amountFlags={gameFlags}
           actionsTimer={actionsTimer}
+          getTime={(seconds) => console.log(seconds)}
           actionStart={() => handleRestartOrStartNewGame(gameDifficult)}
           actionSelectLevel={() => setIsSelectLevelModalVisible(true)}
         />

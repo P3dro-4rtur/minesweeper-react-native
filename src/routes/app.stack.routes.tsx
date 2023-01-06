@@ -11,6 +11,7 @@ export function AppStackRoutes() {
     initialRouteName: "Home",
     screenOptions: {
       headerShown: false,
+      gestureEnabled: false,
     },
   };
 
