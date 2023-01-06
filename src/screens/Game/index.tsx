@@ -35,37 +35,50 @@ export const Game: React.FC = () => {
   const GameSoundHook = useGameSound();
 
   function initGame(difficult?: GameDifficult) {
-    GameSoundHook.stopSound();
-
     const columns = GameParams.getColumnsAmount();
     const rows = GameParams.getRowsAmount();
     const minesAmount = GameLogic.minesAmount(rows, columns, gameDifficult);
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
-
+    GameSoundHook.stopSound();
     setGameBoard(board);
     setGameResult(GameResults.none);
     GameSoundHook.selectorPlaySoundByDifficult(difficult || gameDifficult);
     setActionsTimer(ActionsTimer.start);
   }
 
+  function handleRestartOrStartNewGame() {
+    setActionsTimer(ActionsTimer.stop);
+    setTimeout(() => initGame(gameDifficult), 1500);
+  }
+
   function onPlayerWonGame() {
-    GameSoundHook.playSound(GameSounds.won);
-    setGameResult(GameResults.won);
-    setWonGameModalVisible(true);
+    GameSoundHook.stopSound();
 
-    const showModalWonGame = () => setWonGameModalVisible(true);
-
-    setTimeout(showModalWonGame, 2500);
-  }
-
-  function winnerPressContinue() {
-    setWonGameModalVisible(false);
-  }
-
-  function onPlayerLoseGame() {
     setActionsTimer(ActionsTimer.pause);
-    setGameResult(GameResults.lose);
+    setWonGameModalVisible(true);
+    setGameResult(GameResults.won);
+    GameSoundHook.playSound(GameSounds.won);
+
+    setTimeout(() => setWonGameModalVisible(true), 2500);
+  }
+
+  function onPlayerLoseGame(board: Board) {
+    GameSoundHook.stopSound();
+    setActionsTimer(ActionsTimer.pause);
     GameSoundHook.playSound(GameSounds.lose);
+    GameLogic.showMines(board);
+    setGameResult(GameResults.lose);
+  }
+
+  function gameFlagsController() {
+    const board = GameLogic.cloneBoard(gameBoard);
+    const columns = GameParams.getColumnsAmount();
+    const rows = GameParams.getRowsAmount();
+
+    const minesAmount = GameLogic.minesAmount(rows, columns, gameDifficult);
+    const flagsUsed = GameLogic.amountFlagsUsed(board);
+
+    setGameFlags(minesAmount - flagsUsed);
   }
 
   function closeAppLoading() {
@@ -81,27 +94,26 @@ export const Game: React.FC = () => {
     const lose = GameLogic.hadExplosion(board);
 
     if (lose) {
-      GameSoundHook.stopSound();
-      GameLogic.showMines(board);
-      onPlayerLoseGame();
+      onPlayerLoseGame(board);
     }
 
     if (won) {
-      GameSoundHook.stopSound();
       onPlayerWonGame();
     }
 
     setGameBoard(board);
   }
 
-  function handleStartNewGame() {
-    initGame(gameDifficult);
-  }
-
   function handleSelectDifficult(difficult: GameDifficult) {
-    GameSoundHook.stopSound();
+    const playerIsAlreadyInGame = actionsTimer === ActionsTimer.start;
+
     setGameDifficult(difficult);
     setIsSelectLevelModalVisible(false);
+    setActionsTimer(ActionsTimer.stop);
+
+    if (playerIsAlreadyInGame) {
+      return handleRestartOrStartNewGame();
+    }
 
     initGame(difficult);
   }
@@ -113,26 +125,15 @@ export const Game: React.FC = () => {
     setGameBoard(board);
   }
 
-  function gameFlagsController() {
-    const board = GameLogic.cloneBoard(gameBoard);
-    const columns = GameParams.getColumnsAmount();
-    const rows = GameParams.getRowsAmount();
-
-    const minesAmount = GameLogic.minesAmount(rows, columns, gameDifficult);
-    const flagsUsed = GameLogic.amountFlagsUsed(board);
-
-    setGameFlags(minesAmount - flagsUsed);
-  }
-
-  useEffect(() => {
-    closeAppLoading();
-  }, []);
-
   useEffect(() => {
     if (gameBoard) {
       gameFlagsController();
     }
   }, [gameBoard]);
+
+  useEffect(() => {
+    closeAppLoading();
+  }, []);
 
   if (appIsLoading) return <LoadAnimated />;
 
@@ -140,30 +141,30 @@ export const Game: React.FC = () => {
     <React.Fragment>
       <Container>
         <Header
-          actionsTimer={actionsTimer}
           amountFlags={gameFlags}
-          actionStart={handleStartNewGame}
+          actionsTimer={actionsTimer}
+          actionStart={handleRestartOrStartNewGame}
           actionSelectLevel={() => setIsSelectLevelModalVisible(true)}
         />
         <MineFieldContainer>
           <MineField
             board={gameBoard}
-            onOpenField={(row, column) => handleOpenField(row, column)}
-            onSetFlag={(row, column) => handleSetFlag(row, column)}
             disableFields={gameResult !== GameResults.none}
+            onSetFlag={(row, column) => handleSetFlag(row, column)}
+            onOpenField={(row, column) => handleOpenField(row, column)}
           />
         </MineFieldContainer>
       </Container>
+
       <SelectLevelModal
         actualDifficultLevel={gameDifficult}
         isVisible={isSelectLevelModalVisible}
         onSelectAction={handleSelectDifficult}
         onClose={() => setIsSelectLevelModalVisible(false)}
       />
-
       <WonGameModal
         isVisible={isWonGameModalVisible}
-        onClose={winnerPressContinue}
+        onClose={() => setWonGameModalVisible(false)}
       />
     </React.Fragment>
   );
