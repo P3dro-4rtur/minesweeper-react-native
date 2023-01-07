@@ -21,6 +21,7 @@ export default {
     orange: "#F26337",
 
     pink_500: "#F221A9",
+    pink_500_opacity: "rgba(242, 33, 169, 0.2)",
 
     red_400: "#F22",
     red_500: "#F9060A",

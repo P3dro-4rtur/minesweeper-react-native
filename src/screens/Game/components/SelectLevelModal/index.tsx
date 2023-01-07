@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { GameDifficult } from "~/config/params";
 import {
   Modal,
@@ -28,6 +28,8 @@ interface ButtonLevel {
 
 export const SelectLevelModal: React.FC<ModalProps> = (props) => {
   const { isVisible, onSelectAction, onClose, actualDifficultLevel } = props;
+  const [buttonPressed, setButtonPressed] = useState<boolean>(false);
+  const [idSelected, setIdSelected] = useState<string>("");
 
   const ButtonsLevel: ButtonLevel[] = [
     {
@@ -62,6 +64,19 @@ export const SelectLevelModal: React.FC<ModalProps> = (props) => {
     },
   ];
 
+  function toggleButtonPressed(id?: string) {
+    setIdSelected(id ?? "");
+    setButtonPressed((actualState) => !actualState);
+  }
+
+  function label(level: string) {
+    if (level === "VeryHard") {
+      return "Very Hard";
+    }
+
+    return level;
+  }
+
   return (
     <Modal
       isVisible={isVisible}
@@ -73,20 +88,21 @@ export const SelectLevelModal: React.FC<ModalProps> = (props) => {
     >
       <Container>
         <ButtonClose onPress={onClose}>
-          <ButtonCloseLabel>X</ButtonCloseLabel>
+          <ButtonCloseLabel>x</ButtonCloseLabel>
         </ButtonClose>
 
-        <Title>SELECT LEVEL</Title>
+        <Title>select level</Title>
         <LevelOptions>
           {ButtonsLevel.map(({ id, difficult, level, onPress }) => (
             <ButtonLevel
-              isSelected={actualDifficultLevel === difficult}
               key={id}
-              onPress={onPress}
+              activeOpacity={0.8}
+              isActive={id === idSelected}
+              onPressIn={() => toggleButtonPressed(id)}
+              onPressOut={() => [toggleButtonPressed(), onPress()]}
+              isSelected={actualDifficultLevel === difficult}
             >
-              <LabelLevel level={level}>
-                {level === "VeryHard" ? "Very Hard" : level}
-              </LabelLevel>
+              <LabelLevel level={level}>{label(level)}</LabelLevel>
             </ButtonLevel>
           ))}
         </LevelOptions>

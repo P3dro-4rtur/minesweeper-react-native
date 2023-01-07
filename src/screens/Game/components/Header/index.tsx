@@ -68,7 +68,7 @@ export function Header(props: HeaderProps) {
         />
       </TimerContainer>
 
-      <ButtonStart onPress={actionStart}>
+      <ButtonStart onPressOut={actionStart}>
         <ButtonStartLabel>{labelsButton()}</ButtonStartLabel>
       </ButtonStart>
     </Container>

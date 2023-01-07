@@ -11,6 +11,7 @@ interface ColorsByDifficultLevel {
 
 interface ButtonLevelProps {
   isSelected: boolean;
+  isActive: boolean;
 }
 
 const colors = {
@@ -32,6 +33,8 @@ export const ButtonCloseLabel = styled.Text`
 
   left: ${RFPercentage(19)}px;
   bottom: ${RFPercentage(4)}px;
+
+  text-transform: uppercase;
 
   font-size: ${RFValue(22)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_medium};
@@ -57,6 +60,8 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
+  text-transform: uppercase;
+
   font-size: ${RFValue(20)}px;
 
   ${({ theme }) => css`
@@ -73,8 +78,20 @@ export const ButtonLevel = styled.TouchableOpacity<ButtonLevelProps>`
   align-items: center;
   width: ${RFValue(300)}px;
 
-  background-color: ${({ isSelected, theme }) =>
-    isSelected && theme.colors.selector};
+  ${({ theme, isActive, isSelected }) => {
+    if (isActive && !isSelected) {
+      return css`
+        background-color: ${theme.colors.pink_500_opacity};
+      `;
+    }
+
+    if (isSelected) {
+      return css`
+        background-color: ${theme.colors.selector};
+      `;
+    }
+  }}/*   background-color: ${({ isSelected, theme }) =>
+    isSelected && theme.colors.selector}; */
 `;
 
 export const LabelLevel = styled.Text<ColorsByDifficultLevel>`

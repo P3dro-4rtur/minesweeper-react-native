@@ -33,8 +33,6 @@ export const Game: React.FC = () => {
     ActionsTimer.none
   );
 
-  console.log(actionsTimer);
-
   const [isWonGameModalVisible, setWonGameModalVisible] =
     useState<boolean>(false);
 
@@ -76,8 +74,8 @@ export const Game: React.FC = () => {
 
   function onPlayerLoseGame(board: Board) {
     GameSoundHook.stopSound();
-    setActionsTimer(ActionsTimer.pause);
     GameSoundHook.playSound(GameSounds.lose);
+    setActionsTimer(ActionsTimer.pause);
     GameLogic.showMines(board);
     setGameResult(GameResults.lose);
   }
@@ -152,14 +150,8 @@ export const Game: React.FC = () => {
     setGameBoard(board);
   }
 
-  useEffect(() => {
-    disableHardwareBackButton();
-  }, []);
-
-  useEffect(() => {
-    if (gameBoard) gameFlagsController();
-  }, [gameBoard]);
-
+  useEffect(() => disableHardwareBackButton(), []);
+  useEffect(() => gameBoard && gameFlagsController(), [gameBoard]);
   useEffect(() => {
     if (appIsLoading) onCloseAppLoading();
   }, [appIsLoading]);
