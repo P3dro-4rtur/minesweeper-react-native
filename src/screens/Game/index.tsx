@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { BackHandler } from "react-native";
 
 import { Board } from "@config/types&interfaces/";
-import { GameLogic } from "~/config/logic";
+import { GameLogic } from "@config/logic";
 import { GameParams, GameResults, GameDifficult } from "~/config/params";
 
 import { useGameSound } from "~/hooks/useGameSound";
 import { GameSounds } from "~/hooks/useGameSound/context";
 
 import { LoadAnimated } from "@components/index";
-import { ActionsTimer } from "~/components/Timer";
+import { ActionsTimer } from "@components/Timer";
 
 import {
   Header,
@@ -26,7 +26,7 @@ export const Game: React.FC = () => {
   const [gameResult, setGameResult] = useState<GameResults>(GameResults.none);
 
   const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
-    GameParams.difficultLevelDefault
+    GameDifficult.none
   );
 
   const [actionsTimer, setActionsTimer] = useState<ActionsTimer>(
@@ -41,37 +41,35 @@ export const Game: React.FC = () => {
 
   const GameSoundHook = useGameSound();
 
-  function initGame(difficult?: GameDifficult) {
+  function initGame(difficult: GameDifficult) {
     const columns = GameParams.getColumnsAmount();
     const rows = GameParams.getRowsAmount();
-    const minesAmount = GameLogic.minesAmount(rows, columns, gameDifficult);
+    const minesAmount = GameLogic.minesAmount(rows, columns, difficult);
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
 
     GameSoundHook.stopSound();
     setGameBoard(board);
     setGameResult(GameResults.none);
     setActionsTimer(ActionsTimer.start);
-    GameSoundHook.selectorPlaySoundByDifficult(difficult || gameDifficult);
+    GameSoundHook.selectorPlaySoundByDifficult(difficult);
   }
 
   function handleRestartOrStartNewGame(difficult: GameDifficult) {
+    const callback = () => initGame(difficult || gameDifficult);
+
+    setTimeout(callback, GameParams.getSecond(2));
+
     setActionsTimer(ActionsTimer.stop);
-    setTimeout(
-      () => initGame(difficult || gameDifficult),
-      GameParams.getSecond(1.5)
-    );
     setAppIsLoading(true);
   }
 
   function onPlayerWonGame() {
-    GameSoundHook.stopSound();
-
-    setActionsTimer(ActionsTimer.pause);
-    setWonGameModalVisible(true);
     setGameResult(GameResults.won);
+    setActionsTimer(ActionsTimer.pause);
+    GameSoundHook.stopSound();
     GameSoundHook.playSound(GameSounds.won);
 
-    setTimeout(() => setWonGameModalVisible(true), GameParams.getSecond(2.5));
+    setTimeout(() => setWonGameModalVisible(true), GameParams.second);
   }
 
   function onPlayerLoseGame(board: Board) {
@@ -107,7 +105,7 @@ export const Game: React.FC = () => {
 
   function onCloseAppLoading() {
     const action = () => setAppIsLoading(false);
-    setTimeout(action, GameParams.getSecond(2));
+    setTimeout(action, GameParams.getSecond(3));
   }
 
   function handleSelectDifficult(difficult: GameDifficult) {
@@ -156,14 +154,14 @@ export const Game: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (appIsLoading) onCloseAppLoading();
-  }, [appIsLoading]);
-
-  useEffect(() => {
     if (gameBoard) gameFlagsController();
   }, [gameBoard]);
 
-  if (appIsLoading) return <LoadAnimated />;
+  useEffect(() => {
+    if (appIsLoading) onCloseAppLoading();
+  }, [appIsLoading]);
+
+  if (appIsLoading) return <LoadAnimated showLabel />;
 
   return (
     <React.Fragment>
@@ -186,10 +184,12 @@ export const Game: React.FC = () => {
       </Container>
 
       <SelectLevelModal
-        actualDifficultLevel={gameDifficult}
         isVisible={isSelectLevelModalVisible}
-        onSelectAction={handleSelectDifficult}
+        actualDifficultLevel={gameDifficult}
         onClose={() => setIsSelectLevelModalVisible(false)}
+        onSelectAction={(difficultSelected) =>
+          handleSelectDifficult(difficultSelected)
+        }
       />
       <WonGameModal
         isVisible={isWonGameModalVisible}

@@ -27,7 +27,7 @@ export function WonGameModal({ isVisible, onClose }: Props) {
       onSwipeComplete={onClose}
       onBackdropPress={onClose}
       onBackButtonPress={onClose}
-      animationIn="lightSpeedIn"
+      animationIn="jello"
     >
       <Container>
         <LabelContainer>

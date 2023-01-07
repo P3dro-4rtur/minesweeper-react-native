@@ -54,7 +54,7 @@ export default function App() {
     startApp();
   }, []);
 
-  if (!fontsLoaded || isLoading) return <LoadAnimated />;
+  if (!fontsLoaded || isLoading) return <LoadAnimated showLabel={true} />;
 
   return (
     <ThemeProvider theme={theme}>

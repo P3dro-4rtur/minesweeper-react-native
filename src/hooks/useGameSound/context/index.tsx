@@ -25,6 +25,7 @@ enum GameSounds {
 
 interface GameSoundContextData {
   gameSound: Audio.Sound | undefined;
+  soundSelected: GameSounds | undefined;
   playSound: (sound: GameSounds) => Promise<void>;
   pauseSound: () => Promise<void>;
   stopSound: () => Promise<void>;
@@ -45,10 +46,12 @@ const GameSoundContext = createContext<GameSoundContextData>(initialState);
 
 function GameSoundProvider({ children }: GameSoundProviderProps) {
   const [gameSound, setGameSound] = useState<Audio.Sound>();
+  const [soundSelected, setSoundSelected] = useState<GameSounds>();
   const [muteModeIsActive, setMuteModeIsActive] = useState(false);
 
   const contextValueData = {
     gameSound,
+    soundSelected,
     playSound,
     pauseSound,
     stopSound,
@@ -62,17 +65,10 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
   async function playSound(soundSelected: GameSounds = GameSounds.theme) {
     if (muteModeIsActive) return;
 
-    const condition =
-      soundSelected === GameSounds.lose || soundSelected === GameSounds.won;
-
     const { sound } = await Audio.Sound.createAsync(soundSelected);
-
     setGameSound(sound);
+    setSoundSelected(soundSelected);
     await sound.playAsync();
-
-    if (condition) {
-      await sound.setIsLoopingAsync(false);
-    }
   }
 
   async function pauseSound() {
@@ -143,6 +139,19 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
 
     controllerSoundGame();
   }, [muteModeIsActive]);
+
+  React.useEffect(() => {
+    function controllerLoop() {
+      const condition =
+        soundSelected === GameSounds.lose || soundSelected === GameSounds.won;
+
+      if (condition) {
+        gameSound?.setIsLoopingAsync(false);
+      }
+    }
+
+    controllerLoop();
+  }, [soundSelected]);
 
   return (
     <GameSoundContext.Provider value={contextValueData}>

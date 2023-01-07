@@ -20,7 +20,7 @@ import {
   DecorationContainer,
 } from "./styles";
 
-export function Home() {
+export const Home: React.FC = () => {
   const [labelColor, setLabelColor] = useState<string>(theme.colors.white);
   const GameSoundHook = useGameSound();
   const NavigationHook = useNavigation();
@@ -76,4 +76,4 @@ export function Home() {
       </Options>
     </Container>
   );
-}
+};
