@@ -55,10 +55,9 @@ export const Game: React.FC = () => {
   }
 
   function handleRestartOrStartNewGame(difficult: GameDifficult) {
-    const callback = () => initGame(difficult || gameDifficult);
+    const init = initGame(difficult || gameDifficult);
 
-    setTimeout(callback, GameParams.getSecond(2));
-
+    setTimeout(() => init, GameParams.getSecond(2));
     setActionsTimer(ActionsTimer.stop);
     setAppIsLoading(true);
   }
@@ -87,8 +86,9 @@ export const Game: React.FC = () => {
 
     const minesAmount = GameLogic.minesAmount(rows, columns, gameDifficult);
     const flagsUsed = GameLogic.amountFlagsUsed(board);
+    const howManyFlagsPlayerHave = minesAmount - flagsUsed;
 
-    setGameFlags(minesAmount - flagsUsed);
+    setGameFlags(howManyFlagsPlayerHave);
   }
 
   function getTimeGame(seconds: number) {

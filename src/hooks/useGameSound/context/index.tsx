@@ -1,7 +1,7 @@
 import React, { createContext, useState, ReactNode } from "react";
 import { Audio } from "expo-av";
 
-import { GameDifficult } from "~/config/params";
+import { GameDifficult, GameParams } from "~/config/params";
 
 import themeSound from "~/assets/sounds/theme.mp3";
 import wonSound from "~/assets/sounds/won-game.mp3";
@@ -66,8 +66,10 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
     if (muteModeIsActive) return;
 
     const { sound } = await Audio.Sound.createAsync(soundSelected);
+
     setGameSound(sound);
     setSoundSelected(soundSelected);
+
     await sound.playAsync();
   }
 
@@ -127,12 +129,18 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
       }
 
       if (!muteModeIsActive && !gameSound) {
-        playSound(GameSounds.theme);
+        setTimeout(
+          () => playSound(GameSounds.theme),
+          GameParams.getSecond(0.5)
+        );
         return;
       }
 
       if (!muteModeIsActive && !!gameSound) {
-        playSound(GameSounds.theme);
+        setTimeout(
+          () => playSound(GameSounds.theme),
+          GameParams.getSecond(0.5)
+        );
         return;
       }
     }
@@ -147,6 +155,10 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
 
       if (condition) {
         gameSound?.setIsLoopingAsync(false);
+      }
+
+      if (!condition) {
+        gameSound?.setIsLoopingAsync(true);
       }
     }
 
