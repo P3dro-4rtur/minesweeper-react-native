@@ -8,7 +8,7 @@ import { useGameSound } from "~/hooks/useGameSound";
 
 import { useNavigation } from "@react-navigation/native";
 
-import { OptionButton } from "@components/index";
+import { LoadAnimated, OptionButton } from "@components/index";
 import { FlagLabel, FieldLabel } from "./components/index";
 
 import {
@@ -21,11 +21,13 @@ import {
 } from "./styles";
 
 export const Home: React.FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [labelColor, setLabelColor] = useState<string>(theme.colors.white);
   const GameSoundHook = useGameSound();
   const NavigationHook = useNavigation();
 
   function startHome() {
+    setTimeout(() => setIsLoading(false), GameParams.getSecond(2));
     labelColorsRandom();
   }
 
@@ -55,9 +57,9 @@ export const Home: React.FC = () => {
     GameSoundHook.toggleIsMuteModeActive();
   }
 
-  useEffect(() => {
-    startHome();
-  }, []);
+  useEffect(() => startHome(), []);
+
+  if (isLoading) return <LoadAnimated showLabel showMessage={false} />;
 
   return (
     <Container>

@@ -33,6 +33,8 @@ export const Game: React.FC = () => {
     ActionsTimer.none
   );
 
+  console.log(actionsTimer);
+
   const [isWonGameModalVisible, setWonGameModalVisible] =
     useState<boolean>(false);
 
@@ -48,16 +50,17 @@ export const Game: React.FC = () => {
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
 
     GameSoundHook.stopSound();
-    setGameBoard(board);
-    setGameResult(GameResults.none);
-    setActionsTimer(ActionsTimer.start);
     GameSoundHook.selectorPlaySoundByDifficult(difficult);
+    setActionsTimer(ActionsTimer.start);
+    setGameResult(GameResults.none);
+    setGameBoard(board);
   }
 
   function handleRestartOrStartNewGame(difficult: GameDifficult) {
-    const init = initGame(difficult || gameDifficult);
-
-    setTimeout(() => init, GameParams.getSecond(2));
+    setTimeout(() => {
+      initGame(difficult || gameDifficult);
+      setActionsTimer(ActionsTimer.start);
+    }, GameParams.getSecond(2));
     setActionsTimer(ActionsTimer.stop);
     setAppIsLoading(true);
   }

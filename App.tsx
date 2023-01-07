@@ -1,14 +1,16 @@
 LogBox.ignoreAllLogs(true);
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar, StatusBarProps, LogBox } from "react-native";
 
 import { Routes } from "~/routes";
 import { AppProvider } from "~/hooks/provider";
 import { GameParams } from "~/config/params";
-import { LoadAnimated } from "~/components/LoadAnimated";
-import { ThemeProvider } from "styled-components/native";
+
+import { SplashScreen } from "~/screens/SplashScreen";
+
 import theme from "~/theme";
+import { ThemeProvider } from "styled-components/native";
 
 import {
   useFonts,
@@ -41,20 +43,14 @@ const statusBarProps: StatusBarProps = {
 };
 
 export default function App() {
-  const [isLoading, setIsLoading] = React.useState(true);
   const [fontsLoaded] = useFonts(fonts);
+  const [appLoaded, setAppLoaded] = useState(false);
 
-  function startApp() {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, GameParams.getSecond(2.5));
-  }
-
-  React.useEffect(() => {
-    startApp();
+  useEffect(() => {
+    setTimeout(() => setAppLoaded(true), GameParams.getSecond(5));
   }, []);
 
-  if (!fontsLoaded || isLoading) return <LoadAnimated showLabel={true} />;
+  if (!fontsLoaded || !appLoaded) return <SplashScreen />;
 
   return (
     <ThemeProvider theme={theme}>

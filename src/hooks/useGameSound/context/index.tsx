@@ -129,18 +129,12 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
       }
 
       if (!muteModeIsActive && !gameSound) {
-        setTimeout(
-          () => playSound(GameSounds.theme),
-          GameParams.getSecond(0.5)
-        );
+        playSound(GameSounds.theme);
         return;
       }
 
       if (!muteModeIsActive && !!gameSound) {
-        setTimeout(
-          () => playSound(GameSounds.theme),
-          GameParams.getSecond(0.5)
-        );
+        playSound(GameSounds.theme);
         return;
       }
     }
