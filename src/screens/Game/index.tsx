@@ -150,11 +150,11 @@ export const Game: React.FC = () => {
     setGameBoard(board);
   }
 
-  //useEffect(() => disableHardwareBackButton(), []);
+  useEffect(() => disableHardwareBackButton(), []);
   useEffect(() => gameBoard && gameFlagsController(), [gameBoard]);
-  // useEffect(() => {
-  //   if (appIsLoading) onCloseAppLoading();
-  // }, [appIsLoading]);
+  useEffect(() => {
+    if (appIsLoading) onCloseAppLoading();
+  }, [appIsLoading]);
 
   if (appIsLoading) return <LoadAnimated showLabel showMessage />;
 
