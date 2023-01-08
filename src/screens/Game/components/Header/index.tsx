@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useTheme } from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
+import { useGameSound } from "~/hooks/useGameSound";
+import { House } from "phosphor-react-native";
 import { Flag, GameTimer } from "~/components/index";
 import { ActionsTimer } from "~/components/Timer";
-import { House } from "phosphor-react-native";
 
 import {
   Container,
@@ -16,8 +18,6 @@ import {
   ButtonHome,
   ButtonHomeLabel,
 } from "./styles";
-import { useNavigation } from "@react-navigation/native";
-import { useGameSound } from "~/hooks/useGameSound";
 
 interface HeaderProps {
   amountFlags: number;
@@ -70,7 +70,7 @@ export function Header(props: HeaderProps) {
 
   return (
     <Container>
-      <ButtonFlag activeOpacity={0.7} onPressOut={actionSelectLevel}>
+      <ButtonFlag activeOpacity={0.5} onPressOut={actionSelectLevel}>
         <Wrapper>
           <Flag type="bigger" />
           <ButtonFlagLabel>select level</ButtonFlagLabel>
@@ -85,12 +85,12 @@ export function Header(props: HeaderProps) {
         />
       </TimerContainer>
 
-      <ButtonHome activeOpacity={0.7} onPressOut={() => handleNavigateHome()}>
+      <ButtonHome activeOpacity={0.5} onPressOut={() => handleNavigateHome()}>
         <ButtonHomeLabel>home</ButtonHomeLabel>
         <House weight="fill" size={30} color={theme.colors.gray_100} />
       </ButtonHome>
 
-      <ButtonStart activeOpacity={0.7} onPressOut={actionStart}>
+      <ButtonStart activeOpacity={0.5} onPressOut={actionStart}>
         <ButtonStartLabel>{labelsButton()}</ButtonStartLabel>
       </ButtonStart>
     </Container>
