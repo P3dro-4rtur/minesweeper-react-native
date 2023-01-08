@@ -22,15 +22,14 @@ interface LoaderProps {
 
 export const LoadAnimated: React.FC<LoaderProps> = (props) => {
   const { showMessage = true, showLabel, showSpinner } = props;
-
   const initialColor = theme.colors.white;
+  const initialMessage = {} as IMessage;
 
-  const [randomShowMessage, setRandomShowMessage] = useState(false);
-  const [messageSelected, setMessageSelected] = useState<IMessage>(
-    {} as IMessage
-  );
-  const [loadingLabelColor, setLoadingLabelColor] = useState(initialColor);
   const [ellipsis, setEllipsis] = useState("");
+  const [randomShowMessage, setRandomShowMessage] = useState(false);
+  const [loadingLabelColor, setLoadingLabelColor] = useState(initialColor);
+  const [messageSelected, setMessageSelected] =
+    useState<IMessage>(initialMessage);
 
   function startLoad() {
     const randomShow = Boolean(Math.round(Math.random()));
@@ -43,7 +42,7 @@ export const LoadAnimated: React.FC<LoaderProps> = (props) => {
     setInterval(() => {
       infinityRandomColorsLabel();
       ellipsisAnimated();
-    }, GameParams.getSecond(0.7));
+    }, GameParams.getSecond(0.6));
   }
 
   function infinityRandomColorsLabel() {

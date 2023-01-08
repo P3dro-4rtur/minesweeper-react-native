@@ -27,7 +27,7 @@ export const Home: React.FC = () => {
   const NavigationHook = useNavigation();
 
   function startHome() {
-    setTimeout(() => setIsLoading(false), GameParams.getSecond(3));
+    setTimeout(() => setIsLoading(false), GameParams.getSecond(2.5));
     labelColorsRandom();
   }
 
