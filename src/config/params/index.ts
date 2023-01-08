@@ -11,9 +11,9 @@ enum GameDifficult {
   none = 0,
   easy = 0.1,
   medium = 0.2,
-  hard = 0.4,
-  veryHard = 0.5,
-  god = 0.6,
+  hard = 0.3,
+  veryHard = 0.4,
+  god = 0.5,
 }
 
 const totalWidth = Dimensions.get("window").width;

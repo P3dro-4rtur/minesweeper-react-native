@@ -22,12 +22,16 @@ interface LoaderProps {
 
 export const LoadAnimated: React.FC<LoaderProps> = (props) => {
   const { showMessage = true, showLabel, showSpinner } = props;
+
   const initialColor = theme.colors.white;
   const initialMessage = {} as IMessage;
 
-  const [ellipsis, setEllipsis] = useState("");
-  const [randomShowMessage, setRandomShowMessage] = useState(false);
-  const [loadingLabelColor, setLoadingLabelColor] = useState(initialColor);
+  const [ellipsis, setEllipsis] = useState<string>("");
+  const [randomShowMessage, setRandomShowMessage] = useState<boolean>(false);
+
+  const [loadingLabelColor, setLoadingLabelColor] =
+    useState<string>(initialColor);
+
   const [messageSelected, setMessageSelected] =
     useState<IMessage>(initialMessage);
 
@@ -40,12 +44,12 @@ export const LoadAnimated: React.FC<LoaderProps> = (props) => {
     setMessageSelected(message);
 
     setInterval(() => {
-      infinityRandomColorsLabel();
+      randomColorsLabel();
       ellipsisAnimated();
-    }, GameParams.getSecond(0.6));
+    }, GameParams.getSecond(0.8));
   }
 
-  function infinityRandomColorsLabel() {
+  function randomColorsLabel() {
     setLoadingLabelColor(Utils.randomColor());
   }
 
@@ -63,7 +67,7 @@ export const LoadAnimated: React.FC<LoaderProps> = (props) => {
     return (
       <MessageContainer>
         <MessageTitle colorByType={messageSelected.type}>
-          {messageSelected.title}:
+          {messageSelected.title}
         </MessageTitle>
         <Message>{messageSelected.message}</Message>
       </MessageContainer>

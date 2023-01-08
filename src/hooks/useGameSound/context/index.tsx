@@ -26,7 +26,7 @@ enum GameSounds {
 interface GameSoundContextData {
   gameSound: Audio.Sound | undefined;
   soundSelected: GameSounds | undefined;
-  playSound: (sound: GameSounds) => Promise<void>;
+  playSound: (sound?: GameSounds) => Promise<void>;
   pauseSound: () => Promise<void>;
   stopSound: () => Promise<void>;
   muteModeIsActive: boolean;

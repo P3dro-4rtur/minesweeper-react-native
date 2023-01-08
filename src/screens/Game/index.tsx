@@ -26,7 +26,7 @@ export const Game: React.FC = () => {
   const [gameResult, setGameResult] = useState<GameResults>(GameResults.none);
 
   const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
-    GameDifficult.none
+    GameDifficult.medium
   );
 
   const [actionsTimer, setActionsTimer] = useState<ActionsTimer>(
@@ -89,7 +89,9 @@ export const Game: React.FC = () => {
     const flagsUsed = GameLogic.amountFlagsUsed(board);
     const howManyFlagsPlayerHave = minesAmount - flagsUsed;
 
-    setGameFlags(howManyFlagsPlayerHave);
+    if (howManyFlagsPlayerHave >= 0) {
+      setGameFlags(howManyFlagsPlayerHave);
+    }
   }
 
   function getTimeGame(seconds: number) {

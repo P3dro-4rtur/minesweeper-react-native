@@ -21,12 +21,16 @@ export const Container = styled.View`
 export const ButtonFlag = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
-  width: ${RFValue(120)}px;
+
+  width: ${RFValue(110)}px;
+  margin-right: ${RFValue(20)}px;
 `;
 
 export const ButtonFlagLabel = styled.Text`
   top: ${RFValue(35)}px;
   right: ${RFValue(10)}px;
+
+  text-transform: uppercase;
 
   font-size: ${RFValue(15)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
@@ -40,7 +44,7 @@ export const Wrapper = styled.View`
 `;
 
 export const AmountFlags = styled.Text`
-  right: ${RFValue(50)}px;
+  right: ${RFValue(65)}px;
 
   font-size: ${RFValue(20)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
@@ -48,17 +52,43 @@ export const AmountFlags = styled.Text`
   color: ${({ theme }) => theme.colors.gray_light_200};
 `;
 
+export const TimerContainer = styled.View`
+  left: ${RFValue(30)}px;
+`;
+
 export const ButtonStart = styled.TouchableOpacity`
-  top: ${RFValue(18)}px;
+  top: ${RFValue(40)}px;
 `;
 
 export const ButtonStartLabel = styled.Text`
+  text-transform: uppercase;
+
   font-size: ${RFValue(15)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   color: ${({ theme }) => theme.colors.gray_light_200};
 `;
 
-export const TimerContainer = styled.View`
-  right: ${RFValue(5)}px;
+export const ButtonHome = styled.TouchableOpacity`
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: space-between;
+
+  left: ${RFValue(80)}px;
+`;
+
+export const ButtonHomeLabel = styled.Text`
+  text-transform: uppercase;
+
+  top: ${RFValue(2)}px;
+  right: ${RFValue(10)}px;
+
+  padding-left: ${RFValue(10)}px;
+  padding-right: ${RFValue(10)}px;
+
+  font-size: ${RFValue(15)}px;
+  font-family: ${({ theme }) => theme.fontFamily.default_bold};
+
+  color: ${({ theme }) => theme.colors.gray_100};
 `;

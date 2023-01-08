@@ -32,6 +32,7 @@ export default {
     transparent_600: "rgba(0, 0, 0, 0.6)",
 
     yellow_300: "#F2EF21",
+    yellow_300_opacity: "rgba(242, 239, 33, 0.2)",
 
     white: "#FFF",
   },

@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { useTheme } from "styled-components/native";
 import { Flag, GameTimer } from "~/components/index";
 import { ActionsTimer } from "~/components/Timer";
+import { House } from "phosphor-react-native";
+
 import {
   Container,
   ButtonFlag,
@@ -10,7 +13,11 @@ import {
   AmountFlags,
   Wrapper,
   TimerContainer,
+  ButtonHome,
+  ButtonHomeLabel,
 } from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import { useGameSound } from "~/hooks/useGameSound";
 
 interface HeaderProps {
   amountFlags: number;
@@ -29,9 +36,19 @@ export function Header(props: HeaderProps) {
     getTime,
   } = props;
 
+  const theme = useTheme();
+  const GameSoundHook = useGameSound();
+  const NavigationHook = useNavigation();
+
+  function handleNavigateHome() {
+    GameSoundHook.stopSound();
+    GameSoundHook.playSound();
+    NavigationHook.goBack();
+  }
+
   function labelsButton() {
-    const startLabel = "START NEW GAME";
-    const restartLabel = "RESTART GAME";
+    const startLabel = "start new game";
+    const restartLabel = "restart game";
 
     switch (actionsTimer) {
       case ActionsTimer.none:
@@ -53,7 +70,7 @@ export function Header(props: HeaderProps) {
 
   return (
     <Container>
-      <ButtonFlag onPress={actionSelectLevel}>
+      <ButtonFlag activeOpacity={0.7} onPressOut={actionSelectLevel}>
         <Wrapper>
           <Flag type="bigger" />
           <ButtonFlagLabel>select level</ButtonFlagLabel>
@@ -68,7 +85,12 @@ export function Header(props: HeaderProps) {
         />
       </TimerContainer>
 
-      <ButtonStart onPressOut={actionStart}>
+      <ButtonHome activeOpacity={0.7} onPressOut={() => handleNavigateHome()}>
+        <ButtonHomeLabel>home</ButtonHomeLabel>
+        <House weight="fill" size={30} color={theme.colors.gray_100} />
+      </ButtonHome>
+
+      <ButtonStart activeOpacity={0.7} onPressOut={actionStart}>
         <ButtonStartLabel>{labelsButton()}</ButtonStartLabel>
       </ButtonStart>
     </Container>
