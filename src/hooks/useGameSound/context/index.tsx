@@ -46,8 +46,8 @@ const GameSoundContext = createContext<GameSoundContextData>(initialState);
 
 function GameSoundProvider({ children }: GameSoundProviderProps) {
   const [gameSound, setGameSound] = useState<Audio.Sound>();
-  const [soundSelected, setSoundSelected] = useState<GameSounds>();
   const [muteModeIsActive, setMuteModeIsActive] = useState(false);
+  const [soundSelected, setSoundSelected] = useState<GameSounds>();
 
   const contextValueData = {
     gameSound,
@@ -149,15 +149,17 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
 
       if (condition) {
         gameSound?.setIsLoopingAsync(false);
+        return;
       }
 
       if (!condition) {
         gameSound?.setIsLoopingAsync(true);
+        return;
       }
     }
 
     controllerLoop();
-  }, [soundSelected]);
+  }, [soundSelected, gameSound]);
 
   return (
     <GameSoundContext.Provider value={contextValueData}>

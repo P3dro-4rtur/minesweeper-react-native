@@ -46,5 +46,5 @@ export const Separator = styled.View`
   height: ${RFValue(3)}px;
   margin: ${RFValue(10)}px ${RFValue(0)}px;
 
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.gray_400};
 `;
