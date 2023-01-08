@@ -1,7 +1,7 @@
 import React, { createContext, useState, ReactNode } from "react";
 import { Audio } from "expo-av";
 
-import { GameDifficult, GameParams } from "~/config/params";
+import { GameDifficult } from "~/config/params";
 
 import themeSound from "~/assets/sounds/theme.mp3";
 import wonSound from "~/assets/sounds/won-game.mp3";

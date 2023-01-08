@@ -1,6 +1,8 @@
 export interface MinesweeperAppList {
   Home: undefined;
   Game: undefined;
+  Options: undefined;
+  Contact: undefined;
 }
 
 declare global {

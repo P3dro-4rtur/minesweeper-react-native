@@ -37,3 +37,12 @@ export const ButtonText = styled.Text`
 
   color: ${theme.colors.white};
 `;
+
+export const ContactTitle = styled.Text`
+  text-align: left;
+  margin-bottom: ${RFValue(8)}px;
+  line-height: ${RFValue(15)}px;
+  font-size: ${RFValue(15)}px;
+  font-family: ${theme.fontFamily.countdown_medium};
+  color: ${theme.colors.blue_200};
+`;

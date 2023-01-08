@@ -50,7 +50,7 @@ export const Home: React.FC = () => {
   }
 
   function handlePressOptions() {
-    handlePressButtonMute();
+    NavigationHook.navigate("Options");
   }
 
   function handlePressButtonMute() {
