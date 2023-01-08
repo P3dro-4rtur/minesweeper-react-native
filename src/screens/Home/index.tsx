@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BackHandler } from "react-native";
 
 import theme from "@theme/index";
 import { Utils } from "~/utils";
@@ -29,6 +30,7 @@ export const Home: React.FC = () => {
   function startHome() {
     setTimeout(() => setIsLoading(false), GameParams.getSecond(3));
     labelColorsRandom();
+    disableHardwareBackButton();
   }
 
   function labelColorsRandom() {
@@ -55,6 +57,14 @@ export const Home: React.FC = () => {
 
   function handlePressButtonMute() {
     GameSoundHook.toggleIsMuteModeActive();
+  }
+
+  function disableHardwareBackButton() {
+    const hardwareButton = "hardwareBackPress";
+    const callback = () => true;
+
+    BackHandler.addEventListener(hardwareButton, callback);
+    return () => BackHandler.removeEventListener(hardwareButton, callback);
   }
 
   useEffect(() => startHome(), []);
