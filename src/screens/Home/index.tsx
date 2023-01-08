@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import theme from "@theme/index";
-import { ThemeUtils } from "@theme/utils";
+import { Utils } from "~/utils";
 
 import { GameParams } from "~/config/params";
 import { useGameSound } from "~/hooks/useGameSound";
@@ -27,12 +27,12 @@ export const Home: React.FC = () => {
   const NavigationHook = useNavigation();
 
   function startHome() {
-    setTimeout(() => setIsLoading(false), GameParams.getSecond(2));
+    setTimeout(() => setIsLoading(false), GameParams.getSecond(3));
     labelColorsRandom();
   }
 
   function labelColorsRandom() {
-    const newColorLabel = () => setLabelColor(ThemeUtils.randomColor());
+    const newColorLabel = () => setLabelColor(Utils.randomColor());
     setInterval(newColorLabel, GameParams.getSecond(0.8));
   }
 

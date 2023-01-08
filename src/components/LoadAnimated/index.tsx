@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { GameParams } from "~/config/params";
+import { Message as IMessage, messages } from "~/config/messages";
 
 import theme from "~/theme";
-import { ThemeUtils } from "~/theme/utils";
+import { Utils } from "~/utils";
 
 import {
   Container,
@@ -21,20 +22,32 @@ interface LoaderProps {
 
 export const LoadAnimated: React.FC<LoaderProps> = (props) => {
   const { showMessage = true, showLabel, showSpinner } = props;
+
   const initialColor = theme.colors.white;
 
+  const [randomShowMessage, setRandomShowMessage] = useState(false);
+  const [messageSelected, setMessageSelected] = useState<IMessage>(
+    {} as IMessage
+  );
   const [loadingLabelColor, setLoadingLabelColor] = useState(initialColor);
   const [ellipsis, setEllipsis] = useState("");
 
   function startLoad() {
+    const randomShow = Boolean(Math.round(Math.random()));
+    const num = Utils.randomNumber(0, messages.length);
+    const message = messages[num];
+
+    setRandomShowMessage(randomShow);
+    setMessageSelected(message);
+
     setInterval(() => {
       infinityRandomColorsLabel();
       ellipsisAnimated();
-    }, GameParams.getSecond(0.8));
+    }, GameParams.getSecond(0.7));
   }
 
   function infinityRandomColorsLabel() {
-    setLoadingLabelColor(ThemeUtils.randomColor());
+    setLoadingLabelColor(Utils.randomColor());
   }
 
   function ellipsisAnimated() {
@@ -50,10 +63,10 @@ export const LoadAnimated: React.FC<LoaderProps> = (props) => {
   function MessageLabel(): JSX.Element {
     return (
       <MessageContainer>
-        <MessageTitle>Dica!</MessageTitle>
-        <Message>
-          O número de bandeiras disponíveis é o mesmo número de bombas no campo!
-        </Message>
+        <MessageTitle colorByType={messageSelected.type}>
+          {messageSelected.title}:
+        </MessageTitle>
+        <Message>{messageSelected.message}</Message>
       </MessageContainer>
     );
   }
@@ -69,7 +82,7 @@ export const LoadAnimated: React.FC<LoaderProps> = (props) => {
 
   return (
     <Container>
-      {showMessage && <MessageLabel />}
+      {showMessage && randomShowMessage && <MessageLabel />}
       {showLabel && <LoadLabel />}
       {showSpinner && <Loader />}
     </Container>

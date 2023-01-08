@@ -28,6 +28,7 @@ export const ButtonTitle = styled.Text`
 
   color: ${theme.colors.pink_500};
 `;
+
 export const ButtonText = styled.Text`
   font-size: ${RFValue(15)}px;
   font-family: ${theme.fontFamily.countdown_medium};

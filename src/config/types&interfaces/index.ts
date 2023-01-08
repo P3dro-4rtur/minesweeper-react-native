@@ -1,3 +1,4 @@
+import { Message, TypeMessage } from "../messages";
 interface FieldBlock {
   row: number;
   column: number;
@@ -10,4 +11,4 @@ interface FieldBlock {
 
 type Board = FieldBlock[][];
 
-export { FieldBlock, Board };
+export { FieldBlock, Board, Message, TypeMessage };

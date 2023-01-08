@@ -2,17 +2,24 @@ import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 import LottieView from "lottie-react-native";
 import loadAnimated from "@assets/animated/loader-animation.json";
-
+import { TypeMessage } from "~/config/types&interfaces";
 import theme from "~/theme";
 
 interface LabelProps {
   color: string;
 }
 
+interface MessageTitleProps {
+  colorByType: TypeMessage;
+}
+
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+
+  padding-left: ${RFValue(13)}px;
+  padding-right: ${RFValue(13)}px;
 
   background-color: ${theme.colors.black};
 `;
@@ -42,7 +49,7 @@ export const MessageContainer = styled.View`
   bottom: ${RFValue(50)}px;
 `;
 
-export const MessageTitle = styled.Text`
+export const MessageTitle = styled.Text<MessageTitleProps>`
   text-transform: uppercase;
 
   font-size: ${RFValue(16)}px;
@@ -50,7 +57,18 @@ export const MessageTitle = styled.Text`
 
   line-height: ${RFValue(30)}px;
 
-  color: ${theme.colors.yellow_300};
+  color: ${({ colorByType }) => {
+    switch (colorByType) {
+      case "tip":
+        return theme.colors.yellow_300;
+
+      case "curiosity":
+        return theme.colors.blue_200;
+
+      case "general":
+        return theme.colors.green_200;
+    }
+  }};
 `;
 
 export const Message = styled.Text`
