@@ -55,29 +55,32 @@ export const Game: React.FC = () => {
   }
 
   function handleRestartOrStartNewGame(difficult: GameDifficult) {
-    setTimeout(() => {
+    const callback = () => {
       initGame(difficult || gameDifficult);
       setActionsTimer(ActionsTimer.start);
-    }, GameParams.getSecond(2));
+    };
+
+    setTimeout(callback, GameParams.getSecond(2));
     setActionsTimer(ActionsTimer.stop);
     setAppIsLoading(true);
   }
 
-  function onPlayerWonGame() {
-    setGameResult(GameResults.won);
+  async function onPlayerWonGame() {
     setActionsTimer(ActionsTimer.pause);
     GameSoundHook.stopSound();
-    GameSoundHook.playSound(GameSounds.won);
-
-    setTimeout(() => setWonGameModalVisible(true), GameParams.second);
+    await GameSoundHook.playSound(GameSounds.won).then(() => {
+      setGameResult(GameResults.won);
+      setWonGameModalVisible(true);
+    });
   }
 
-  function onPlayerLoseGame(board: Board) {
-    GameSoundHook.stopSound();
-    GameSoundHook.playSound(GameSounds.lose);
+  async function onPlayerLoseGame(board: Board) {
     setActionsTimer(ActionsTimer.pause);
-    GameLogic.showMines(board);
-    setGameResult(GameResults.lose);
+    GameSoundHook.stopSound();
+    await GameSoundHook.playSound(GameSounds.lose).then(() => {
+      GameLogic.showMines(board);
+      setGameResult(GameResults.lose);
+    });
   }
 
   function gameFlagsController() {

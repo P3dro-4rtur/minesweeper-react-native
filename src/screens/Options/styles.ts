@@ -43,8 +43,8 @@ export const Content = styled.View`
 
 export const Separator = styled(LinearGradient).attrs(({ theme }) => ({
   colors: [theme.colors.white, theme.colors.gray_400],
-  start: { x: 0.2, y: 0.5 },
-  end: { x: 0.8, y: 0.5 },
+  start: { x: 0.1, y: 0.5 },
+  end: { x: 0.9, y: 0.5 },
 }))`
   align-self: center;
   width: 90%;

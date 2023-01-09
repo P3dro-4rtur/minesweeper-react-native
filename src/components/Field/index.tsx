@@ -68,7 +68,7 @@ export const Field: React.FC<FieldProps> = (props) => {
     <TouchableWithoutFeedback
       onPress={onOpen}
       onLongPress={onSetFlag}
-      delayLongPress={GameParams.getSecond(0.9)}
+      delayLongPress={GameParams.getSecond(0.6)}
       disabled={disableField}
     >
       <Block type={selectorTypeField()}>
