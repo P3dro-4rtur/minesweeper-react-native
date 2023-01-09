@@ -18,7 +18,7 @@ interface Props {
   onClose: () => void;
 }
 
-export function WonGameModal({ isVisible, onClose }: Props) {
+export const WonGameModal: React.FC<Props> = ({ isVisible, onClose }) => {
   const theme = useTheme();
 
   return (
@@ -47,4 +47,4 @@ export function WonGameModal({ isVisible, onClose }: Props) {
       </TrophyContainer>
     </Modal>
   );
-}
+};

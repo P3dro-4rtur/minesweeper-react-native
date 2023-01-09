@@ -27,7 +27,7 @@ interface HeaderProps {
   getTime: (seconds: number) => void;
 }
 
-export function Header(props: HeaderProps) {
+export const Header: React.FC<HeaderProps> = (props) => {
   const {
     amountFlags = 0,
     actionStart,
@@ -95,4 +95,4 @@ export function Header(props: HeaderProps) {
       </ButtonStart>
     </Container>
   );
-}
+};

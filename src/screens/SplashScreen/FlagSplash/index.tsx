@@ -8,7 +8,7 @@ import {
   FlagPole,
 } from "./styles";
 
-export function FlagSplash() {
+export const FlagSplash: React.FC = () => {
   return (
     <Screen>
       <Container>
@@ -19,4 +19,4 @@ export function FlagSplash() {
       </Container>
     </Screen>
   );
-}
+};

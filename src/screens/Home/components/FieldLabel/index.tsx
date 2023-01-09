@@ -1,6 +1,6 @@
 import React from "react";
 import { Block } from "./styles";
 
-export function FieldLabel() {
+export const FieldLabel: React.FC = () => {
   return <Block />;
-}
+};

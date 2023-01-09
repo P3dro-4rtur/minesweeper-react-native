@@ -17,7 +17,7 @@ interface Props {
   showContact?: boolean;
 }
 
-export function SplashScreen({ showContact = true }: Props) {
+export const SplashScreen: React.FC<Props> = ({ showContact = true }) => {
   function moveForGithub() {
     const github = Urls.contacts.github;
     Linking.openURL(github);
@@ -49,4 +49,4 @@ export function SplashScreen({ showContact = true }: Props) {
       </Footer>
     </Container>
   );
-}
+};

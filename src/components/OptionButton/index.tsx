@@ -7,7 +7,7 @@ interface Props extends TouchableOpacityProps {
   action: () => void;
 }
 
-export function OptionButton({ title, action, ...rest }: Props) {
+export const OptionButton: React.FC<Props> = ({ title, action, ...rest }) => {
   const [isPressed, setIsPressed] = useState(false);
 
   function toggleIsPressedButton() {
@@ -24,4 +24,4 @@ export function OptionButton({ title, action, ...rest }: Props) {
       <Title>{title}</Title>
     </Container>
   );
-}
+};

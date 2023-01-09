@@ -18,7 +18,7 @@ interface IButton {
   onPress: () => void;
 }
 
-export function Options() {
+export const Options: React.FC = () => {
   const theme = useTheme();
   const NavigationHook = useNavigation();
   const GameSoundHook = useGameSound();
@@ -77,4 +77,4 @@ export function Options() {
       </Content>
     </Container>
   );
-}
+};

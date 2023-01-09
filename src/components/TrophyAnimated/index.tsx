@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Trophy } from "./styles";
 
-export function TrophyAnimated() {
+export const TrophyAnimated: React.FC = () => {
   return (
     <Container>
       <Trophy />
     </Container>
   );
-}
+};

@@ -14,7 +14,7 @@ interface TimerProps {
   getTime: (seconds: number) => void;
 }
 
-function Timer({ actionsTimer, getTime }: TimerProps) {
+const Timer: React.FC<TimerProps> = ({ actionsTimer, getTime }) => {
   const initialSeconds = 0;
   const [secondsAmount, setSecondsAmount] = useState(initialSeconds);
 
@@ -89,6 +89,6 @@ function Timer({ actionsTimer, getTime }: TimerProps) {
       <TimerLabel />
     </Container>
   );
-}
+};
 
 export const GameTimer = Timer;

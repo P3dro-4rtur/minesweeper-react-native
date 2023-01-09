@@ -8,7 +8,7 @@ import {
   FlagPole,
 } from "./styles";
 
-export function FlagLabel() {
+export const FlagLabel: React.FC = () => {
   return (
     <Container>
       <FlagPole />
@@ -17,4 +17,4 @@ export function FlagLabel() {
       <BaseSecondPart />
     </Container>
   );
-}
+};

@@ -15,7 +15,7 @@ interface ButtonProps extends TouchableOpacityProps {
   onPress: () => void;
 }
 
-export function Button({ title, onPress }: ButtonProps) {
+export const Button: React.FC<ButtonProps> = ({ title, onPress }) => {
   const [isPressed, setIsPressed] = React.useState<boolean>(false);
   const GameSoundHook = useGameSound();
 
@@ -50,4 +50,4 @@ export function Button({ title, onPress }: ButtonProps) {
       </Title>
     </Container>
   );
-}
+};
