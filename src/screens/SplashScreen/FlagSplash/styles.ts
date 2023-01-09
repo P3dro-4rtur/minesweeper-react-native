@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import theme from "~/theme";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-const num = 7.5;
+const num = 7;
 
 export const Screen = styled.View`
   flex: 1;
@@ -37,14 +37,14 @@ export const BaseFirstPart = styled.View`
   width: ${RFValue(6 * num)}px;
   height: ${RFValue(3 * num)}px;
   margin-left: ${RFValue(7 * num)}px;
-  margin-top: ${RFValue(10 * num)}px;
+  margin-top: ${RFValue(10.7 * num)}px;
   background-color: ${theme.colors.gray_500};
 `;
 
 export const BaseSecondPart = styled.View`
   position: absolute;
   width: ${RFValue(10 * num)}px;
-  height: ${RFValue(2 * num)}px;
+  height: ${RFValue(2.5 * num)}px;
   margin-left: ${RFValue(5 * num)}px;
   margin-top: ${RFValue(12 * num)}px;
   background-color: ${theme.colors.gray_500};

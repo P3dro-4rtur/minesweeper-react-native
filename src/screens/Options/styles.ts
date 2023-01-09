@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components/native";
 import { ArrowFatLeft } from "phosphor-react-native";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { LinearGradient } from "expo-linear-gradient";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
   flex: 1;
@@ -40,11 +41,13 @@ export const Content = styled.View`
   margin-top: ${RFValue(50)}px;
 `;
 
-export const Separator = styled.View`
+export const Separator = styled(LinearGradient).attrs(({ theme }) => ({
+  colors: [theme.colors.white, theme.colors.gray_400],
+  start: { x: 0.2, y: 0.5 },
+  end: { x: 0.8, y: 0.5 },
+}))`
   align-self: center;
   width: 90%;
   height: ${RFValue(3)}px;
   margin: ${RFValue(10)}px ${RFValue(0)}px;
-
-  background-color: ${({ theme }) => theme.colors.gray_400};
 `;

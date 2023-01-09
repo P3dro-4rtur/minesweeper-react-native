@@ -50,7 +50,7 @@ export default function App() {
     setTimeout(() => setAppLoaded(true), GameParams.getSecond(3));
   }, []);
 
-  if (!fontsLoaded || !appLoaded) return <SplashScreen showContact={false} />;
+  if (!fontsLoaded) return <SplashScreen showContact={false} />;
 
   return (
     <ThemeProvider theme={theme}>
