@@ -27,7 +27,7 @@ const GameParams = {
     headerRatio: 0.15,
   },
 
-  second: 1000,
+  second: 1000, // (ms)
   difficultLevelDefault: GameDifficult.medium,
 
   getSecond(howManySeconds: number) {

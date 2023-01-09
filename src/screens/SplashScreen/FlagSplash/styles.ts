@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import theme from "~/theme";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-const num = 10;
+const num = 7.5;
 
 export const Screen = styled.View`
   flex: 1;
@@ -12,7 +12,7 @@ export const Screen = styled.View`
 
 export const Container = styled.View`
   bottom: ${RFPercentage(8)}px;
-  margin-right: ${RFPercentage(24)}px;
+  margin-right: ${RFPercentage(20)}px;
   margin-bottom: ${RFValue(20)}px;
 `;
 
@@ -35,7 +35,7 @@ export const FlagBanner = styled.View`
 export const BaseFirstPart = styled.View`
   position: absolute;
   width: ${RFValue(6 * num)}px;
-  height: ${RFValue(2 * num)}px;
+  height: ${RFValue(3 * num)}px;
   margin-left: ${RFValue(7 * num)}px;
   margin-top: ${RFValue(10 * num)}px;
   background-color: ${theme.colors.gray_500};

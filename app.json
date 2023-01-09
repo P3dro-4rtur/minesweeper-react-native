@@ -3,8 +3,21 @@
     "name": "minefield",
     "slug": "minefield",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#000000",
+      "resizeMode": "cover"
+    },
+    "android": {
+      "splash": {
+        "image": "./assets/splash.png",
+        "backgroundColor": "#000000",
+        "resizeMode": "cover"
+      }
+    },
+    "androidNavigationBar": {
+      "visible": false
+    }
   }
 }

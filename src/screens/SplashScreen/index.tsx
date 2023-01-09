@@ -1,6 +1,8 @@
 import React from "react";
 import * as Linking from "expo-linking";
+import { StatusBar } from "expo-status-bar";
 
+import { Urls } from "~/config/urls";
 import { FlagSplash } from "./FlagSplash";
 import {
   Container,
@@ -17,17 +19,17 @@ interface Props {
 
 export function SplashScreen({ showContact = true }: Props) {
   function moveForGithub() {
-    const github = "https://github.com/P3dro-4rtur";
+    const github = Urls.contacts.github;
     Linking.openURL(github);
   }
 
   function moveForLinkedin() {
-    const linkedin =
-      "https://www.linkedin.com/in/pedro-artur-wingert-a34719100/";
+    const linkedin = Urls.contacts.linkedin;
     Linking.openURL(linkedin);
   }
   return (
     <Container>
+      <StatusBar hidden />
       <FlagSplash />
 
       <Footer>

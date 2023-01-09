@@ -47,7 +47,7 @@ export default function App() {
   const [appLoaded, setAppLoaded] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setAppLoaded(true), GameParams.getSecond(5));
+    setTimeout(() => setAppLoaded(true), GameParams.getSecond(3));
   }, []);
 
   if (!fontsLoaded || !appLoaded) return <SplashScreen showContact={false} />;

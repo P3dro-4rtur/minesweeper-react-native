@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableWithoutFeedback } from "react-native";
+import { GameParams } from "~/config/params";
 import { FieldBlock } from "~/config/types&interfaces";
 import { Flag } from "../Flag";
 import { Mine } from "../Mine";
@@ -67,6 +68,7 @@ export const Field: React.FC<FieldProps> = (props) => {
     <TouchableWithoutFeedback
       onPress={onOpen}
       onLongPress={onSetFlag}
+      delayLongPress={GameParams.getSecond(0.9)}
       disabled={disableField}
     >
       <Block type={selectorTypeField()}>

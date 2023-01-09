@@ -82,7 +82,6 @@ export const ButtonHomeLabel = styled.Text`
   text-transform: uppercase;
 
   top: ${RFValue(2)}px;
-  right: ${RFValue(10)}px;
 
   padding-left: ${RFValue(10)}px;
   padding-right: ${RFValue(10)}px;
