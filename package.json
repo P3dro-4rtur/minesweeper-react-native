@@ -9,8 +9,11 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/bungee-inline": "^0.2.2",
     "@expo-google-fonts/chakra-petch": "^0.2.2",
     "@expo-google-fonts/orbitron": "^0.2.2",
+    "@expo-google-fonts/press-start-2p": "^0.2.2",
+    "@expo-google-fonts/vt323": "^0.2.2",
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
     "@types/react": "~18.0.24",

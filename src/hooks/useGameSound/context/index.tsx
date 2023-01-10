@@ -70,7 +70,7 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
     setGameSound(sound);
     setSoundSelected(soundSelected);
 
-    await sound.playAsync();
+    sound.playAsync();
   }
 
   async function pauseSound() {

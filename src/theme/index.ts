@@ -46,5 +46,10 @@ export default {
     countdown_medium: "Orbitron_500Medium",
     countdown_semiBold: "Orbitron_600SemiBold",
     countdown_Bold: "Orbitron_700Bold",
+
+    text_pixel_regular_vt323: "VT323_400Regular",
+    text_pixel_regular_ps2p: "PressStart2P_400Regular",
+
+    alternative_bungee: "BungeeInline_400Regular",
   },
 };

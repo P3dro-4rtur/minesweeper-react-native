@@ -1083,6 +1083,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
+"@expo-google-fonts/bungee-inline@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/bungee-inline/-/bungee-inline-0.2.2.tgz#6b0ae643f693c3553137f81764514126c9c4ac67"
+  integrity sha512-fs6/VmkF744MflluTgOa++qFXnR1HYsznw26EXpe1YLqV8pNRl97xAEEd9bZzrZ4SdPBr9ni8EWHmZyFTi81ZA==
+
 "@expo-google-fonts/chakra-petch@^0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/chakra-petch/-/chakra-petch-0.2.2.tgz#9482d60614718f9dbce3d5e0ac45ae6fa3b1c0ea"
@@ -1092,6 +1097,16 @@
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/orbitron/-/orbitron-0.2.2.tgz#f5516b08cf8fdfad1733cf9bc83d1e4b6891db3f"
   integrity sha512-QsDOb3AOUqoM2l5eonr/m4hByiwp0MuJrgRUpmTNcYfK6oc3+JDsUqnHbLazMZjBBHAUf+iJky7t7KG3oW4yMg==
+
+"@expo-google-fonts/press-start-2p@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/press-start-2p/-/press-start-2p-0.2.2.tgz#e1f5a2d310c5a1a934d61c7bc8f73c7e0e9dcdf0"
+  integrity sha512-GaGaz9DfIIug7RbxeXx1wm4R1wDOJzU31MmrHVrSrB9oRtts0j4DrtBiaSEY5xJPhC7RuM2VMvIH02V06P0OPw==
+
+"@expo-google-fonts/vt323@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/vt323/-/vt323-0.2.2.tgz#7d913614b650d21ddd72bc8e82177e240dd0338e"
+  integrity sha512-LnnlFyoPrGMFc9MJWGZiQh//sb5wAvlx2F//Fm8ZR8AqY1F/lUDxplpCjrn0rH7jfgmgxi57cZrBl9aqLjYSkg==
 
 "@expo/bunyan@4.0.0", "@expo/bunyan@^4.0.0":
   version "4.0.0"

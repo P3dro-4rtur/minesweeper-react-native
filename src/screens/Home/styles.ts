@@ -1,10 +1,7 @@
 import styled from "styled-components/native";
+import Animated from "react-native-reanimated";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
-
-interface TitleProps {
-  color: string;
-}
 
 export const Container = styled.View`
   flex: 1;
@@ -15,7 +12,7 @@ export const Header = styled.View`
   margin-top: ${getStatusBarHeight() + RFPercentage(30)}px;
 `;
 
-export const Title = styled.Text<TitleProps>`
+export const TitleAnimated = styled(Animated.Text)`
   bottom: ${RFValue(50)}px;
 
   text-align: center;
@@ -24,10 +21,10 @@ export const Title = styled.Text<TitleProps>`
   font-size: ${RFPercentage(7.3)}px; //50
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
-  color: ${({ color }) => color};
+  color: ${({ theme }) => theme.colors.white};
 
   border-bottom-width: ${RFValue(2)}px;
-  border-bottom-color: ${({ color }) => color};
+  border-bottom-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const Row = styled.View`

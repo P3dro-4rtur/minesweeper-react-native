@@ -5,12 +5,12 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
+  withRepeat,
   interpolate,
+  interpolateColor,
   Extrapolate,
 } from "react-native-reanimated";
 
-import theme from "@theme/index";
-import { Utils } from "~/utils";
 import { GameParams } from "~/config/params";
 import { useGameSound } from "~/hooks/useGameSound";
 import { useNavigation } from "@react-navigation/native";
@@ -20,7 +20,7 @@ import { FlagLabel, FieldLabel } from "./components/index";
 import {
   Container,
   Header,
-  Title,
+  TitleAnimated,
   Options,
   Row,
   Column,
@@ -29,21 +29,36 @@ import {
 
 export const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [labelColor, setLabelColor] = useState<string>(theme.colors.white);
   const GameSoundHook = useGameSound();
   const NavigationHook = useNavigation();
 
   /* Animated Config */
+  const labelColors = useSharedValue(0);
   const labelOpacity = useSharedValue(0);
   const buttonsPosition = useSharedValue(500);
 
-  const labelStyleAnimated = useAnimatedStyle(() => {
+  const labelContainerStyleAnimated = useAnimatedStyle(() => {
     return {
       opacity: interpolate(
         labelOpacity.value,
         [0, 25, 50, 75, 100],
         [0, 0, 0.1, 0.3, 1],
         Extrapolate.EXTEND
+      ),
+    };
+  });
+
+  const labelTextStyleAnimated = useAnimatedStyle(() => {
+    return {
+      color: interpolateColor(
+        labelColors.value,
+        [0, 50, 100],
+        ["red", "blue", "green"]
+      ),
+      borderBottomColor: interpolateColor(
+        labelColors.value,
+        [0, 50, 100],
+        ["red", "blue", "green"]
       ),
     };
   });
@@ -55,6 +70,12 @@ export const Home: React.FC = () => {
   });
 
   function startAnimations() {
+    labelColors.value = withRepeat(
+      withTiming(100, { duration: GameParams.getSecond(3.5) }),
+      -1,
+      true
+    );
+
     labelOpacity.value = withTiming(100, {
       duration: GameParams.getSecond(9),
     });
@@ -67,32 +88,8 @@ export const Home: React.FC = () => {
   /* General */
   function startHome() {
     startAnimations();
-    startLabelColorsRandom();
     disableHardwareBackButton();
     GameSoundHook.toggleIsMuteModeActive();
-  }
-
-  function startLabelColorsRandom() {
-    const newColorLabel = () => setLabelColor(Utils.randomColor());
-    const interval = GameParams.getSecond(0.7);
-    const timeout = GameParams.getSecond(10);
-
-    setTimeout(() => setInterval(newColorLabel, interval), timeout);
-  }
-
-  function FieldDecoration(): JSX.Element {
-    const totalBlocks = GameParams.getColumnsAmount();
-    const arrayColumns = Array(totalBlocks).fill(0);
-    const arrayRows = Array(2).fill(0);
-
-    const Component = arrayRows.map((_, indexR) => {
-      const Cols = arrayColumns.map((_, indexC) => {
-        return <FieldLabel key={String(indexC + indexR)} />;
-      });
-      return <Column>{Cols}</Column>;
-    });
-
-    return <Row>{Component}</Row>;
   }
 
   function handlePressStart() {
@@ -116,6 +113,21 @@ export const Home: React.FC = () => {
 
     BackHandler.addEventListener(button, callback);
     return actionReturns;
+  }
+
+  function FieldDecoration(): JSX.Element {
+    const totalBlocks = GameParams.getColumnsAmount();
+    const arrayColumns = Array(totalBlocks).fill(0);
+    const arrayRows = Array(2).fill(0);
+
+    const Component = arrayRows.map((_, indexR) => {
+      const Cols = arrayColumns.map((_, indexC) => {
+        return <FieldLabel key={String(indexC + indexR)} />;
+      });
+      return <Column>{Cols}</Column>;
+    });
+
+    return <Row>{Component}</Row>;
   }
 
   useEffect(() => {
@@ -142,9 +154,12 @@ export const Home: React.FC = () => {
   return (
     <Container>
       <Header>
-        <Animated.View style={[labelStyleAnimated]}>
-          <Title color={labelColor}>minesweeper</Title>
+        <Animated.View style={[labelContainerStyleAnimated]}>
+          <TitleAnimated style={[labelTextStyleAnimated]}>
+            minesweeper
+          </TitleAnimated>
         </Animated.View>
+
         <DecorationContainer>
           <FlagLabel />
           <FieldDecoration />
