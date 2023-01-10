@@ -1,7 +1,13 @@
 import React from "react";
 import { useTheme } from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
-import { Header, TitleHeader, BackButton, BackArrow } from "./styles";
+import {
+  Header,
+  TitleHeader,
+  TitleHeaderContainer,
+  BackButton,
+  BackArrow,
+} from "./styles";
 
 interface Props {
   title: string;
@@ -20,7 +26,9 @@ export const HeaderDefault: React.FC<Props> = ({ title }) => {
       <BackButton onPress={handleBackToHomePage}>
         <BackArrow size={25} weight={"fill"} color={theme.colors.gray_100} />
       </BackButton>
-      <TitleHeader>{title}</TitleHeader>
+      <TitleHeaderContainer>
+        <TitleHeader>{title}</TitleHeader>
+      </TitleHeaderContainer>
     </Header>
   );
 };

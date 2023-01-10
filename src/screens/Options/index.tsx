@@ -21,15 +21,15 @@ export const Options: React.FC = () => {
     },
     {
       title: "score",
-      onPress: () => undefined,
+      onPress: () => NavigationHook.navigate("Score"),
     },
     {
       title: "instructions",
-      onPress: () => undefined,
+      onPress: () => NavigationHook.navigate("Instructions"),
     },
     {
       title: "about",
-      onPress: () => undefined,
+      onPress: () => NavigationHook.navigate("About"),
     },
     {
       title: "contact",
