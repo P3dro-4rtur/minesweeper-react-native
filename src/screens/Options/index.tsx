@@ -1,17 +1,9 @@
 import React from "react";
-import { useTheme } from "styled-components/native";
 import { useGameSound } from "~/hooks/useGameSound";
 import { useNavigation } from "@react-navigation/native";
 import { Button, ButtonTypes } from "./components/Button";
-import {
-  Container,
-  Header,
-  TitleHeader,
-  BackButton,
-  BackArrow,
-  Content,
-  Separator,
-} from "./styles";
+import { Container, Content, Separator } from "./styles";
+import { HeaderDefault as Header } from "~/components/HeaderDefault";
 
 interface IButton {
   title: ButtonTypes;
@@ -19,7 +11,6 @@ interface IButton {
 }
 
 export const Options: React.FC = () => {
-  const theme = useTheme();
   const NavigationHook = useNavigation();
   const GameSoundHook = useGameSound();
 
@@ -65,12 +56,7 @@ export const Options: React.FC = () => {
 
   return (
     <Container>
-      <Header>
-        <BackButton onPress={handleBackToHomePage}>
-          <BackArrow size={25} weight={"fill"} color={theme.colors.gray_100} />
-        </BackButton>
-        <TitleHeader>options</TitleHeader>
-      </Header>
+      <Header title={"options"} />
 
       <Content>
         <OptionsList />

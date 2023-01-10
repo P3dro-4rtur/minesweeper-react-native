@@ -21,7 +21,7 @@ export const Title = styled.Text<TitleProps>`
   text-align: center;
   text-transform: uppercase;
 
-  font-size: ${RFValue(50)}px;
+  font-size: ${RFPercentage(7.3)}px; //50
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
   color: ${({ color }) => color};
@@ -31,9 +31,12 @@ export const Title = styled.Text<TitleProps>`
 `;
 
 export const Row = styled.View`
-  flex-direction: row;
   align-items: center;
   justify-content: center;
+`;
+
+export const Column = styled.View`
+  flex-direction: row;
 `;
 
 export const DecorationContainer = styled.View`

@@ -2,11 +2,8 @@ import styled, { css } from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
-  top: ${RFValue(5)}px;
-  right: ${RFValue(10)}px;
-
-  width: ${RFValue(115)}px;
-  height: ${RFValue(55)}px;
+  width: ${RFValue(110)}px;
+  height: ${RFValue(50)}px;
 
   align-items: center;
   justify-content: center;
@@ -34,7 +31,7 @@ export const BackgroundLabel = styled.Text`
 export const CountLabel = styled.Text`
   right: ${RFValue(15)}px;
 
-  font-size: ${RFValue(19)}px;
+  font-size: ${RFValue(20)}px;
   font-family: ${({ theme }) => theme.fontFamily.countdown_Bold};
   color: ${({ theme }) => theme.colors.red_500};
 `;

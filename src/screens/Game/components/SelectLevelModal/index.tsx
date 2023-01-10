@@ -28,7 +28,6 @@ interface ButtonLevel {
 
 export const SelectLevelModal: React.FC<ModalProps> = (props) => {
   const { isVisible, onSelectAction, onClose, actualDifficultLevel } = props;
-  const [buttonPressed, setButtonPressed] = useState<boolean>(false);
   const [idSelected, setIdSelected] = useState<string>("");
 
   const ButtonsLevel: ButtonLevel[] = [
@@ -64,9 +63,8 @@ export const SelectLevelModal: React.FC<ModalProps> = (props) => {
     },
   ];
 
-  function toggleButtonPressed(id?: string) {
+  function activeButtonById(id?: string) {
     setIdSelected(id ?? "");
-    setButtonPressed((actualState) => !actualState);
   }
 
   function label(level: string) {
@@ -98,8 +96,8 @@ export const SelectLevelModal: React.FC<ModalProps> = (props) => {
               key={id}
               activeOpacity={0.8}
               isActive={id === idSelected}
-              onPressIn={() => toggleButtonPressed(id)}
-              onPressOut={() => [toggleButtonPressed(), onPress()]}
+              onPressIn={() => activeButtonById(id)}
+              onPressOut={() => [activeButtonById(), onPress()]}
               isSelected={actualDifficultLevel === difficult}
             >
               <LabelLevel level={level}>{label(level)}</LabelLevel>

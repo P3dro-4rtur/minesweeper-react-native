@@ -13,7 +13,8 @@ import {
   ButtonStart,
   ButtonStartLabel,
   AmountFlags,
-  Wrapper,
+  WrapperButtonLeft,
+  WrapperButtonsRight,
   TimerContainer,
   ButtonHome,
   ButtonHomeLabel,
@@ -21,18 +22,20 @@ import {
 
 interface HeaderProps {
   amountFlags: number;
+  disableStart: boolean;
+  actionsTimer: ActionsTimer;
   actionStart: () => void;
   actionSelectLevel: () => void;
-  actionsTimer: ActionsTimer;
   getTime: (seconds: number) => void;
 }
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const {
+    actionsTimer,
+    disableStart,
     amountFlags = 0,
     actionStart,
     actionSelectLevel,
-    actionsTimer,
     getTime,
   } = props;
 
@@ -47,7 +50,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
   }
 
   function labelsButton() {
-    const startLabel = "start new game";
+    const startLabel = "start game";
     const restartLabel = "restart game";
 
     switch (actionsTimer) {
@@ -71,10 +74,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <Container>
       <ButtonFlag activeOpacity={0.5} onPressOut={actionSelectLevel}>
-        <Wrapper>
-          <Flag type="bigger" />
+        <WrapperButtonLeft>
+          <Flag type={"bigger"} />
           <ButtonFlagLabel>select level</ButtonFlagLabel>
-        </Wrapper>
+        </WrapperButtonLeft>
         <AmountFlags> = {amountFlags}</AmountFlags>
       </ButtonFlag>
 
@@ -85,14 +88,22 @@ export const Header: React.FC<HeaderProps> = (props) => {
         />
       </TimerContainer>
 
-      <ButtonHome activeOpacity={0.5} onPressOut={() => handleNavigateHome()}>
-        <ButtonHomeLabel>home</ButtonHomeLabel>
-        <House weight="fill" size={30} color={theme.colors.gray_100} />
-      </ButtonHome>
+      <WrapperButtonsRight>
+        <ButtonHome activeOpacity={0.5} onPressOut={() => handleNavigateHome()}>
+          <ButtonHomeLabel>home</ButtonHomeLabel>
+          <House weight={"fill"} size={30} color={theme.colors.gray_100} />
+        </ButtonHome>
 
-      <ButtonStart activeOpacity={0.5} onPressOut={actionStart}>
-        <ButtonStartLabel>{labelsButton()}</ButtonStartLabel>
-      </ButtonStart>
+        <ButtonStart
+          disabled={disableStart}
+          activeOpacity={0.5}
+          onPressOut={actionStart}
+        >
+          <ButtonStartLabel colorByDisable={disableStart}>
+            {labelsButton()}
+          </ButtonStartLabel>
+        </ButtonStart>
+      </WrapperButtonsRight>
     </Container>
   );
 };

@@ -46,7 +46,7 @@ const GameSoundContext = createContext<GameSoundContextData>(initialState);
 
 function GameSoundProvider({ children }: GameSoundProviderProps) {
   const [gameSound, setGameSound] = useState<Audio.Sound>();
-  const [muteModeIsActive, setMuteModeIsActive] = useState(false);
+  const [muteModeIsActive, setMuteModeIsActive] = useState(true);
   const [soundSelected, setSoundSelected] = useState<GameSounds>();
 
   const contextValueData = {

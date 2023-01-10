@@ -26,7 +26,7 @@ export const Game: React.FC = () => {
   const [gameResult, setGameResult] = useState<GameResults>(GameResults.none);
 
   const [gameDifficult, setGameDifficult] = useState<GameDifficult>(
-    GameDifficult.medium
+    GameDifficult.none
   );
 
   const [actionsTimer, setActionsTimer] = useState<ActionsTimer>(
@@ -123,6 +123,10 @@ export const Game: React.FC = () => {
     setActionsTimer(ActionsTimer.stop);
     GameSoundHook.stopSound();
 
+    if (gameDifficult === GameDifficult.none) {
+      return initGame(difficult);
+    }
+
     if (playerIsAlreadyInGame || playerIsLoseGame) {
       return handleRestartOrStartNewGame(difficult);
     }
@@ -157,8 +161,12 @@ export const Game: React.FC = () => {
 
   useEffect(() => disableHardwareBackButton(), []);
   useEffect(() => gameBoard && gameFlagsController(), [gameBoard]);
+
   useEffect(() => {
-    if (appIsLoading) onCloseAppLoading();
+    function controllerLoad() {
+      if (appIsLoading) onCloseAppLoading();
+    }
+    controllerLoad();
   }, [appIsLoading]);
 
   if (appIsLoading) return <LoadAnimated showLabel showMessage />;
@@ -167,6 +175,7 @@ export const Game: React.FC = () => {
     <React.Fragment>
       <Container>
         <Header
+          disableStart={gameDifficult === GameDifficult.none}
           amountFlags={gameFlags}
           actionsTimer={actionsTimer}
           getTime={(seconds) => getTimeGame(seconds)}
