@@ -1,6 +1,13 @@
-import { MinesweeperAppList } from "~/routes/app.stack.routes";
-declare global {
+export declare global {
   namespace ReactNavigation {
-    interface RootParamList extends MinesweeperAppList {}
+    interface RootParamList {
+      Home: undefined;
+      Game: undefined;
+      Options: undefined;
+      Score: undefined;
+      Instructions: undefined;
+      About: undefined;
+      Contact: undefined;
+    }
   }
 }

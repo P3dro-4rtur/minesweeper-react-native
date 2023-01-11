@@ -1,8 +1,9 @@
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { RFValue } from "react-native-responsive-fontsize";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export const Container = styled.View`
+export const Container = styled(SafeAreaView)`
   flex: 1;
   padding: ${RFValue(0)}px ${RFValue(15)}px;
   background-color: ${({ theme }) => theme.colors.black};

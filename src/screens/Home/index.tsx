@@ -12,6 +12,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { GameParams } from "~/config/params";
+import { useTheme } from "styled-components/native";
 import { useGameSound } from "~/hooks/useGameSound";
 import { useNavigation } from "@react-navigation/native";
 
@@ -31,6 +32,7 @@ export const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const GameSoundHook = useGameSound();
   const NavigationHook = useNavigation();
+  const theme = useTheme();
 
   /* Animated Config */
   const labelColors = useSharedValue(0);
@@ -77,11 +79,11 @@ export const Home: React.FC = () => {
     );
 
     labelOpacity.value = withTiming(100, {
-      duration: GameParams.getSecond(9),
+      duration: GameParams.getSecond(10),
     });
 
     buttonsPosition.value = withTiming(0, {
-      duration: GameParams.getSecond(11),
+      duration: GameParams.getSecond(12),
     });
   }
 

@@ -13,7 +13,8 @@ export const Container = styled.View`
 
   width: 100%;
 
-  margin-top: ${getStatusBarHeight() + RFValue(5)}px;
+  margin-top: ${RFValue(20)}px;
+
   padding-left: ${RFValue(20)}px;
   padding-right: ${RFValue(20)}px;
 

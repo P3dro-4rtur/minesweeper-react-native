@@ -16,15 +16,15 @@ enum GameDifficult {
   god = 0.5,
 }
 
-const totalWidth = Dimensions.get("window").width;
-const totalHeight = Dimensions.get("window").height;
-
 const GameParams = {
+  totalWidth: Dimensions.get("window").width,
+  totalHeight: Dimensions.get("window").height,
+
   dimensions: {
     blockSize: RFValue(30),
     borderSize: RFValue(5),
     fontSize: RFValue(15),
-    headerRatio: 0.15,
+    headerRatio: 0.1,
   },
 
   second: 1000, // (ms)
@@ -36,13 +36,13 @@ const GameParams = {
 
   getColumnsAmount() {
     const totalBlocksHorizontal = Math.floor(
-      totalWidth / this.dimensions.blockSize
+      this.totalWidth / this.dimensions.blockSize
     );
     return totalBlocksHorizontal;
   },
 
   getRowsAmount() {
-    const boardHeight = totalHeight * (1 - this.dimensions.headerRatio);
+    const boardHeight = this.totalHeight * (1 - this.dimensions.headerRatio);
     const totalBlocksVertical = Math.floor(
       boardHeight / this.dimensions.blockSize
     );

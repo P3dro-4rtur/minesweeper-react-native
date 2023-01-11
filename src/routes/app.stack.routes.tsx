@@ -1,5 +1,8 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationOptions,
+} from "@react-navigation/native-stack";
 
 import { SplashScreen } from "~/screens/SplashScreen";
 import { Home } from "~/screens/Home";
@@ -10,20 +13,15 @@ import { Instructions } from "~/screens/Options/Instructions";
 import { About } from "~/screens/Options/About";
 import { Contact } from "~/screens/Options/Contact";
 
-export interface MinesweeperAppList {
-  Home: undefined;
-  Game: undefined;
-  Options: undefined;
-  Score: undefined;
-  Instructions: undefined;
-  About: undefined;
-  Contact: undefined;
+interface NavigatorParams {
+  initialRouteName: string;
+  screenOptions: NativeStackNavigationOptions;
 }
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
 export function AppStackRoutes() {
-  const navigatorParams = {
+  const navigatorParams: NavigatorParams = {
     initialRouteName: "Home",
     screenOptions: {
       headerShown: false,
