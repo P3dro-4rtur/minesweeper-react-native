@@ -1,3 +1,5 @@
+import { withTiming } from "react-native-reanimated";
+
 function randomColor() {
   const element = () => Math.floor(Math.random() * 255);
   const color = `rgb(${element()},${element()},${element()})`;
@@ -31,4 +33,18 @@ function randomNumber(min: number, max: number) {
   return result;
 }
 
-export const Utils = { randomColor, randomOpacityColor, randomNumber };
+function createTimingAnimated(
+  howLongWillTheAnimationLast: number,
+  durationInMilliseconds: number
+) {
+  return withTiming(howLongWillTheAnimationLast, {
+    duration: durationInMilliseconds,
+  });
+}
+
+export const Utils = {
+  randomColor,
+  randomOpacityColor,
+  randomNumber,
+  createTimingAnimated,
+};

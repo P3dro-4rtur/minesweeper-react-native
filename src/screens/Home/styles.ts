@@ -44,6 +44,4 @@ export const DecorationContainer = styled.View`
 export const Options = styled.View`
   align-items: center;
   justify-content: center;
-
-  margin-top: ${RFValue(60)}px;
 `;

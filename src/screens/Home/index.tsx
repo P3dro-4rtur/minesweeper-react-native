@@ -4,15 +4,14 @@ import { BackHandler } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withTiming,
   withRepeat,
   interpolate,
   interpolateColor,
   Extrapolate,
 } from "react-native-reanimated";
 
+import { Utils } from "~/utils";
 import { GameParams } from "~/config/params";
-import { useTheme } from "styled-components/native";
 import { useGameSound } from "~/hooks/useGameSound";
 import { useNavigation } from "@react-navigation/native";
 
@@ -32,9 +31,10 @@ export const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const GameSoundHook = useGameSound();
   const NavigationHook = useNavigation();
-  const theme = useTheme();
 
-  /* Animated Config */
+  /**
+   * Animated Config
+   */
   const labelColors = useSharedValue(0);
   const labelOpacity = useSharedValue(0);
   const buttonsPosition = useSharedValue(500);
@@ -72,22 +72,19 @@ export const Home: React.FC = () => {
   });
 
   function startAnimations() {
-    labelColors.value = withRepeat(
-      withTiming(100, { duration: GameParams.getSecond(3.5) }),
-      -1,
-      true
-    );
+    const time = (seconds: number) => GameParams.getSecond(seconds);
+    const labelColorsTiming = Utils.createTimingAnimated(time(0.1), time(3.5));
+    const amountLoops = -1;
+    const isReverse = true;
 
-    labelOpacity.value = withTiming(100, {
-      duration: GameParams.getSecond(10),
-    });
-
-    buttonsPosition.value = withTiming(0, {
-      duration: GameParams.getSecond(12),
-    });
+    labelColors.value = withRepeat(labelColorsTiming, amountLoops, isReverse);
+    labelOpacity.value = Utils.createTimingAnimated(time(0.1), time(10));
+    buttonsPosition.value = Utils.createTimingAnimated(time(0.1), time(12));
   }
 
-  /* General */
+  /**
+   * General
+   */
   function startHome() {
     startAnimations();
     disableHardwareBackButton();
@@ -147,7 +144,6 @@ export const Home: React.FC = () => {
     function controllerStartHome() {
       if (!isLoading) startHome();
     }
-
     controllerStartHome();
   }, [isLoading]);
 
