@@ -49,7 +49,7 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
   const [muteModeIsActive, setMuteModeIsActive] = useState(true);
   const [soundSelected, setSoundSelected] = useState<GameSounds>();
 
-  const contextValueData = {
+  const contextValueData: GameSoundContextData = {
     gameSound,
     soundSelected,
     playSound,

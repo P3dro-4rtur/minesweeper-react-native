@@ -1,4 +1,4 @@
-LogBox.ignoreAllLogs(true);
+//LogBox.ignoreAllLogs(true);
 
 import React from "react";
 import { StatusBar, StatusBarProps, LogBox } from "react-native";
