@@ -10,7 +10,7 @@ import Animated, {
   Extrapolate,
 } from "react-native-reanimated";
 
-import { Utils } from "~/utils";
+import { Utils } from "~/utils/utils";
 import { GameParams } from "~/config/params";
 import { useGameSound } from "~/hooks/useGameSound";
 import { useNavigation } from "@react-navigation/native";
@@ -118,34 +118,31 @@ export const Home: React.FC = () => {
     const totalBlocks = GameParams.getColumnsAmount();
     const arrayColumns = Array(totalBlocks).fill(0);
     const arrayRows = Array(2).fill(0);
+    const key = (num: number): string => `${Utils.getNewId()}-${num}`;
 
     const Component = arrayRows.map((_, indexR) => {
       const Cols = arrayColumns.map((_, indexC) => {
-        return <FieldLabel key={String(indexC + indexR)} />;
+        return <FieldLabel key={key(indexC)} />;
       });
-      return <Column>{Cols}</Column>;
+      return <Column key={key(indexR)}>{Cols}</Column>;
     });
 
     return <Row>{Component}</Row>;
   }
 
-  useEffect(() => {
-    function controllerLoad() {
-      const action = () => setIsLoading(false);
-      const time = GameParams.getSecond(2.5);
+  function controllerLoad() {
+    const action = () => setIsLoading(false);
+    const time = GameParams.getSecond(2.5);
 
-      setTimeout(action, time);
-    }
+    setTimeout(action, time);
+  }
 
-    controllerLoad();
-  }, []);
+  function controllerStartHome() {
+    if (!isLoading) startHome();
+  }
 
-  useEffect(() => {
-    function controllerStartHome() {
-      if (!isLoading) startHome();
-    }
-    controllerStartHome();
-  }, [isLoading]);
+  useEffect(controllerLoad, []);
+  useEffect(controllerStartHome, [isLoading]);
 
   if (isLoading) return <LoadAnimated showLabel showMessage={false} />;
 

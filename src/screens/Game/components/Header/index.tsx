@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import { House } from "phosphor-react-native";
 import { useTheme } from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 import { useGameSound } from "~/hooks/useGameSound";
-import { House } from "phosphor-react-native";
-import { Flag, GameTimer } from "~/components/index";
 import { ActionsTimer } from "~/components/Timer";
+import { Flag, GameTimer } from "~/components/index";
 
 import {
   Container,
@@ -24,8 +24,8 @@ interface HeaderProps {
   amountFlags: number;
   disableStart: boolean;
   actionsTimer: ActionsTimer;
-  actionStart: () => void;
-  actionSelectLevel: () => void;
+  actionStartButton: () => void;
+  actionSelectLevelButton: () => void;
   getTime: (seconds: number) => void;
 }
 
@@ -34,8 +34,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
     actionsTimer,
     disableStart,
     amountFlags = 0,
-    actionStart,
-    actionSelectLevel,
+    actionStartButton,
+    actionSelectLevelButton,
     getTime,
   } = props;
 
@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
     NavigationHook.goBack();
   }
 
-  function labelsButton() {
+  function labelsButton(): string {
     const startLabel = "start game";
     const restartLabel = "restart game";
 
@@ -73,7 +73,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
   return (
     <Container>
-      <ButtonFlag activeOpacity={0.5} onPressOut={actionSelectLevel}>
+      <ButtonFlag activeOpacity={0.5} onPressOut={actionSelectLevelButton}>
         <WrapperButtonLeft>
           <Flag type={"bigger"} />
           <ButtonFlagLabel>select level</ButtonFlagLabel>
@@ -82,22 +82,19 @@ export const Header: React.FC<HeaderProps> = (props) => {
       </ButtonFlag>
 
       <TimerContainer>
-        <GameTimer
-          actionsTimer={actionsTimer}
-          getTime={(seconds) => getTime(seconds)}
-        />
+        <GameTimer actionsTimer={actionsTimer} getTime={getTime} />
       </TimerContainer>
 
       <WrapperButtonsRight>
-        <ButtonHome activeOpacity={0.5} onPressOut={() => handleNavigateHome()}>
+        <ButtonHome activeOpacity={0.5} onPressOut={handleNavigateHome}>
           <ButtonHomeLabel>home</ButtonHomeLabel>
           <House weight={"fill"} size={30} color={theme.colors.gray_100} />
         </ButtonHome>
 
         <ButtonStart
-          disabled={disableStart}
           activeOpacity={0.5}
-          onPressOut={actionStart}
+          disabled={disableStart}
+          onPressOut={actionStartButton}
         >
           <ButtonStartLabel colorByDisable={disableStart}>
             {labelsButton()}

@@ -68,21 +68,17 @@ export const SelectLevelModal: React.FC<ModalProps> = (props) => {
   }
 
   function label(level: string) {
-    if (level === "VeryHard") {
-      return "Very Hard";
-    }
-
-    return level;
+    return level === "VeryHard" ? "Very Hard" : level;
   }
 
   return (
     <Modal
+      animationIn="fadeIn"
+      animationOut="fadeOut"
       isVisible={isVisible}
       onSwipeComplete={onClose}
       onBackdropPress={onClose}
       onBackButtonPress={onClose}
-      animationIn="fadeIn"
-      animationOut="fadeOut"
     >
       <Container>
         <ButtonClose onPress={onClose}>

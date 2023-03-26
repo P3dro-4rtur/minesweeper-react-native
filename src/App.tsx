@@ -1,12 +1,10 @@
-LogBox.ignoreAllLogs(true);
-
 import React from "react";
-import { StatusBar, StatusBarProps, LogBox } from "react-native";
+import { StatusBar, StatusBarProps } from "react-native";
 
 import { Routes } from "~/routes";
 import { AppProvider } from "~/hooks/provider";
 
-import theme from "~/theme";
+import theme from "~/config/theme";
 import { ThemeProvider } from "styled-components/native";
 
 import i18n from "./locales/i18n";
@@ -18,7 +16,6 @@ import {
   ChakraPetch_500Medium,
   ChakraPetch_400Regular,
 } from "@expo-google-fonts/chakra-petch";
-
 import {
   Orbitron_400Regular,
   Orbitron_500Medium,
@@ -46,8 +43,8 @@ const fonts = {
 };
 
 const statusBarProps: StatusBarProps = {
-  barStyle: "light-content",
   translucent: true,
+  barStyle: "light-content",
   backgroundColor: theme.colors.black,
 };
 

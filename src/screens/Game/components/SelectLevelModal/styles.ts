@@ -1,7 +1,7 @@
-import theme from "~/theme";
+import theme from "~/config/theme";
 import styled, { css } from "styled-components/native";
 import ReactNativeModal from "react-native-modal";
-import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
+import { Responsive } from "~/utils/responsive";
 import { GameParams } from "~/config/params";
 
 export type Level = "Easy" | "Medium" | "Hard" | "VeryHard" | "God";
@@ -31,12 +31,12 @@ export const ButtonClose = styled.TouchableOpacity``;
 export const ButtonCloseLabel = styled.Text`
   position: absolute;
 
-  left: ${RFPercentage(19)}px;
-  bottom: ${RFPercentage(4)}px;
+  left: ${Responsive.RFPercentage(19)}px;
+  bottom: ${Responsive.RFPercentage(4)}px;
 
   text-transform: uppercase;
 
-  font-size: ${RFValue(22)}px;
+  font-size: ${Responsive.fontInPixelToDP(22)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_medium};
 
   color: ${({ theme }) => theme.colors.gray_100};
@@ -46,7 +46,7 @@ export const Container = styled.View`
   align-items: center;
   justify-content: center;
 
-  height: ${RFValue(400)}px;
+  height: ${Responsive.heightInPixelToDP(400)}px;
 
   border-width: ${GameParams.dimensions.borderSize}px;
 
@@ -62,7 +62,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
   text-transform: uppercase;
 
-  font-size: ${RFValue(20)}px;
+  font-size: ${Responsive.fontInPixelToDP(20)}px;
 
   ${({ theme }) => css`
     font-family: ${theme.fontFamily.default_medium};
@@ -71,12 +71,12 @@ export const Title = styled.Text`
 `;
 
 export const LevelOptions = styled.View`
-  margin-top: ${RFValue(20)}px;
+  margin-top: ${Responsive.RFValue(20)}px;
 `;
 
 export const ButtonLevel = styled.TouchableOpacity<ButtonLevelProps>`
   align-items: center;
-  width: ${RFValue(300)}px;
+  width: ${Responsive.widthInPixelToDP(300)}px;
 
   ${({ theme, isActive, isSelected }) => {
     if (isActive && !isSelected) {
@@ -96,7 +96,7 @@ export const ButtonLevel = styled.TouchableOpacity<ButtonLevelProps>`
 
 export const LabelLevel = styled.Text<ColorsByDifficultLevel>`
   text-transform: uppercase;
-  font-size: ${RFValue(20)}px;
+  font-size: ${Responsive.fontInPixelToDP(20)}px;
 
   ${({ level, theme }) => css`
     color: ${colors[level]};

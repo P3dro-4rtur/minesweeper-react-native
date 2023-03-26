@@ -24,12 +24,13 @@ enum GameSounds {
 }
 
 interface GameSoundContextData {
+  muteModeIsActive: boolean;
   gameSound: Audio.Sound | undefined;
   soundSelected: GameSounds | undefined;
+
   playSound: (sound?: GameSounds) => Promise<void>;
   pauseSound: () => Promise<void>;
   stopSound: () => Promise<void>;
-  muteModeIsActive: boolean;
   toggleIsMuteModeActive: () => void;
   enableMuteMode: () => void;
   disableMuteMode: (sound?: GameSounds) => void;
@@ -49,13 +50,13 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
   const [muteModeIsActive, setMuteModeIsActive] = useState(true);
   const [soundSelected, setSoundSelected] = useState<GameSounds>();
 
-  const contextValueData = {
+  const contextValueData: GameSoundContextData = {
     gameSound,
     soundSelected,
+    muteModeIsActive,
     playSound,
     pauseSound,
     stopSound,
-    muteModeIsActive,
     toggleIsMuteModeActive,
     enableMuteMode,
     disableMuteMode,
@@ -63,25 +64,39 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
   };
 
   async function playSound(soundSelected: GameSounds = GameSounds.theme) {
-    if (muteModeIsActive) return;
+    try {
+      if (muteModeIsActive) return;
 
-    const { sound } = await Audio.Sound.createAsync(soundSelected);
+      const { sound } = await Audio.Sound.createAsync(soundSelected);
 
-    setGameSound(sound);
-    setSoundSelected(soundSelected);
+      setGameSound(sound);
+      setSoundSelected(soundSelected);
 
-    sound.playAsync();
+      sound.playAsync();
+    } catch (error) {
+      console.log("#1 aqui");
+      throw error;
+    }
   }
 
   async function pauseSound() {
-    await gameSound?.pauseAsync();
-    await gameSound?.setIsLoopingAsync(false);
+    try {
+      await gameSound?.pauseAsync();
+      await gameSound?.setIsLoopingAsync(false);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async function stopSound() {
-    await gameSound?.setIsLoopingAsync(false);
-    await gameSound?.stopAsync();
-    await gameSound?.unloadAsync();
+    try {
+      await gameSound?.setIsLoopingAsync(false);
+      await gameSound?.stopAsync();
+      setGameSound(undefined);
+      await gameSound?.unloadAsync();
+    } catch (error) {
+      throw error;
+    }
   }
 
   async function selectorPlaySoundByDifficult(difficult: GameDifficult) {
@@ -121,45 +136,40 @@ function GameSoundProvider({ children }: GameSoundProviderProps) {
     playSound(sound || GameSounds.theme);
   }
 
-  React.useEffect(() => {
-    function controllerSoundGame() {
-      if (muteModeIsActive) {
-        stopSound();
-        return;
-      }
-
-      if (!muteModeIsActive && !gameSound) {
-        playSound(GameSounds.theme);
-        return;
-      }
-
-      if (!muteModeIsActive && !!gameSound) {
-        playSound(GameSounds.theme);
-        return;
-      }
+  function controllerSoundGame() {
+    if (muteModeIsActive) {
+      stopSound();
+      return;
     }
 
-    controllerSoundGame();
-  }, [muteModeIsActive]);
-
-  React.useEffect(() => {
-    function controllerLoop() {
-      const condition =
-        soundSelected === GameSounds.lose || soundSelected === GameSounds.won;
-
-      if (condition) {
-        gameSound?.setIsLoopingAsync(false);
-        return;
-      }
-
-      if (!condition) {
-        gameSound?.setIsLoopingAsync(true);
-        return;
-      }
+    if (!muteModeIsActive && !gameSound) {
+      playSound(GameSounds.theme);
+      return;
     }
 
-    controllerLoop();
-  }, [soundSelected, gameSound]);
+    if (!muteModeIsActive && !!gameSound) {
+      playSound(GameSounds.theme);
+      return;
+    }
+  }
+
+  function controllerLoop() {
+    const condition =
+      soundSelected === GameSounds.lose || soundSelected === GameSounds.won;
+
+    if (condition) {
+      gameSound?.setIsLoopingAsync(false);
+      return;
+    }
+
+    if (!condition) {
+      gameSound?.setIsLoopingAsync(true);
+      return;
+    }
+  }
+
+  React.useEffect(controllerSoundGame, [muteModeIsActive]);
+  React.useEffect(controllerLoop, [soundSelected, gameSound]);
 
   return (
     <GameSoundContext.Provider value={contextValueData}>

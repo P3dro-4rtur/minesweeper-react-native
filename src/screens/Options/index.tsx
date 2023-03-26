@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Button, ButtonTypes } from "./components/Button";
 import { Container, Content, Separator } from "./styles";
 import { HeaderDefault as Header } from "~/components/HeaderDefault";
+import { Utils } from "~/utils/utils";
 
 interface IButton {
   title: ButtonTypes;
@@ -42,11 +43,21 @@ export const Options: React.FC = () => {
   }
 
   function OptionsList(): JSX.Element {
-    const list = buttons.map(({ title, onPress }: IButton, index: number) => {
+    const key = (title: string) => title + Utils.getNewId();
+
+    const list = buttons.map((button: IButton, index: number) => {
+      const { title, onPress } = button;
+
+      const ItemSeparator = () => {
+        const isNotLastItem = index !== buttons.length - 1;
+        if (isNotLastItem) return <Separator />;
+        else return null;
+      };
+
       return (
-        <React.Fragment>
+        <React.Fragment key={key(title)}>
           <Button title={title} onPress={onPress} />
-          {index !== buttons.length - 1 && <Separator />}
+          <ItemSeparator />
         </React.Fragment>
       );
     });

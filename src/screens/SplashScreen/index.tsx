@@ -17,7 +17,7 @@ export const SplashScreen: React.FC = () => {
 
       <FlagSplash />
 
-      <Footer></Footer>
+      <Footer />
     </Container>
   );
 };

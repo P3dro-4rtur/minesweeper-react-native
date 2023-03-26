@@ -18,13 +18,16 @@ export const MineField: React.FC<MineFieldProps> = (props) => {
   const rows: Rows = board.map((row: FieldBlock[], rowIndex: number) => {
     const columns: Columns = row.map(
       (field: FieldBlock, columnIndex: number) => {
+        const onOpenAction = () => onOpenField(rowIndex, columnIndex);
+        const onSetFlagAction = () => onSetFlag(rowIndex, columnIndex);
+
         return (
           <Field
             {...field}
             key={columnIndex}
+            onOpen={onOpenAction}
+            onSetFlag={onSetFlagAction}
             disableField={disableFields}
-            onOpen={() => onOpenField(rowIndex, columnIndex)}
-            onSetFlag={() => onSetFlag(rowIndex, columnIndex)}
           />
         );
       }
