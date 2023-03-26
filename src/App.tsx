@@ -9,6 +9,9 @@ import { AppProvider } from "~/hooks/provider";
 import theme from "~/theme";
 import { ThemeProvider } from "styled-components/native";
 
+import i18n from "./locales/i18n";
+import { I18nextProvider } from "react-i18next";
+
 import {
   useFonts,
   ChakraPetch_700Bold,
@@ -54,11 +57,13 @@ export default function App() {
   if (!fontsLoaded) return;
 
   return (
-    <ThemeProvider theme={theme}>
-      <AppProvider>
-        <StatusBar {...statusBarProps} />
-        <Routes />
-      </AppProvider>
-    </ThemeProvider>
+    <I18nextProvider i18n={i18n}>
+      <ThemeProvider theme={theme}>
+        <AppProvider>
+          <StatusBar {...statusBarProps} />
+          <Routes />
+        </AppProvider>
+      </ThemeProvider>
+    </I18nextProvider>
   );
 }
