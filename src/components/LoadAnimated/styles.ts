@@ -3,7 +3,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import LottieView from "lottie-react-native";
 import loadAnimated from "@assets/animated/loader-animation.json";
 import { TypeMessage } from "~/config/types&interfaces";
-import theme from "~/theme";
+import theme from "~/config/theme";
 
 interface LabelProps {
   color: string;

@@ -1,4 +1,4 @@
-import theme from "~/theme/index";
+import theme from "~/config/theme/index";
 import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SafeAreaView } from "react-native-safe-area-context";

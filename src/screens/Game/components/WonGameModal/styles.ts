@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/native";
 import ReactNativeModal from "react-native-modal";
-import { RFValue } from "react-native-responsive-fontsize";
 import { GameParams } from "~/config/params";
+import { Responsive } from "~/utils/responsive";
 
 export const Modal = styled(ReactNativeModal)`
   flex: 1;
@@ -11,13 +11,13 @@ export const Modal = styled(ReactNativeModal)`
 `;
 
 export const Container = styled.View`
-  padding: ${RFValue(30)}px ${RFValue(20)}px;
+  padding: ${Responsive.RFValue(30)}px ${Responsive.RFValue(20)}px;
 
   align-items: center;
   justify-content: flex-start;
 
-  height: ${RFValue(300)}px;
-  width: ${RFValue(370)}px;
+  height: ${Responsive.heightInPixelToDP(300)}px;
+  width: ${Responsive.widthInPixelToDP(370)}px;
 
   border-width: ${GameParams.dimensions.borderSize}px;
 
@@ -36,10 +36,10 @@ export const LabelContainer = styled.View`
 `;
 
 export const LabelResult = styled.Text`
-  font-size: ${RFValue(30)}px;
+  font-size: ${Responsive.fontInPixelToDP(30)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_bold};
 
-  border-bottom-width: ${RFValue(2)}px;
+  border-bottom-width: ${Responsive.RFValue(2)}px;
   border-bottom-color: ${({ theme }) => theme.colors.white};
 
   color: ${({ theme }) => theme.colors.white};
@@ -51,8 +51,8 @@ export const Content = styled.View`
 `;
 
 export const ContinueButton = styled.TouchableOpacity`
-  padding: ${RFValue(10)}px ${RFValue(30)}px;
-  border-width: ${RFValue(2)}px;
+  padding: ${Responsive.RFValue(10)}px ${Responsive.RFValue(30)}px;
+  border-width: ${Responsive.RFValue(2)}px;
 
   ${({ theme }) => css`
     background-color: ${theme.colors.white};
@@ -66,7 +66,7 @@ export const ContinueButton = styled.TouchableOpacity`
 export const ContinueButtonLabel = styled.Text`
   text-transform: uppercase;
 
-  font-size: ${RFValue(18)}px;
+  font-size: ${Responsive.fontInPixelToDP(18)}px;
   font-family: ${({ theme }) => theme.fontFamily.default_medium};
 
   color: ${({ theme }) => theme.colors.yellow_300};

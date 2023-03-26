@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components/native";
-import theme from "~/theme";
+import theme from "~/config/theme";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 interface Size {

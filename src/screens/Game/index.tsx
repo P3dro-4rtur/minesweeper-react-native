@@ -40,13 +40,12 @@ export const Game: React.FC = () => {
     useState<boolean>(true);
 
   const GameSoundHook = useGameSound();
-
   const headerDisableStart = gameDifficult === GameDifficult.none;
   const mineFieldDisableFields = gameResult !== GameResults.none;
 
   function initGame(difficult: GameDifficult) {
-    const columns = GameParams.getColumnsAmount();
     const rows = GameParams.getRowsAmount();
+    const columns = GameParams.getColumnsAmount();
     const minesAmount = GameLogic.minesAmount(rows, columns, difficult);
     const board = GameLogic.createMinedBoard(rows, columns, minesAmount);
 
@@ -83,10 +82,13 @@ export const Game: React.FC = () => {
   async function onPlayerLoseGame(board: Board) {
     setActionsTimer(ActionsTimer.pause);
     GameSoundHook.stopSound();
-    await GameSoundHook.playSound(GameSounds.lose).then(() => {
+
+    const endGame = () => {
       GameLogic.showMines(board);
       setGameResult(GameResults.lose);
-    });
+    };
+
+    await GameSoundHook.playSound(GameSounds.lose).then(endGame);
   }
 
   function gameFlagsController() {
@@ -169,24 +171,24 @@ export const Game: React.FC = () => {
     setGameBoard(board);
   }
 
-  function headerActionStart() {
+  function headerActionStartProp() {
     handleRestartOrStartNewGame(gameDifficult);
   }
 
-  function headerActionSelectLevel() {
+  function headerActionSelectLevelProp() {
     setIsSelectLevelModalVisible(true);
   }
 
-  function selectLevelModalOnClose() {
+  function selectLevelModalOnCloseProp() {
     setIsSelectLevelModalVisible(false);
   }
 
-  function wonGameModalOnClose() {
+  function wonGameModalOnCloseProp() {
     setWonGameModalVisible(false);
   }
 
   function effectControllerBoard() {
-    gameBoard && gameFlagsController();
+    return gameBoard && gameFlagsController();
   }
 
   useEffect(disableHardwareBackButton, []);
@@ -202,9 +204,9 @@ export const Game: React.FC = () => {
           getTime={getTimeGame}
           amountFlags={gameFlags}
           actionsTimer={actionsTimer}
-          actionStart={headerActionStart}
           disableStart={headerDisableStart}
-          actionSelectLevel={headerActionSelectLevel}
+          actionStartButton={headerActionStartProp}
+          actionSelectLevelButton={headerActionSelectLevelProp}
         />
         <MineFieldContainer>
           <MineField
@@ -217,13 +219,13 @@ export const Game: React.FC = () => {
       </Container>
 
       <SelectLevelModal
-        onClose={selectLevelModalOnClose}
+        onClose={selectLevelModalOnCloseProp}
         actualDifficultLevel={gameDifficult}
         isVisible={isSelectLevelModalVisible}
         onSelectAction={handleSelectDifficult}
       />
       <WonGameModal
-        onClose={wonGameModalOnClose}
+        onClose={wonGameModalOnCloseProp}
         isVisible={isWonGameModalVisible}
       />
     </React.Fragment>

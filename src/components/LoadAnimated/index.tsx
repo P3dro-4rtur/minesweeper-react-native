@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { GameParams } from "~/config/params";
 import { Message as IMessage, messages } from "~/config/messages";
 
-import theme from "~/theme";
-import { Utils } from "~/utils";
+import theme from "~/config/theme";
+import { Utils } from "~/utils/utils";
 
 import {
   Container,

@@ -10,7 +10,7 @@ import Animated, {
   Extrapolate,
 } from "react-native-reanimated";
 
-import { Utils } from "~/utils";
+import { Utils } from "~/utils/utils";
 import { GameParams } from "~/config/params";
 import { useGameSound } from "~/hooks/useGameSound";
 import { useNavigation } from "@react-navigation/native";

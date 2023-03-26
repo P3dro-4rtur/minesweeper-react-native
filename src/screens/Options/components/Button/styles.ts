@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { Utils } from "~/utils";
+import { Utils } from "~/utils/utils";
 
 interface ButtonProps {
   isActive: boolean;

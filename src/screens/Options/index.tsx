@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Button, ButtonTypes } from "./components/Button";
 import { Container, Content, Separator } from "./styles";
 import { HeaderDefault as Header } from "~/components/HeaderDefault";
-import { Utils } from "~/utils";
+import { Utils } from "~/utils/utils";
 
 interface IButton {
   title: ButtonTypes;

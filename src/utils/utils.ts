@@ -1,14 +1,14 @@
 import uui from "react-native-uuid";
 import { withTiming } from "react-native-reanimated";
 
-function randomColor() {
+function randomColor(): string {
   const element = () => Math.floor(Math.random() * 255);
   const color = `rgb(${element()},${element()},${element()})`;
 
   return color;
 }
 
-function randomOpacityColor() {
+function randomOpacityColor(): string {
   const rgx = /rgb\(([0-9])+,([0-9])+,([0-9])+\)/;
   const randomRgb = randomColor();
 
@@ -25,7 +25,7 @@ function randomOpacityColor() {
   return rgba;
 }
 
-function randomNumber(min: number, max: number) {
+function randomNumber(min: number, max: number): number {
   if (min > max) {
     min = max;
     max = min;
@@ -37,23 +37,23 @@ function randomNumber(min: number, max: number) {
 function createTimingAnimated(
   howLongWillTheAnimationLast: number,
   durationInMilliseconds: number
-) {
+): number {
   return withTiming(howLongWillTheAnimationLast, {
     duration: durationInMilliseconds,
   });
 }
 
-function getNewId() {
+function getNewId(): string {
   const id = uui.v4();
   return String(id);
 }
 
-function getNewDate() {
+function getNewDate(): Date {
   const actualDate = new Date();
   return actualDate;
 }
 
-function getTimestamp() {
+function getTimestamp(): number {
   const timestamp = new Date().getDate();
   return timestamp;
 }
