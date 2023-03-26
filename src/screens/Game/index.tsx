@@ -131,16 +131,19 @@ export const Game: React.FC = () => {
     const playerIsLoseGame = gameResult === GameResults.lose;
 
     setGameDifficult(difficult);
-    setIsSelectLevelModalVisible(false);
     setActionsTimer(ActionsTimer.stop);
     GameSoundHook.stopSound();
 
     if (gameDifficult === GameDifficult.none) {
-      return initGame(difficult);
+      initGame(difficult);
+      setIsSelectLevelModalVisible(false);
+      return;
     }
 
     if (playerIsAlreadyInGame || playerIsLoseGame) {
-      return handleRestartOrStartNewGame(difficult);
+      handleRestartOrStartNewGame(difficult);
+      setIsSelectLevelModalVisible(false);
+      return;
     }
 
     initGame(difficult);
