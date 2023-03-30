@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { GameDifficult } from "~/config/params";
 import {
   Modal,
@@ -29,6 +30,8 @@ interface ButtonLevel {
 export const SelectLevelModal: React.FC<ModalProps> = (props) => {
   const { isVisible, onSelectAction, onClose, actualDifficultLevel } = props;
   const [idSelected, setIdSelected] = useState<string>("");
+
+  const { t: translate } = useTranslation();
 
   const ButtonsLevel: ButtonLevel[] = [
     {
@@ -85,7 +88,7 @@ export const SelectLevelModal: React.FC<ModalProps> = (props) => {
           <ButtonCloseLabel>x</ButtonCloseLabel>
         </ButtonClose>
 
-        <Title>select level</Title>
+        <Title>{translate("screens.game.header.buttonFlag")}</Title>
         <LevelOptions>
           {ButtonsLevel.map(({ id, difficult, level, onPress }) => (
             <ButtonLevel

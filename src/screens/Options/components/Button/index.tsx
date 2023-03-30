@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { TouchableOpacityProps } from "react-native";
 import { useGameSound } from "~/hooks/useGameSound";
 import { Container, Title } from "./styles";
@@ -18,15 +19,16 @@ interface ButtonProps extends TouchableOpacityProps {
 export const Button: React.FC<ButtonProps> = ({ title, onPress }) => {
   const [isPressed, setIsPressed] = React.useState<boolean>(false);
   const GameSoundHook = useGameSound();
+  const { t: translate } = useTranslation();
 
   function soundLabel() {
     if (title === "sound") {
       if (GameSoundHook.muteModeIsActive) {
-        return ": off";
+        return ": " + translate("screens.options.notMuted");
       }
 
       if (!GameSoundHook.muteModeIsActive) {
-        return ": on";
+        return ": " + translate("screens.options.muted");
       }
     }
 

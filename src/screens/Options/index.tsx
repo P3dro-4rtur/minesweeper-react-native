@@ -1,10 +1,11 @@
 import React from "react";
+import { Utils } from "~/utils/utils";
+import { useTranslation } from "react-i18next";
 import { useGameSound } from "~/hooks/useGameSound";
 import { useNavigation } from "@react-navigation/native";
 import { Button, ButtonTypes } from "./components/Button";
 import { Container, Content, Separator } from "./styles";
 import { HeaderDefault as Header } from "~/components/HeaderDefault";
-import { Utils } from "~/utils/utils";
 
 interface IButton {
   title: ButtonTypes;
@@ -14,6 +15,7 @@ interface IButton {
 export const Options: React.FC = () => {
   const NavigationHook = useNavigation();
   const GameSoundHook = useGameSound();
+  const { t: translate } = useTranslation();
 
   const buttons: IButton[] = [
     {
@@ -67,7 +69,7 @@ export const Options: React.FC = () => {
 
   return (
     <Container>
-      <Header title={"options"} />
+      <Header title={translate("screens.options.header")} />
 
       <Content>
         <OptionsList />

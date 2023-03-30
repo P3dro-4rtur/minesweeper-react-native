@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { GameParams } from "~/config/params";
-import { Message as IMessage, messages } from "~/config/messages";
+import { Message as IMessage, GameMessages } from "~/config/messages";
 
 import theme from "~/config/theme";
 import { Utils } from "~/utils/utils";
@@ -22,31 +23,30 @@ interface LoaderProps {
 
 export const LoadAnimated: React.FC<LoaderProps> = (props) => {
   const { showMessage = true, showLabel, showSpinner } = props;
-
-  const initialColor = theme.colors.white;
-  const initialMessage = {} as IMessage;
+  const { t: translate } = useTranslation();
+  const { messages } = GameMessages();
+  const { colors } = theme;
 
   const [ellipsis, setEllipsis] = useState<string>("");
-  const [randomShowMessage, setRandomShowMessage] = useState<boolean>(false);
-
-  const [loadingLabelColor, setLoadingLabelColor] =
-    useState<string>(initialColor);
-
-  const [messageSelected, setMessageSelected] =
-    useState<IMessage>(initialMessage);
+  const [randomShowMessage, setRandomShowMessage] = useState(false);
+  const [loadingLabelColor, setLoadingLabelColor] = useState(colors.white);
+  const [messageSelected, setMessageSelected] = useState<IMessage>(
+    {} as IMessage
+  );
 
   function startLoad() {
     const randomShow = Boolean(Math.round(Math.random()));
     const num = Utils.randomNumber(0, messages.length);
     const message = messages[num];
 
-    setRandomShowMessage(randomShow);
-    setMessageSelected(message);
-
-    setInterval(() => {
+    const initLoadAnimation = () => {
       randomColorsLabel();
       ellipsisAnimated();
-    }, GameParams.getSecond(0.8));
+    };
+
+    setRandomShowMessage(randomShow);
+    setMessageSelected(message);
+    setInterval(initLoadAnimation, GameParams.getSecond(0.8));
   }
 
   function randomColorsLabel() {
@@ -76,12 +76,15 @@ export const LoadAnimated: React.FC<LoaderProps> = (props) => {
 
   function LoadLabel(): JSX.Element {
     return (
-      <LoadingLabel color={loadingLabelColor}>{ellipsis}loading</LoadingLabel>
+      <LoadingLabel color={loadingLabelColor}>
+        {ellipsis}
+        {translate("components.loadAnimated.label")}
+      </LoadingLabel>
     );
   }
 
-  useEffect(() => startLoad(), []);
-  useEffect(() => controllerEllipsisLength(), [ellipsis]);
+  useEffect(startLoad, []);
+  useEffect(controllerEllipsisLength, [ellipsis]);
 
   return (
     <Container>

@@ -75,13 +75,8 @@ const Timer: React.FC<TimerProps> = ({ actionsTimer, getTime }) => {
     }
   }
 
-  useEffect(() => {
-    actionsController();
-  }, [actionsTimer, secondsAmount]);
-
-  useEffect(() => {
-    sharedSecondsAmount();
-  }, [secondsAmount]);
+  useEffect(actionsController, [actionsTimer, secondsAmount]);
+  useEffect(sharedSecondsAmount, [secondsAmount]);
 
   return (
     <Container>

@@ -1,6 +1,7 @@
 import React from "react";
 import * as Linking from "expo-linking";
 import { StatusBar } from "expo-status-bar";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/native";
 
 import { Urls } from "~/config/urls";
@@ -16,7 +17,14 @@ import {
 } from "./styles";
 
 export const Contact: React.FC = () => {
+  const { t: translate } = useTranslation();
   const theme = useTheme();
+
+  const hyperlinks = "Hyperlinks";
+  const github = "Github: ";
+  const gitName = "P3dro-4rtur";
+  const linkedin = "Linkedin: ";
+  const linkedinName = "Pedro Artur Wingert";
 
   function moveForGithub() {
     const github = Urls.contacts.github;
@@ -35,19 +43,19 @@ export const Contact: React.FC = () => {
         style="light"
         backgroundColor={theme.colors.black}
       />
-      <HeaderDefault title={"Contact"} />
+      <HeaderDefault title={translate("screens.contact.header")} />
 
       <FlagSplash />
 
       <Footer>
-        <ContactTitle>Hyperlinks</ContactTitle>
+        <ContactTitle>{hyperlinks}</ContactTitle>
         <FooterButton onPress={moveForGithub}>
-          <ButtonTitle>@Github: </ButtonTitle>
-          <ButtonText>P3dro-4rtur</ButtonText>
+          <ButtonTitle>{github}</ButtonTitle>
+          <ButtonText>{gitName}</ButtonText>
         </FooterButton>
         <FooterButton onPress={moveForLinkedin}>
-          <ButtonTitle>@Linkedin: </ButtonTitle>
-          <ButtonText>Pedro Artur Wingert</ButtonText>
+          <ButtonTitle>{linkedin}</ButtonTitle>
+          <ButtonText>{linkedinName}</ButtonText>
         </FooterButton>
       </Footer>
     </Container>

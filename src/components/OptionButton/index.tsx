@@ -14,11 +14,16 @@ export const OptionButton: React.FC<Props> = ({ title, action, ...rest }) => {
     setIsPressed((actualState) => !actualState);
   }
 
+  function onPressOutAction() {
+    toggleIsPressedButton();
+    action();
+  }
+
   return (
     <Container
       isActive={isPressed}
       onPressIn={toggleIsPressedButton}
-      onPressOut={() => [toggleIsPressedButton(), action()]}
+      onPressOut={onPressOutAction}
       {...rest}
     >
       <Title>{title}</Title>

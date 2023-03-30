@@ -1,6 +1,71 @@
 {
   "translation": {
-    "components": {},
-    "screens": {}
+    "components": {
+      "loadAnimated": {
+        "label": "loading"
+      }
+    },
+
+    "screens": {
+      "game": {
+        "header": {
+          "buttonFlag": "select level",
+          "buttonHome": "home",
+          "buttonStart": "start game",
+          "buttonRestart": "restart game"
+        },
+        "wonGameModal": {
+          "result": "CONGRATULATIONS",
+          "continue": "continue"
+        }
+      },
+
+      "home": {
+        "titleGame": "minesweeper"
+      },
+
+      "options": {
+        "header": "about",
+        "muted": "off",
+        "notMuted": "on"
+      },
+
+      "about": {
+        "header": "about"
+      },
+
+      "contact": {
+        "header": "contact"
+      },
+
+      "instructions": {
+        "header": "instructions"
+      },
+
+      "score": {
+        "header": "score"
+      }
+    },
+
+    "messages": {
+      "tip": {
+        "title": "Tip",
+        "tipNumberFlags": "The number of available flags is the same as the number of mines on the field.",
+        "tipNumberOnFields": "The numbers on fields, denote a quantity of neighbors mines."
+      },
+
+      "general": {
+        "title": "General",
+        "about": {
+          "title": "This project...",
+          "message": "...has been create for study purposes and not for profit."
+        }
+      },
+
+      "curiosity": {
+        "title": "Curiosity",
+        "origin": "Minesweeper has been created by Robert Donner in 1989."
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { House } from "phosphor-react-native";
 import { useTheme } from "styled-components/native";
+import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 import { useGameSound } from "~/hooks/useGameSound";
 import { ActionsTimer } from "~/components/Timer";
@@ -42,6 +43,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
   const theme = useTheme();
   const GameSoundHook = useGameSound();
   const NavigationHook = useNavigation();
+  const { t: translate } = useTranslation();
 
   function handleNavigateHome() {
     GameSoundHook.stopSound();
@@ -50,8 +52,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
   }
 
   function labelsButton(): string {
-    const startLabel = "start game";
-    const restartLabel = "restart game";
+    const startLabel = translate("screens.game.header.buttonStart");
+    const restartLabel = translate("screens.game.header.buttonRestart");
 
     switch (actionsTimer) {
       case ActionsTimer.none:
@@ -76,8 +78,12 @@ export const Header: React.FC<HeaderProps> = (props) => {
       <ButtonFlag activeOpacity={0.5} onPressOut={actionSelectLevelButton}>
         <WrapperButtonLeft>
           <Flag type={"bigger"} />
-          <ButtonFlagLabel>select level</ButtonFlagLabel>
+
+          <ButtonFlagLabel>
+            {translate("screens.game.header.buttonFlag")}
+          </ButtonFlagLabel>
         </WrapperButtonLeft>
+
         <AmountFlags> = {amountFlags}</AmountFlags>
       </ButtonFlag>
 
@@ -87,7 +93,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
       <WrapperButtonsRight>
         <ButtonHome activeOpacity={0.5} onPressOut={handleNavigateHome}>
-          <ButtonHomeLabel>home</ButtonHomeLabel>
+          <ButtonHomeLabel>
+            {translate("screens.game.header.buttonHome")}
+          </ButtonHomeLabel>
           <House weight={"fill"} size={30} color={theme.colors.gray_100} />
         </ButtonHome>
 

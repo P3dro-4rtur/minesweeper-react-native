@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 type TypeMessage = "tip" | "general" | "curiosity";
 
 interface Message {
@@ -6,28 +8,43 @@ interface Message {
   message: string;
 }
 
-const messages: Message[] = [
-  {
-    type: "tip",
-    title: "Tip",
-    message:
-      "The number of available flags is the same as the number of mines on the field.",
-  },
-  {
-    type: "tip",
-    title: "Tip",
-    message: "The numbers on fields, denote a quantity of neighbors mines.",
-  },
-  {
-    type: "curiosity",
-    title: "Curiosity",
-    message: "Minesweeper has been created by Robert Donner in 1989.",
-  },
-  {
-    type: "general",
-    title: "This project...",
-    message: "...has been create for study purposes and not for profit.",
-  },
-];
+function GameMessages() {
+  const { t: translate } = useTranslation();
 
-export { TypeMessage, Message, messages };
+  const titleTip = translate("messages.tip.title");
+  const titleCuriosity = translate("messages.tip.title");
+
+  const titleAbout = translate("general.about.title");
+  const messageAbout = translate("general.about.message");
+
+  const tipNumberFlag = translate("messages.tip.tipNumberFlags");
+  const tipNumberOnFields = translate("messages.tip.tipNumberOnFields");
+  const curiosityOrigin = translate("messages.curiosity.origin");
+
+  const messages: Message[] = [
+    {
+      type: "tip",
+      title: titleTip,
+      message: tipNumberFlag,
+    },
+    {
+      type: "tip",
+      title: titleTip,
+      message: tipNumberOnFields,
+    },
+    {
+      type: "curiosity",
+      title: titleCuriosity,
+      message: curiosityOrigin,
+    },
+    {
+      type: "general",
+      title: titleAbout,
+      message: messageAbout,
+    },
+  ];
+
+  return { messages };
+}
+
+export { TypeMessage, Message, GameMessages };

@@ -1,6 +1,71 @@
 {
   "translation": {
-    "components": {},
-    "screens": {}
+    "components": {
+      "loadAnimated": {
+        "label": "Carregando"
+      }
+    },
+
+    "screens": {
+      "game": {
+        "header": {
+          "buttonFlag": "selecione o nível",
+          "buttonHome": "home",
+          "buttonStart": "começar jogo",
+          "buttonRestart": "reiniciar jogo"
+        },
+        "wonGameModal": {
+          "result": "PARABÉNS",
+          "continue": "continuar"
+        }
+      },
+
+      "home": {
+        "titleGame": "Campo Minado"
+      },
+
+      "options": {
+        "header": "opções",
+        "muted": "desligado",
+        "notMuted": "ativado"
+      },
+
+      "about": {
+        "header": "sobre"
+      },
+
+      "contact": {
+        "header": "contato"
+      },
+
+      "instructions": {
+        "header": "instruções"
+      },
+
+      "score": {
+        "header": "resultados"
+      }
+    },
+
+    "messages": {
+      "tip": {
+        "title": "Dica",
+        "tipNumberFlags": "O número de bandeiras corresponde ao número de minas em campo.",
+        "tipNumberOnFields": "Os números nos campos correspondem a quantidade de minas vizinhas."
+      },
+
+      "general": {
+        "title": "Geral",
+        "about": {
+          "title": "Este projeto...",
+          "message": "...foi criado com propósitos de estudo sem fins lucrativos."
+        }
+      },
+
+      "curiosity": {
+        "title": "Curiosidade",
+        "origin": "Campo minado foi criado por Robert Donner em 1989."
+      }
+    }
   }
 }
