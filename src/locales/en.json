@@ -66,6 +66,10 @@
         "title": "Curiosity",
         "origin": "Minesweeper has been created by Robert Donner in 1989."
       }
+    },
+
+    "warning": {
+      "construction": "Under construction"
     }
   }
 }
