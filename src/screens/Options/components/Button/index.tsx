@@ -24,11 +24,11 @@ export const Button: React.FC<ButtonProps> = ({ title, onPress }) => {
   function soundLabel() {
     if (title === "sound") {
       if (GameSoundHook.muteModeIsActive) {
-        return ": " + translate("screens.options.notMuted");
+        return ": " + translate("screens.options.muted");
       }
 
       if (!GameSoundHook.muteModeIsActive) {
-        return ": " + translate("screens.options.muted");
+        return ": " + translate("screens.options.notMuted");
       }
     }
 
