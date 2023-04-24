@@ -18,9 +18,9 @@ O jogador pode marcar células que ele acredita conterem minas com uma bandeira.
 
 Para rodar o projeto, siga as seguintes etapas:
 
-1. Clone este repositório usando `git clone https://github.com/seu-usuario/campo-minado-react-native.git`
+1. Clone este repositório usando `git clone https://github.com/P3dro-4rtur/minesweeper-react-native.git`
 2. Instale as dependências com `npm install`
-3. Inicie o projeto com `npm start` ou `expo start`
+3. Inicie o projeto com `npm start` ou `npx expo start`
 
 ## 🛠 Tecnologias utilizadas
 
@@ -41,4 +41,3 @@ Contribuições são bem-vindas! Se você quiser contribuir com este projeto, si
 
 Este projeto não tem nenhum outro objetivo além de aprimorar os conhecimentos de desenvolvimento de aplicações mobile.
 A aplicação ainda está em desenvolvimento.
-
