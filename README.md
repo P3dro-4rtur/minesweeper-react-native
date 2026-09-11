@@ -17,11 +17,6 @@ O jogador pode marcar células que ele acredita conterem minas com uma bandeira.
 - React Native
 - Expo
 
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Se você quiser contribuir com este projeto.
-
 ## 📝 Observações
 
-Este projeto não tem nenhum outro objetivo além de aprimorar os conhecimentos de desenvolvimento de aplicações mobile.
-A aplicação ainda está em desenvolvimento.
+Este projeto não tem nenhum outro objetivo além de aprimorar os conhecimentos de desenvolvimento de aplicações mobile. 
